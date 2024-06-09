@@ -4,20 +4,11 @@ import liff from "@line/liff";
 
 const User = () => {
   const [profile, setProfile] = useState(null);
-  const [idUser, setIdUser] = useState(null);
 
-//   useEffect(() => {
-//     document.cookie = "token=user"   ; // Change to 'user' for user role
-//   }, []);
-
-  console.log(idUser)
-
-  useEffect(() => { 
+  useEffect(() => {
     const initializeLiff = async () => {
       try {
         const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
-        setIdUser(liffId)
-        console.log("LIFF ID:", liffId); // ตรวจสอบว่า LIFF ID ถูกต้อง
         if (!liffId) {
           throw new Error("LIFF ID is not set in environment variables");
         }
@@ -25,7 +16,10 @@ const User = () => {
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
-          document.cookie = "token=user"   ; // Change to 'user' for user role
+
+          // Set a cookie to indicate LIFF login
+          document.cookie = "liff_token=1; path=/user";
+
         } else {
           liff.login();
         }
