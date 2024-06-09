@@ -8,12 +8,12 @@ const User = () => {
   useEffect(() => {
     const initializeLiff = async () => {
       try {
-        const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
+        const liffId = "2005579106-JDjapNq6";
         console.log('LIFF ID:', liffId); // ตรวจสอบว่า LIFF ID ถูกต้อง
         if (!liffId) {
           throw new Error('LIFF ID is not set in environment variables');
         }
-        await liff.init({ liffId:process.env.NEXT_PUBLIC_LIFF_ID  });
+        await liff.init({ liffId:liffId  });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
