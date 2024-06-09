@@ -1,31 +1,42 @@
 // pages/login.js
-'use client'
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { TextField, Button, Container, Typography, Box } from "@mui/material";
 
 const LoginPage = () => {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (user === 'admin' && password === 'admin') {
-      router.push('/admin');
+    if (user === "admin" && password === "admin") {
+    //   localStorage.setItem("login", "admin");
+      sessionStorage.setItem('login', 'admin'); // ใช้ sessionStorage แทน localStorage
+      router.push("/admin");
     } else {
-      alert('Invalid username or password');
+      alert("Invalid username or password");
     }
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '100%',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
         }}
         className="bg-gray-200 pt-10 pb-5 px-10 rounded-lg"
       >
