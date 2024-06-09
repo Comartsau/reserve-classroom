@@ -8,7 +8,7 @@ const UserProfile = () => {
   useEffect(() => {
     const initializeLiff = async () => {
       try {
-        await liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID });
+        await liff.init({ liffId: process.env.local.NEXT_PUBLIC_LIFF_ID });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
