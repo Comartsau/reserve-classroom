@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import liff from '@line/liff';
 
@@ -8,7 +8,12 @@ const User = () => {
   useEffect(() => {
     const initializeLiff = async () => {
       try {
-        await liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID });
+        const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
+        console.log('LIFF ID:', liffId); // ตรวจสอบว่า LIFF ID ถูกต้อง
+        if (!liffId) {
+          throw new Error('LIFF ID is not set in environment variables');
+        }
+        await liff.init({ liffId });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
