@@ -6,9 +6,11 @@ const User = () => {
   const [profile, setProfile] = useState(null);
   const [idUser, setIdUser] = useState(null);
 
-  useEffect(() => {
-    document.cookie = idUser ? "token=user" : ''  ; // Change to 'user' for user role
-  }, []);
+//   useEffect(() => {
+//     document.cookie = "token=user"   ; // Change to 'user' for user role
+//   }, []);
+
+  console.log(idUser)
 
   useEffect(() => { 
     const initializeLiff = async () => {
@@ -23,6 +25,7 @@ const User = () => {
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
+          document.cookie = "token=user"   ; // Change to 'user' for user role
         } else {
           liff.login();
         }
