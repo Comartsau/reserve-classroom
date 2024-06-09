@@ -2,13 +2,13 @@
 import { useEffect, useState } from 'react';
 import liff from '@line/liff';
 
-const UserProfile = () => {
+const User = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const initializeLiff = async () => {
       try {
-        await liff.init({ liffId: process.env.local.NEXT_PUBLIC_LIFF_ID });
+        await liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
@@ -33,7 +33,6 @@ const UserProfile = () => {
       <div style={styles.profileContainer}>
         <img src={profile.pictureUrl} alt="User profile" style={styles.profileImage} />
         <div style={styles.profileDetails}>
-
           <p><strong>Name:</strong> {profile.displayName}</p>
           <p><strong>Status Message:</strong> {profile.statusMessage}</p>
           <p><strong>User ID:</strong> {profile.userId}</p>
@@ -77,4 +76,4 @@ const styles = {
   },
 };
 
-export default UserProfile;
+export default User;
