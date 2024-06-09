@@ -34,6 +34,7 @@ const User = () => {
     return (
       <div>
         <p>Loading user profile...</p>
+        
         <p>{idUser}</p>
       </div>
     );
