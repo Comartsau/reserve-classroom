@@ -18,7 +18,7 @@ const User = () => {
           setProfile(userProfile);
 
           // Set a cookie to indicate LIFF login
-          document.cookie = "liff_token=1; path=/user";
+          document.cookie = "liff_token=1; path=/";
 
         } else {
           liff.login();
