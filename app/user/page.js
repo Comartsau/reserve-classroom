@@ -6,6 +6,10 @@ const User = () => {
   const [profile, setProfile] = useState(null);
   const [idUser, setIdUser] = useState(null);
 
+  useEffect(() => {
+    document.cookie = idUser ? "token=user" : ''  ; // Change to 'user' for user role
+  }, []);
+
   useEffect(() => { 
     const initializeLiff = async () => {
       try {
