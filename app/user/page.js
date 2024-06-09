@@ -19,6 +19,7 @@ const User = () => {
 
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
+          document.cookie = "user_permition=user; path=/"; // เพิ่มคุกกี้นี้เพื่ออนุญาตผู้ใช้
 
         } else {
           liff.login();

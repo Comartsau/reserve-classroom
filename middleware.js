@@ -7,7 +7,7 @@ export function middleware(request) {
 
   const allowedPaths = {
     admin: ["/admin", ],
-    // user: ["/user", ],
+    user: ["/user", ],
   };
 
   // If the path is '/user' and there is no LIFF token, redirect to home
