@@ -5,19 +5,16 @@ export function middleware(request) {
   const pathname = url.pathname; // กำหนดค่า pathname จาก request.nextUrl
 
   // ตรวจสอบว่าผู้ใช้เข้าผ่าน LIFF หรือไม่
-  const userAgent = request.headers.get("user-agent");
-  const isLine = userAgent.includes("Line");
+  // const userAgent = request.headers.get("user-agent");
+  // const isLine = userAgent.includes("Line");
 
-  // ตรวจสอบว่า path คือ '/user' และไม่มี LIFF token จะ redirect ไปหน้า home
-  if (pathname === "/user") {
-    const liffToken = request.cookies.get("liff_token");
-    // if (!liffToken && !isLine) {
-    //   return NextResponse.redirect(new URL("/", request.url));
-    // }
-    if (!liffToken) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
+  // // ตรวจสอบว่า path คือ '/user' และไม่มี LIFF token จะ redirect ไปหน้า home
+  // if (pathname === "/user") {
+  //   const liffToken = request.cookies.get("liff_token");
+  //   if (!liffToken && !isLine) {
+  //     return NextResponse.redirect(new URL("/", request.url));
+  //   }
+  // }
 
   // ตรวจสอบการอนุญาตสำหรับหน้า '/admin'
   if (pathname === "/admin") {
