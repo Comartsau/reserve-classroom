@@ -20,10 +20,9 @@ function Test() {
             style={styles.profileImage}
             className=" "
           />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography  component="div" sx={{ flexGrow: 1 }}>
            aaaaaaa
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       {/* <AppBar className="flex align-middle justify-center">
