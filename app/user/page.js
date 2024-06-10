@@ -58,11 +58,11 @@ const User = () => {
               {profile.displayName}
             </Typography>
           </div>
-          <div className="flex gap-3 items-center justify-between align-middle">
+        </Toolbar>
+          <div className="flex gap-3 items-center justify-between align-middle mt-3">
             <Button>จองห้องเรียน</Button>
             <Button>รายการจอง</Button>
           </div>
-        </Toolbar>
       </AppBar>
     </div>
     // <div style={styles.container}>
