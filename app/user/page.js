@@ -105,7 +105,7 @@ const User = () => {
         </div>
       </CardContent>
       <CardContent className="bg-white rounded-md">
-        <div className="flex flex-col gap-5 items-center justify-around align-middle mt-5 bg-white">
+        <div className="flex flex-col gap-5 items-center justify-around align-middle mt-3 bg-white">
           <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
