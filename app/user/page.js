@@ -59,10 +59,6 @@ const User = () => {
             </Typography>
           </div>
         </Toolbar>
-          <div className="flex gap-3 items-center justify-between align-middle mt-3">
-            <Button>จองห้องเรียน</Button>
-            <Button>รายการจอง</Button>
-          </div>
       </AppBar>
       <div className="flex gap-3 items-center justify-around  align-middle mt-3">
         <Button variant="contained">จองห้องเรียน</Button>
