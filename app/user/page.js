@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, CardContent, Toolbar, Typography } from "@mui/material";
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -60,10 +60,12 @@ const User = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <div className="flex gap-3 items-center justify-around  align-middle mt-3">
-        <Button variant="contained">จองห้องเรียน</Button>
-        <Button variant="contained">รายการจอง</Button>
-      </div>
+      <CardContent className=" h-screen bg-gray-200">
+        <div className="flex gap-3 items-center justify-around align-middle mt-3 ">
+          <Button variant="contained">จองห้องเรียน</Button>
+          <Button variant="contained">รายการจอง</Button>
+        </div>
+      </CardContent>
     </div>
     // <div style={styles.container}>
     //   <h1 style={styles.heading}>User Profile</h1>

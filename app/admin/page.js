@@ -1,7 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Card,
+  CardContent,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 
 function AdminHome() {
   const router = useRouter();
@@ -31,27 +38,32 @@ function AdminHome() {
     return null; // Render nothing until role is confirmed
   }
 
-  return   <div>
-  <AppBar position="static">
-    <Toolbar className="bg-black">
-      <div className="flex gap-3 align-middle items-center ">
-        <img
-          src="/15.jpg"
-          alt="User profile"
-          style={styles.profileImage}
-          className=" "
-        />
-        <Typography component="div" className=" text-lg ms-5">
-          warakorn Munthongsuk
-        </Typography>
-      </div>
-    </Toolbar>
-  </AppBar>
-      <div className="flex gap-3 items-center justify-around align-middle mt-3">
-        <Button variant="contained">จองห้องเรียน</Button>
-        <Button variant="contained">รายการจอง</Button>
-      </div>
-</div>
+  return (
+    <div>
+      <AppBar position="static">
+        <Toolbar className="bg-black">
+          <div className="flex gap-3 align-middle items-center ">
+            <img
+              src="/15.jpg"
+              alt="User profile"
+              style={styles.profileImage}
+              className=" "
+            />
+            <Typography component="div" className=" text-lg ms-5">
+              warakorn Munthongsuk
+            </Typography>
+          </div>
+        </Toolbar>
+      </AppBar>
+
+      <CardContent className=" h-screen bg-gray-200">
+        <div className="flex gap-3 items-center justify-around align-middle mt-3 ">
+          <Button variant="contained">จองห้องเรียน</Button>
+          <Button variant="contained">รายการจอง</Button>
+        </div>
+      </CardContent>
+    </div>
+  );
 }
 
 const styles = {
