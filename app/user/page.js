@@ -50,6 +50,7 @@ const User = () => {
           src={profile.pictureUrl}
           alt="User profile"
           style={styles.profileImage}
+          className="bg-black"
         />
       </AppBar>
     </div>
