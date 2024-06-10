@@ -65,11 +65,13 @@ const User = () => {
     // </div>
     <div>
       <AppBar position="static">
-        <Image
-          src={profile.pictureUrl}
-          alt="User profile"
-          style={styles.profileImage}
-        />
+        <div style={styles.profileContainer}>
+          <Image
+            src={profile.pictureUrl}
+            alt="User profile"
+            style={styles.profileImage}
+          />
+        </div>
       </AppBar>
     </div>
   );
