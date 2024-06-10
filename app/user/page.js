@@ -46,7 +46,7 @@ const User = () => {
   return (
     <div>
       <AppBar className="flex  bg-red-500 justify-items-center">
-        <Image
+        <img
           src={profile.pictureUrl}
           alt="User profile"
           style={styles.profileImage}
