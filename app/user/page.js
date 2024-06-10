@@ -99,13 +99,13 @@ const User = () => {
       </AppBar>
 
       <CardContent>
-        <div className="flex gap-3 items-center justify-around align-middle mt-3 mb-4 ">
+        <div className="flex gap-3 items-center justify-around align-middle mt-2 mb-4 ">
           <Button variant="contained">จองห้องเรียน</Button>
           <Button variant="contained">รายการจอง</Button>
         </div>
       </CardContent>
       <CardContent className="bg-white rounded-md">
-        <div className="flex flex-col gap-5 items-center justify-around align-middle mt-3 bg-white">
+        <div className="flex flex-col gap-5 items-center justify-around align-middle mt-2 bg-white">
           <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
