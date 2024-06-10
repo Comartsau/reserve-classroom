@@ -45,11 +45,11 @@ const User = () => {
     <div>
       <AppBar className="flex  bg-red-500 justify-items-center">
         <Image
-          src="/15.jpg"
+          src={profile.pictureUrl}
           alt="User profile"
           style={styles.profileImage}
-          width={20}
-          height={20}
+          width={5}
+          height={5}
         />
       </AppBar>
     </div>
