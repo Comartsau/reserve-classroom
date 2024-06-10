@@ -16,6 +16,8 @@ import {
 
 const User = () => {
   const [profile, setProfile] = useState(null);
+  const [selectDate, setSelectDate] = useState(0);
+  const [selectTime, setSelectTime] = useState(0);
 
   useEffect(() => {
     const initializeLiff = async () => {
@@ -51,7 +53,10 @@ const User = () => {
     );
   }
 
-  console.log(profile.pictureUrl);
+  const handleSelect = (value) => {
+    setSelectDate(value);
+  };
+
 
   return (
     <div className="h-screen bg-gray-300">
