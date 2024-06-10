@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import liff from "@line/liff";
 import {
   AppBar,
@@ -14,10 +14,28 @@ import {
   Typography,
 } from "@mui/material";
 
+const initalState = {
+  selectDate: 0,
+  selectTime: 0,
+  selectTrad: 0,
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_DATE':
+      return { ...state, selectDate: action.payload };
+    case 'SET_TIME':
+      return { ...state, selectTime: action.payload };
+    case 'SET_TRAD':
+      return { ...state, selectTrad: action.payload };
+    default:
+      return state;
+  }
+};
+
 const User = () => {
   const [profile, setProfile] = useState(null);
-  const [selectDate, setSelectDate] = useState(0);
-  const [selectTime, setSelectTime] = useState(0);
+
 
   useEffect(() => {
     const initializeLiff = async () => {
@@ -53,8 +71,8 @@ const User = () => {
     );
   }
 
-  const handleSelect = (value) => {
-    setSelectDate(value);
+  const handleSelect = (type) => (event) => {
+    setProfile({ type, payload: event.target.value });
   };
 
 
@@ -89,9 +107,9 @@ const User = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={selectDate}
+              value={profile.selectDate}
               label="วันที่จอง"
-              onChange={(e) => handleSelect(e.target.value)}
+              onChange={handleSelect('SET_DATE')}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -102,11 +120,11 @@ const User = () => {
           <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectTime}
-              label="เวลาจอง"
-              onChange={(e) => handleSelect(e.target.value)}
+             labelId="time-select-label"
+             id="time-select"
+             value={profile.selectTime}
+             label="เวลาจอง"
+             onChange={handleSelect('SET_TIME')}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -117,11 +135,11 @@ const User = () => {
           <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectTime}
-              label="เวลาจอง"
-              onChange={(e) => handleSelect(e.target.value)}
+               labelId="trad-select-label"
+               id="trad-select"
+               value={profile.selectTrad}
+               label="บัญชีเทรด"
+               onChange={handleSelect('SET_TRAD')}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
