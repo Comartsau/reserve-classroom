@@ -39,7 +39,7 @@ function AdminHome() {
   }
 
   return (
-    <div>
+    <div className="h-screen bg-gray-300">
       <AppBar position="static">
         <Toolbar className="bg-black">
           <div className="flex gap-3 align-middle items-center ">
@@ -56,7 +56,7 @@ function AdminHome() {
         </Toolbar>
       </AppBar>
 
-      <CardContent className=" h-screen bg-gray-200">
+      <CardContent className="">
         <div className="flex gap-3 items-center justify-around align-middle mt-3 ">
           <Button variant="contained">จองห้องเรียน</Button>
           <Button variant="contained">รายการจอง</Button>

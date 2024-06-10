@@ -44,7 +44,7 @@ const User = () => {
   console.log(profile.pictureUrl);
 
   return (
-    <div>
+    <div className="h-screen bg-gray-300">
       <AppBar position="static">
         <Toolbar className="bg-black">
           <div className="flex gap-3 align-middle items-center ">
@@ -60,7 +60,7 @@ const User = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <CardContent className=" h-screen bg-gray-200">
+      <CardContent >
         <div className="flex gap-3 items-center justify-around align-middle mt-3 ">
           <Button variant="contained">จองห้องเรียน</Button>
           <Button variant="contained">รายการจอง</Button>
