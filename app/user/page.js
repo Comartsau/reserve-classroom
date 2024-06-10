@@ -64,7 +64,7 @@ const User = () => {
             <Button>รายการจอง</Button>
           </div>
       </AppBar>
-      <div className="flex gap-3 items-center justify-between align-middle mt-3">
+      <div className="flex gap-3 items-center justify-around  align-middle mt-3">
         <Button variant="contained">จองห้องเรียน</Button>
         <Button variant="contained">รายการจอง</Button>
       </div>
