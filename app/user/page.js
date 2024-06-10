@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
+import { AppBar } from "@mui/material";
+import Image from "next/image";
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -20,7 +22,6 @@ const User = () => {
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/"; // เพิ่มคุกกี้นี้เพื่ออนุญาตผู้ใช้
-
         } else {
           liff.login();
         }
@@ -41,26 +42,35 @@ const User = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>User Profile</h1>
-      <div style={styles.profileContainer}>
-        <img
+    // <div style={styles.container}>
+    //   <h1 style={styles.heading}>User Profile</h1>
+    //   <div style={styles.profileContainer}>
+    //     <img
+    //       src={profile.pictureUrl}
+    //       alt="User profile"
+    //       style={styles.profileImage}
+    //     />
+    //     <div style={styles.profileDetails}>
+    //       <p>
+    //         <strong>Name:</strong> {profile.displayName}
+    //       </p>
+    //       <p>
+    //         <strong>Status Message:</strong> {profile.statusMessage}
+    //       </p>
+    //       <p>
+    //         <strong>User ID:</strong> {profile.userId}
+    //       </p>
+    //     </div>
+    //   </div>
+    // </div>
+    <div>
+      <AppBar position="static">
+        <Image
           src={profile.pictureUrl}
           alt="User profile"
           style={styles.profileImage}
         />
-        <div style={styles.profileDetails}>
-          <p>
-            <strong>Name:</strong> {profile.displayName}
-          </p>
-          <p>
-            <strong>Status Message:</strong> {profile.statusMessage}
-          </p>
-          <p>
-            <strong>User ID:</strong> {profile.userId}
-          </p>
-        </div>
-      </div>
+      </AppBar>
     </div>
   );
 };
