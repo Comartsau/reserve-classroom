@@ -11,7 +11,10 @@ export function middleware(request) {
   // ตรวจสอบว่า path คือ '/user' และไม่มี LIFF token จะ redirect ไปหน้า home
   if (pathname === "/user") {
     const liffToken = request.cookies.get("liff_token");
-    if (!liffToken && !isLine) {
+    // if (!liffToken && !isLine) {
+    //   return NextResponse.redirect(new URL("/", request.url));
+    // }
+    if (!liffToken) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
