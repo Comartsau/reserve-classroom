@@ -23,9 +23,9 @@ const initalState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_DATE':
-      return { ...state, selectDate: action.payload };
+      return { ...state, selectDate: action.payload, selectTime: 0, selectTrad: 0 };
     case 'SET_TIME':
-      return { ...state, selectTime: action.payload };
+      return { ...state, selectTime: action.payload, selectTrad: 0 };
     case 'SET_TRAD':
       return { ...state, selectTrad: action.payload };
     default:
@@ -121,7 +121,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth size="small">
+          <FormControl fullWidth size="small" disabled={state.selectDate === 0}>
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
              labelId="time-select-label"
@@ -136,7 +136,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth size="small">
+          <FormControl fullWidth size="small"  disabled={state.selectDate === 0 || state.selectTime === 0}>
             <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
             <Select
                labelId="trad-select-label"
