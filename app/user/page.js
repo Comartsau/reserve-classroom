@@ -41,6 +41,8 @@ const User = () => {
     );
   }
 
+  console.log(profile.pictureUrl)
+
   return (
     <div>
       <AppBar className="flex  bg-red-500 justify-items-center">
