@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import liff from "@line/liff";
 import {
   AppBar,
@@ -35,6 +35,8 @@ const reducer = (state, action) => {
 
 const User = () => {
   const [profile, setProfile] = useState(null);
+  const [state, dispatch] = useReducer(reducer, initalState);
+
 
 
   useEffect(() => {
@@ -72,8 +74,10 @@ const User = () => {
   }
 
   const handleSelect = (type) => (event) => {
-    setProfile({ type, payload: event.target.value });
+    dispatch({ type, payload: event.target.value });
   };
+
+  console.log(state)
 
 
   return (
