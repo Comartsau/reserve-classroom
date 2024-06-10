@@ -47,7 +47,7 @@ const User = () => {
     <div>
       <AppBar position="static">
         <Toolbar className="bg-black">
-          <div className="gap-3">
+          <div className="flex gap-3 ">
             <img
               src={profile.pictureUrl}
               alt="User profile"
