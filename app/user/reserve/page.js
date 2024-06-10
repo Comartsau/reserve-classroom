@@ -14,7 +14,7 @@ function Reserve() {
     <div>
       <Typography> Reserve Page</Typography>
 
-      <Button onClick={handleHomePage}>Home Page</Button>
+      <Button variant="contained" onClick={handleHomePage}>Home Page</Button>
     </div>
   );
 }
