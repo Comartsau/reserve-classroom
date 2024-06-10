@@ -54,7 +54,7 @@ const User = () => {
             style={styles.profileImage}
             className=" "
           />
-          <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+          <Typography  component="div" sx={{ flexGrow: 1 }} className=" text-lg ms-5">
             {profile.displayName}
           </Typography>
         </Toolbar>
