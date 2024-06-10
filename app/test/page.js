@@ -15,13 +15,13 @@ function Test() {
       <AppBar position="static">
         <Toolbar className="bg-black">
           <img
-            src={profile.pictureUrl}
+            src="/15.jpg"
             alt="User profile"
             style={styles.profileImage}
             className=" "
           />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {profile.displayName}
+           aaaaaaa
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

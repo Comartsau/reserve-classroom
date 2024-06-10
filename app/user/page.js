@@ -18,6 +18,7 @@ const User = () => {
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
+          
 
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
