@@ -18,7 +18,7 @@ const User = () => {
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
-          
+
 
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
@@ -54,7 +54,7 @@ const User = () => {
             style={styles.profileImage}
             className=" "
           />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
             {profile.displayName}
           </Typography>
         </Toolbar>
@@ -111,7 +111,6 @@ const styles = {
     width: "70px",
     height: "70px",
     borderRadius: "50%",
-    marginBottom: "20px",
   },
   profileDetails: {
     textAlign: "center",
