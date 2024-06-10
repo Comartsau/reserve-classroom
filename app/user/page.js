@@ -21,7 +21,7 @@ const User = () => {
 
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
-          document.cookie = "user_permition=user; path=/"; // เพิ่มคุกกี้นี้เพื่ออนุญาตผู้ใช้
+          document.cookie = "user_permition=user; path=/";
         } else {
           liff.login();
         }
@@ -42,37 +42,26 @@ const User = () => {
   }
 
   return (
-    // <div style={styles.container}>
-    //   <h1 style={styles.heading}>User Profile</h1>
-    //   <div style={styles.profileContainer}>
-    //     <img
-    //       src={profile.pictureUrl}
-    //       alt="User profile"
-    //       style={styles.profileImage}
-    //     />
-    //     <div style={styles.profileDetails}>
-    //       <p>
-    //         <strong>Name:</strong> {profile.displayName}
-    //       </p>
-    //       <p>
-    //         <strong>Status Message:</strong> {profile.statusMessage}
-    //       </p>
-    //       <p>
-    //         <strong>User ID:</strong> {profile.userId}
-    //       </p>
-    //     </div>
-    //   </div>
-    // </div>
-    <div>
-      <AppBar position="static">
-        <div style={styles.profileContainer}>
-          <Image
-            src={profile.pictureUrl}
-            alt="User profile"
-            style={styles.profileImage}
-          />
+    <div style={styles.container}>
+      <h1 style={styles.heading}>User Profile</h1>
+      <div style={styles.profileContainer}>
+        <img
+          src={profile.pictureUrl}
+          alt="User profile"
+          style={styles.profileImage}
+        />
+        <div style={styles.profileDetails}>
+          <p>
+            <strong>Name:</strong> {profile.displayName}
+          </p>
+          <p>
+            <strong>Status Message:</strong> {profile.statusMessage}
+          </p>
+          <p>
+            <strong>User ID:</strong> {profile.userId}
+          </p>
         </div>
-      </AppBar>
+      </div>
     </div>
   );
 };
