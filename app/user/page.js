@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect, useReducer, useState } from "react";
+import { useRouter } from "next/navigation";
 import liff from "@line/liff";
 import {
   AppBar,
@@ -18,15 +19,20 @@ const initalState = {
   selectDate: 0,
   selectTime: 0,
   selectTrad: 0,
-}
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'SET_DATE':
-      return { ...state, selectDate: action.payload, selectTime: 0, selectTrad: 0 };
-    case 'SET_TIME':
+    case "SET_DATE":
+      return {
+        ...state,
+        selectDate: action.payload,
+        selectTime: 0,
+        selectTrad: 0,
+      };
+    case "SET_TIME":
       return { ...state, selectTime: action.payload, selectTrad: 0 };
-    case 'SET_TRAD':
+    case "SET_TRAD":
       return { ...state, selectTrad: action.payload };
     default:
       return state;
@@ -36,8 +42,7 @@ const reducer = (state, action) => {
 const User = () => {
   const [profile, setProfile] = useState(null);
   const [state, dispatch] = useReducer(reducer, initalState);
-
-
+  const router = useRouter();
 
   useEffect(() => {
     const initializeLiff = async () => {
@@ -77,8 +82,14 @@ const User = () => {
     dispatch({ type, payload: event.target.value });
   };
 
-  console.log(state)
+  const handleReservePage = () => {
+    router.push("/user/reserve");
+  };
+  const handleUserPage = () => {
+    router.push("/user");
+  };
 
+  console.log(state);
 
   return (
     <div className="h-screen bg-gray-300">
@@ -100,8 +111,10 @@ const User = () => {
 
       <CardContent>
         <div className="flex gap-3 items-center justify-around align-middle mt-2 mb-4 ">
-          <Button variant="contained">จองห้องเรียน</Button>
-          <Button variant="contained">รายการจอง</Button>
+          <Button variant="contained" onClick={handleUserPage}>จองห้องเรียน</Button>
+          <Button variant="contained" onClick={handleReservePage}>
+            รายการจอง
+          </Button>
         </div>
       </CardContent>
       <CardContent className="bg-white rounded-md">
@@ -113,7 +126,7 @@ const User = () => {
               id="demo-simple-select"
               value={profile.selectDate}
               label="วันที่จอง"
-              onChange={handleSelect('SET_DATE')}
+              onChange={handleSelect("SET_DATE")}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -124,11 +137,11 @@ const User = () => {
           <FormControl fullWidth size="small" disabled={state.selectDate === 0}>
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
-             labelId="time-select-label"
-             id="time-select"
-             value={profile.selectTime}
-             label="เวลาจอง"
-             onChange={handleSelect('SET_TIME')}
+              labelId="time-select-label"
+              id="time-select"
+              value={profile.selectTime}
+              label="เวลาจอง"
+              onChange={handleSelect("SET_TIME")}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -136,14 +149,18 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth size="small"  disabled={state.selectDate === 0 || state.selectTime === 0}>
+          <FormControl
+            fullWidth
+            size="small"
+            disabled={state.selectDate === 0 || state.selectTime === 0}
+          >
             <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
             <Select
-               labelId="trad-select-label"
-               id="trad-select"
-               value={profile.selectTrad}
-               label="บัญชีเทรด"
-               onChange={handleSelect('SET_TRAD')}
+              labelId="trad-select-label"
+              id="trad-select"
+              value={profile.selectTrad}
+              label="บัญชีเทรด"
+              onChange={handleSelect("SET_TRAD")}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
