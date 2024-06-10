@@ -42,27 +42,38 @@ const User = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>User Profile</h1>
-      <div style={styles.profileContainer}>
-        <img
-          src={profile.pictureUrl}
+    <div>
+      <AppBar className="flex  bg-red-500 justify-items-center">
+        <Image
+          src="/15.jpg"
           alt="User profile"
           style={styles.profileImage}
+          width={20}
+          height={20}
         />
-        <div style={styles.profileDetails}>
-          <p>
-            <strong>Name:</strong> {profile.displayName}
-          </p>
-          <p>
-            <strong>Status Message:</strong> {profile.statusMessage}
-          </p>
-          <p>
-            <strong>User ID:</strong> {profile.userId}
-          </p>
-        </div>
-      </div>
+      </AppBar>
     </div>
+    // <div style={styles.container}>
+    //   <h1 style={styles.heading}>User Profile</h1>
+    //   <div style={styles.profileContainer}>
+    //     <img
+    //       src={profile.pictureUrl}
+    //       alt="User profile"
+    //       style={styles.profileImage}
+    //     />
+    //     <div style={styles.profileDetails}>
+    //       <p>
+    //         <strong>Name:</strong> {profile.displayName}
+    //       </p>
+    //       <p>
+    //         <strong>Status Message:</strong> {profile.statusMessage}
+    //       </p>
+    //       <p>
+    //         <strong>User ID:</strong> {profile.userId}
+    //       </p>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

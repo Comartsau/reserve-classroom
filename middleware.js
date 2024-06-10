@@ -20,7 +20,7 @@ export function middleware(request) {
   if (pathname === "/admin") {
     const permition = "admin"; // กำหนดค่า permition ตามความต้องการ
     const allowedPaths = {
-      admin: ["/admin"],
+      admin: ["/admin" ,"/test"],
     };
 
     if (!allowedPaths[permition]?.includes(pathname)) {
