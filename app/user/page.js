@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -57,6 +57,10 @@ const User = () => {
             <Typography component="div" className=" text-lg ms-5">
               {profile.displayName}
             </Typography>
+          </div>
+          <div className="flex gap-3 items-center justify-between align-middle">
+            <Button>จองห้องเรียน</Button>
+            <Button>รายการจอง</Button>
           </div>
         </Toolbar>
       </AppBar>
