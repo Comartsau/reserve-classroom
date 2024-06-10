@@ -19,7 +19,6 @@ const User = () => {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
 
-
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
@@ -48,15 +47,17 @@ const User = () => {
     <div>
       <AppBar position="static">
         <Toolbar className="bg-black">
-          <img
-            src={profile.pictureUrl}
-            alt="User profile"
-            style={styles.profileImage}
-            className=" "
-          />
-          <Typography  component="div" sx={{ flexGrow: 1 }} className=" text-lg ms-5">
-            {profile.displayName}
-          </Typography>
+          <div className="gap-3">
+            <img
+              src={profile.pictureUrl}
+              alt="User profile"
+              style={styles.profileImage}
+              className=" "
+            />
+            <Typography component="div" className=" text-lg ms-5">
+              {profile.displayName}
+            </Typography>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
@@ -108,8 +109,8 @@ const styles = {
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
   },
   profileImage: {
-    width: "70px",
-    height: "70px",
+    width: "50px",
+    height: "50px",
     borderRadius: "50%",
   },
   profileDetails: {
