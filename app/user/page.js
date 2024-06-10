@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
-import { AppBar } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -41,17 +41,22 @@ const User = () => {
     );
   }
 
-  console.log(profile.pictureUrl)
+  console.log(profile.pictureUrl);
 
   return (
     <div>
-      <AppBar className="flex  bg-red-500 justify-items-center">
-        <img
-          src={profile.pictureUrl}
-          alt="User profile"
-          style={styles.profileImage}
-          className="bg-black"
-        />
+      <AppBar position="static">
+        <Toolbar className="bg-black">
+          <img
+            src={profile.pictureUrl}
+            alt="User profile"
+            style={styles.profileImage}
+            className=" "
+          />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {profile.displayName}
+          </Typography>
+        </Toolbar>
       </AppBar>
     </div>
     // <div style={styles.container}>

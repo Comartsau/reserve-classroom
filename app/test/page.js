@@ -1,71 +1,79 @@
-import { AppBar } from '@mui/material';
-import Image from 'next/image';
-import React from 'react'
+import {
+  AppBar,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
+  Button,
+} from "@mui/material";
+import Image from "next/image";
+import React from "react";
 
 function Test() {
-    return (
-        <div style={styles.container}>
-            <AppBar className='flex  bg-red-500 justify-items-center'>
-            <Image
+  return (
+    <div>
+      <AppBar position="static">
+        <Toolbar className="bg-black">
+          <img
+            src={profile.pictureUrl}
+            alt="User profile"
+            style={styles.profileImage}
+            className=" "
+          />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {profile.displayName}
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+      {/* <AppBar className="flex align-middle justify-center">
+        <Container maxWidth="xl">
+          <Toolbar>
+            <img
               src="/15.jpg"
               alt="User profile"
               style={styles.profileImage}
-              width={20}
-              height={20}
+              className=" "
             />
+          </Toolbar>
+        </Container>
+      </AppBar> */}
+    </div>
+  );
+}
 
-            </AppBar>
-             <h1 style={styles.heading}>User Profile</h1>
-          <div style={styles.profileContainer}>
-       
-            <div style={styles.profileDetails}>
-              <p>
-                {/* <strong>Name:</strong> {profile.displayName} */}
-              </p>
-              <p>
-                {/* <strong>Status Message:</strong> {profile.statusMessage} */}
-              </p>
-              <p>
-                {/* <strong>User ID:</strong> {profile.userId} */}
-              </p>
-            </div>
-          </div>
-        </div>
-      );
-    };
-    
-    const styles = {
-      container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        backgroundColor: "#f0f2f5",
-        padding: "20px",
-      },
-      heading: {
-        fontSize: "2em",
-        marginBottom: "10px",
-      },
-      profileContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "20px",
-        backgroundColor: "#fff",
-        borderRadius: "10px",
-        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-      },
-      profileImage: {
-        width: "150px",
-        height: "150px",
-        borderRadius: "50%",
-        marginBottom: "20px",
-      },
-      profileDetails: {
-        textAlign: "center",
-      },
-    };
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    backgroundColor: "#f0f2f5",
+    padding: "20px",
+  },
+  heading: {
+    fontSize: "2em",
+    marginBottom: "10px",
+  },
+  profileContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+  },
+  profileImage: {
+    width: "70px",
+    height: "70px",
+    borderRadius: "50%",
+    padding: "10px",
+  },
+  profileDetails: {
+    textAlign: "center",
+  },
+};
 
-export default Test
+export default Test;
