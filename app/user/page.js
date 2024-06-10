@@ -64,6 +64,10 @@ const User = () => {
             <Button>รายการจอง</Button>
           </div>
       </AppBar>
+      <div className="flex gap-3 items-center justify-between align-middle mt-3">
+        <Button variant="contained">จองห้องเรียน</Button>
+        <Button variant="contained">รายการจอง</Button>
+      </div>
     </div>
     // <div style={styles.container}>
     //   <h1 style={styles.heading}>User Profile</h1>
