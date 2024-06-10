@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
 import { AppBar } from "@mui/material";
-import Image from "next/image";
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -50,8 +50,6 @@ const User = () => {
           src={profile.pictureUrl}
           alt="User profile"
           style={styles.profileImage}
-          width={5}
-          height={5}
         />
       </AppBar>
     </div>
@@ -103,8 +101,8 @@ const styles = {
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
   },
   profileImage: {
-    width: "150px",
-    height: "150px",
+    width: "70px",
+    height: "70px",
     borderRadius: "50%",
     marginBottom: "20px",
   },
