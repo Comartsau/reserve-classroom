@@ -282,7 +282,7 @@ const User = () => {
             คุณต้องการยืนยันการจองของคุณหรือไม่?
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-            <Button onClick={handleModalReserve} sx={{ mr: 1 }}>
+            <Button onClick={handleModalReserve} sx={{ mr: 1 }} className="text-red-500">
               ยกเลิก
             </Button>
             <Button variant="contained">ยืนยัน</Button>
