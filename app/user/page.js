@@ -129,10 +129,10 @@ const User = () => {
   };
 
   const handleModalReserve = () => {
-    if (state.selectDate || state.selectTime || state.selectTrad == "") {
-      alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
+    if (state.selectDate || state.selectTime || state.selectTrad !== "") {
+      setOpenModalReserve(!openModalReserve);
     }
-    setOpenModalReserve(!openModalReserve);
+    alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
   };
 
   return (
@@ -279,7 +279,12 @@ const User = () => {
       >
         <Box sx={modalStyle}>
           <div className=" bg-black">
-            <Typography id="modal-title" variant="h6" component="h2" sx={{  color: "white" }}>
+            <Typography
+              id="modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ color: "white" }}
+            >
               สรุปข้อมูลการจองห้องเรียน
             </Typography>
           </div>
