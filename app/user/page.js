@@ -46,18 +46,18 @@ const reducer = (state, action) => {
 // Styled FormControl component
 const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
   "& .MuiInputBase-root.Mui-disabled": {
-    borderColor: disabled ? "red" : "green",
+    borderColor: disabled ? "red" : "inherit",
     borderWidth: disabled ? "1px" : "inherit",
     borderStyle: disabled ? "solid" : "inherit",
   },
 }));
 
-const CardContent = styled(MuiCardContent)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+const CardContent = styled(MuiCardContent)({
+  backgroundColor: 'white',
   borderRadius: '10px',
   padding: '0px',
   boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-}));
+});
 
 const User = () => {
   const [profile, setProfile] = useState(null);
