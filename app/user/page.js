@@ -140,7 +140,7 @@ const User = () => {
         </Button>
       </div>
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md   bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-sm  bg-white">
           <CustomFormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
