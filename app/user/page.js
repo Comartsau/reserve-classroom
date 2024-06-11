@@ -132,7 +132,6 @@ const User = () => {
     if (state.selectDate || state.selectTime || state.selectTrad !== "") {
       setOpenModalReserve(!openModalReserve);
     }else {
-
       alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
     }
   };
@@ -285,7 +284,7 @@ const User = () => {
               id="modal-title"
               variant="h6"
               component="h2"
-              sx={{ color: "white" }}
+              sx={{ color: "white" , textAlign: 'center' }}
             >
               สรุปข้อมูลการจองห้องเรียน
             </Typography>
