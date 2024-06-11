@@ -126,12 +126,7 @@ const User = () => {
       <CardContent className="bg-white rounded-md">
         <div className="flex flex-col gap-5 items-center justify-around align-middle mt-2 bg-white">
           <FormControl fullWidth size="small">
-            <InputLabel
-              id="demo-simple-select-label"
-              // shrink={state.selectDate !== 0}
-            >
-              วันที่จอง
-            </InputLabel>
+            <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
               labelId="date-select-label"
               id="date-select"
@@ -146,7 +141,7 @@ const User = () => {
             </Select>
           </FormControl>
           <FormControl fullWidth size="small" disabled={state.selectDate === 0}>
-            <InputLabel id="demo-simple-select-label" shrink={state.selectTime !== 0}>เวลาจอง</InputLabel>
+            <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
               labelId="time-select-label"
               id="time-select"
@@ -165,7 +160,12 @@ const User = () => {
             size="small"
             disabled={state.selectDate === "" || state.selectTime === ""}
           >
-            <InputLabel id="demo-simple-select-label"  shrink={state.selectTrad !== 0}>บัญชีเทรด</InputLabel>
+            <InputLabel
+              id="demo-simple-select-label"
+              shrink={state.selectTrad !== 0}
+            >
+              บัญชีเทรด
+            </InputLabel>
             <Select
               labelId="trad-select-label"
               id="trad-select"
