@@ -139,7 +139,6 @@ const User = () => {
           รายการจอง
         </Button>
       </div>
-
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-2 py-5 border-black  bg-white">
           <CustomFormControl fullWidth size="small">
@@ -203,7 +202,7 @@ const User = () => {
             </Select>
           </CustomFormControl>
           <div className=" w-full flex gap-2 ">
-            <div className="flex flex-col w-1/2 gap-3  align-middle  ">
+            <div className="flex flex-col w-[40%] gap-3  align-middle  ">
               <Button
                 variant="contained"
                 className="w-full"
@@ -215,7 +214,7 @@ const User = () => {
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-5 px-2 w-1/2 gap-3 justify-around align-middle ">
+            <div className="flex flex-col bg-black rounded-md py-5 px-2 w-[60%] gap-3 justify-around align-middle ">
               <div className=" border-2  p-3">
                 <Typography className="text-white text-left">
                   ยอดจอง <span>9</span> / <span>10</span>
