@@ -290,13 +290,13 @@ const User = () => {
             </Typography>
           </div>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            วันที่จอง :{state.selectDate}
+            วันที่จอง : {state.selectDate}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            เวลาจอง :{state.selectTime}
+            เวลาจอง : {state.selectTime}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            บัญชีเทรด :{state.selectTrad}
+            บัญชีเทรด : {state.selectTrad}
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
             <Button onClick={handleModalReserve} sx={{ mr: 1, color: "red" }}>
