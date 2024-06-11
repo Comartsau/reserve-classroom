@@ -54,9 +54,9 @@ const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
 
 const CardContent = styled(MuiCardContent)({
   // backgroundColor: 'white',
-  borderRadius: '10px',
-  padding: '10px',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+  borderRadius: "10px",
+  padding: "10px",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 });
 
 const User = () => {
@@ -132,16 +132,15 @@ const User = () => {
           </Toolbar>
         </AppBar>
 
-        <CardContent className="p-0" >
-          <div className="flex gap-3 items-center  align-middle  ">
-            <Button variant="contained" onClick={handleUserPage}>
-              จองห้องเรียน
-            </Button>
-            <Button variant="contained" onClick={handleReservePage}>
-              รายการจอง
-            </Button>
-          </div>
-        </CardContent>
+        <div className="flex gap-3 items-center  align-middle  ">
+          <Button variant="contained" onClick={handleUserPage}>
+            จองห้องเรียน
+          </Button>
+          <Button variant="contained" onClick={handleReservePage}>
+            รายการจอง
+          </Button>
+        </div>
+
         <CardContent className="bg-white rounded-md ">
           <div className="flex flex-col gap-3 items-center justify-around align-middle p-5 bg-white">
             <CustomFormControl fullWidth size="small">
