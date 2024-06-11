@@ -215,8 +215,8 @@ const User = () => {
               </Button>
             </div>
             <div className="flex flex-col bg-black rounded-md py-5 px-2 w-[60%] gap-3 justify-around align-middle ">
-              <div className=" border-2  p-3">
-                <Typography className="text-white text-left">
+              <div className="  p-3">
+                <Typography className="text-white text-left border-2 ">
                   ยอดจอง <span>9</span> / <span>10</span>
                 </Typography>
                 <Typography className="text-white">
