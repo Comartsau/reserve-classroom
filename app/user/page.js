@@ -126,7 +126,7 @@ const User = () => {
       </AppBar>
 
       <CardContent>
-        <div className="flex gap-3 items-center justify-around align-middle mt-2 mb-4 ">
+        <div className="flex gap-3 items-center  align-middle mt-2 mb-4 ">
           <Button variant="contained" onClick={handleUserPage}>
             จองห้องเรียน
           </Button>
