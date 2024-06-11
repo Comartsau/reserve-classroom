@@ -222,17 +222,17 @@ const User = () => {
                   </Typography>
                 </div>
                 <div className=" p-1">
-                  <Typography className="text-white text-xs">
+                  <Typography className="text-white ">
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
                 <div className="p-1">
-                  <Typography className="text-white text-xs">
+                  <Typography className="text-white text-2xl">
                     เริ่ม <span>10/06/24</span>{" "}
                   </Typography>
                 </div>
                 <div className="p-2">
-                  <Typography className="text-white text-xs">
+                  <Typography className="text-white text-2xl">
                     ถึง <span>15/06/24</span>{" "}
                   </Typography>
                 </div>
