@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 
 const initalState = {
-  selectDate: 0,
-  selectTime: 0,
-  selectTrad: 0,
+  selectDate: "",
+  selectTime: "",
+  selectTrad: "",
 };
 
 const reducer = (state, action) => {
@@ -27,15 +27,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectDate: action.payload,
-        selectTime: 0,
-        selectTrad: 0,
+        selectTime: "",
+        selectTrad: "",
       };
     case "SET_TIME":
-      return { ...state, selectTime: action.payload, selectTrad: 0 };
+      return { ...state, selectTime: action.payload, selectTrad: "" };
     case "SET_TRAD":
       return { ...state, selectTrad: action.payload };
     case "RESET":
-      return initalState
+      return initalState;
     default:
       return state;
   }
@@ -92,8 +92,8 @@ const User = () => {
   };
 
   const handleReset = () => {
-    dispatch({type: "RESET"})
-  }
+    dispatch({ type: "RESET" });
+  };
 
   return (
     <div className="h-screen bg-gray-300">
@@ -115,7 +115,9 @@ const User = () => {
 
       <CardContent>
         <div className="flex gap-3 items-center justify-around align-middle mt-2 mb-4 ">
-          <Button variant="contained" onClick={handleUserPage}>จองห้องเรียน</Button>
+          <Button variant="contained" onClick={handleUserPage}>
+            จองห้องเรียน
+          </Button>
           <Button variant="contained" onClick={handleReservePage}>
             รายการจอง
           </Button>
@@ -124,10 +126,15 @@ const User = () => {
       <CardContent className="bg-white rounded-md">
         <div className="flex flex-col gap-5 items-center justify-around align-middle mt-2 bg-white">
           <FormControl fullWidth size="small">
-            <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
+            <InputLabel
+              id="demo-simple-select-label"
+              // shrink={state.selectDate !== 0}
+            >
+              วันที่จอง
+            </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="date-select-label"
+              id="date-select"
               value={profile.selectDate}
               label="วันที่จอง"
               onChange={handleSelect("SET_DATE")}
@@ -139,7 +146,7 @@ const User = () => {
             </Select>
           </FormControl>
           <FormControl fullWidth size="small" disabled={state.selectDate === 0}>
-            <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
+            <InputLabel id="demo-simple-select-label" shrink={state.selectTime !== 0}>เวลาจอง</InputLabel>
             <Select
               labelId="time-select-label"
               id="time-select"
@@ -156,9 +163,9 @@ const User = () => {
           <FormControl
             fullWidth
             size="small"
-            disabled={state.selectDate === 0 || state.selectTime === 0}
+            disabled={state.selectDate === "" || state.selectTime === ""}
           >
-            <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
+            <InputLabel id="demo-simple-select-label"  shrink={state.selectTrad !== 0}>บัญชีเทรด</InputLabel>
             <Select
               labelId="trad-select-label"
               id="trad-select"
@@ -174,7 +181,11 @@ const User = () => {
           </FormControl>
           <div className=" w-full flex gap-5 ">
             <div className="flex flex-col w-1/2 gap-3 items-center justify-around align-middle mt-3 ">
-              <Button variant="contained" className="w-[120px]" onClick={handleReset}>
+              <Button
+                variant="contained"
+                className="w-[120px]"
+                onClick={handleReset}
+              >
                 เลือกใหม่
               </Button>
               <Button variant="contained" className="w-[120px]">
