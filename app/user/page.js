@@ -194,7 +194,7 @@ const User = () => {
             </Select>
           </CustomFormControl>
           <div className=" w-full flex gap-5 ">
-            <div className="flex flex-col w-1/2 gap-3 items-center justify-around align-middle mt-3 ">
+            <div className="flex flex-col w-1/2 gap-3 items-center align-middle mt-3 ">
               <Button
                 variant="contained"
                 className="w-[120px]"
