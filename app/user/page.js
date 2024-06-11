@@ -34,6 +34,8 @@ const reducer = (state, action) => {
       return { ...state, selectTime: action.payload, selectTrad: 0 };
     case "SET_TRAD":
       return { ...state, selectTrad: action.payload };
+    case "RESET":
+      return initalState
     default:
       return state;
   }
@@ -89,7 +91,9 @@ const User = () => {
     router.push("/user");
   };
 
-  console.log(state);
+  const handleReset = () => {
+    dispatch({type: "RESET"})
+  }
 
   return (
     <div className="h-screen bg-gray-300">
@@ -171,10 +175,10 @@ const User = () => {
           <div className=" w-full flex gap-5 ">
             <div className="flex flex-col w-1/2 gap-3 items-center justify-around align-middle mt-3 ">
               <Button variant="contained" className="w-[120px]">
-                จองห้องเรียน
+                เลือกใหม่
               </Button>
               <Button variant="contained" className="w-[120px]">
-                รายการจอง
+                จอง
               </Button>
             </div>
             <div className="flex flex-col bg-black rounded-md py-5 px-2 w-1/2 gap-3 justify-around align-middle ">
