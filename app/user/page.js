@@ -55,7 +55,7 @@ const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
 const CardContent = styled(MuiCardContent)({
   backgroundColor: 'white',
   borderRadius: '10px',
-  padding: '0px',
+  padding: '10px',
   boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
 });
 
