@@ -94,6 +94,13 @@ const User = () => {
           // Set a cookie to indicate LIFF login
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
+
+          // Hide the title bar in Line LIFF
+          if (liff.isInClient()) {
+            liff.ready.then(() => {
+              liff.hide();
+            });
+          }
         } else {
           liff.login();
         }
