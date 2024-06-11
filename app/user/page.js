@@ -140,7 +140,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth size="small" disabled={state.selectDate === 0}>
+          <FormControl fullWidth size="small" disabled={state.selectDate === ""}>
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
               labelId="time-select-label"
@@ -162,7 +162,6 @@ const User = () => {
           >
             <InputLabel
               id="demo-simple-select-label"
-              shrink={state.selectTrad !== 0}
             >
               บัญชีเทรด
             </InputLabel>
