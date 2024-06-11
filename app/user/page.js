@@ -230,7 +230,7 @@ const User = () => {
               >
                 เลือกใหม่
               </Button>
-              <Button variant="contained" className="w-full">
+              <Button variant="contained" className="w-full" onClick={handleModalReserve}>
                 จอง
               </Button>
             </div>
