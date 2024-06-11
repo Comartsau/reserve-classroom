@@ -77,6 +77,7 @@ const User = () => {
   const [profile, setProfile] = useState(null);
   const [state, dispatch] = useReducer(reducer, initalState);
   const router = useRouter();
+  const [openModalReserve, setOpenModalReserve] = useState(false);
 
   useEffect(() => {
     const initializeLiff = async () => {
@@ -126,6 +127,11 @@ const User = () => {
   const handleReset = () => {
     dispatch({ type: "RESET" });
   };
+
+  const handleModalReserve = () => {
+    setOpenModalReserve(!openModalReserve);
+  };
+
 
   return (
     <div className="h-screen bg-gray-300  p-2">
@@ -260,8 +266,8 @@ const User = () => {
       </CardContent>
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openModalReserve}
+        onClose={handleModalReserve}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
@@ -273,10 +279,10 @@ const User = () => {
             คุณต้องการยืนยันการจองของคุณหรือไม่?
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-            <Button onClick={handleClose} sx={{ mr: 1 }}>
+            <Button onClick={handleModalReserve} sx={{ mr: 1 }}>
               ยกเลิก
             </Button>
-            <Button onClick={handleClose} variant="contained">
+            <Button  variant="contained">
               ยืนยัน
             </Button>
           </Box>
