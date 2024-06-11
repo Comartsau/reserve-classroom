@@ -2,21 +2,46 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  Paper,
+} from "@mui/material";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (user === "admin" && password === "admin") {
-    //   localStorage.setItem("login", "admin");
-      sessionStorage.setItem('login', 'admin'); // ใช้ sessionStorage แทน localStorage
-      router.push("/admin");
-    } else {
-      alert("Invalid username or password");
+    const data = { username: user, password: password };
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/login`,
+        data
+      );
+      const { token, error } = res.data;
+      if (token) {
+        localStorage.setItem("Token", token);
+        const { status } = jwtDecode(token);
+        if (status === "0") {
+          toast.success("เข้าสู่ระบบสำเร็จ");
+          sessionStorage.setItem("login", "admin");
+          router.push("/admin");
+        }
+      } else {
+        toast.error(error);
+      }
+    } catch {
+      toast.error("ไม่สำเร็จ กรุณาลองอีกครั้ง");
     }
   };
 
@@ -29,55 +54,70 @@ const LoginPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        backgroundImage: "url('/path-to-your-background-image.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-        }}
-        className="bg-gray-200 pt-10 pb-5 px-10 rounded-lg"
-      >
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="user"
-            label="User"
-            name="user"
-            autoComplete="user"
-            autoFocus
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+      <Paper elevation={6} sx={{ padding: 4, borderRadius: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+          }}
+          className="pt-5 pb-5 px-10"
+        >
+          <Typography component="h1" variant="h5">
             Login
-          </Button>
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="user"
+              label="User"
+              name="user"
+              autoComplete="user"
+              autoFocus
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 2,
+                bgcolor: "primary.main",
+                "&:hover": { bgcolor: "primary.dark" },
+              }}
+            >
+              Login
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      </Paper>
     </Container>
   );
 };
