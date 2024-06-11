@@ -279,7 +279,7 @@ const User = () => {
         aria-describedby="modal-description"
       >
         <Box sx={modalStyle}>
-          <div className=" bg-black">
+          <div className=" bg-black rounded-sm">
             <Typography
               id="modal-title"
               variant="h6"
