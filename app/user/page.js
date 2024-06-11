@@ -202,7 +202,7 @@ const User = () => {
             </Select>
           </CustomFormControl>
           <div className=" w-full flex gap-2 mt-2 ">
-            <div className="flex flex-col w-[50%] gap-3  align-middle  ">
+            <div className="flex flex-col w-[48%] gap-3  align-middle  ">
               <Button
                 variant="contained"
                 className="w-full"
@@ -214,7 +214,7 @@ const User = () => {
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-2  w-[50%] gap-3 justify-around align-middle ">
+            <div className="flex flex-col bg-black rounded-md py-2  w-[52%] gap-3 justify-around align-middle ">
               <div className="  p-2">
                 <div className="border-2 p-1">
                   <Typography className="text-white text-left ">
@@ -222,17 +222,17 @@ const User = () => {
                   </Typography>
                 </div>
                 <div className=" p-1">
-                  <Typography className="text-white sx={{ fontSize: '10px' }} ">
+                  <Typography className="text-white  " sx={{ fontSize: '12px' }}>
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
                 <div className="p-1">
-                  <Typography className="text-white " sx={{ fontSize: '10px' }}>
+                  <Typography className="text-white " sx={{ fontSize: "12px" }}>
                     เริ่ม <span>10/06/24</span>{" "}
                   </Typography>
                 </div>
                 <div className="p-2">
-                  <Typography className="text-white sx={{ fontSize: '10px' }}">
+                  <Typography className="text-white " sx={{ fontSize: '12px' }}>
                     ถึง <span>15/06/24</span>{" "}
                   </Typography>
                 </div>
