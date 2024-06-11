@@ -201,7 +201,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </CustomFormControl>
-          <div className=" w-full flex gap-2 ">
+          <div className=" w-full flex gap-2 mt-3 ">
             <div className="flex flex-col w-[40%] gap-3  align-middle  ">
               <Button
                 variant="contained"
@@ -214,7 +214,7 @@ const User = () => {
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-5 px-2 w-[60%] gap-3 justify-around align-middle ">
+            <div className="flex flex-col bg-black rounded-md py-2 px-2 w-[60%] gap-3 justify-around align-middle ">
               <div className="  p-3">
                 <div className="border-2 p-2">
                   <Typography className="text-white text-left ">
