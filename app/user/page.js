@@ -202,7 +202,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </CustomFormControl>
-          <div className=" w-full flex gap-1 ">
+          <div className=" w-full flex gap-2 ">
             <div className="flex flex-col w-1/2 gap-3  align-middle  ">
               <Button
                 variant="contained"
