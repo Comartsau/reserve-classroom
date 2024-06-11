@@ -140,7 +140,7 @@ const User = () => {
         </Button>
       </div>
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle px-2 py-4  border-2 border-black  bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-4    bg-white">
           <CustomFormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
@@ -214,7 +214,7 @@ const User = () => {
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-2 px-2 w-[60%] gap-3 justify-around align-middle ">
+            <div className="flex flex-col bg-black rounded-md py-2  w-[60%] gap-3 justify-around align-middle ">
               <div className="  p-2">
                 <div className="border-2 p-1">
                   <Typography className="text-white text-left ">
@@ -222,17 +222,17 @@ const User = () => {
                   </Typography>
                 </div>
                 <div className=" p-1">
-                  <Typography className="text-white">
+                  <Typography className="text-white text-sm">
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
                 <div className="p-1">
-                  <Typography className="text-white">
+                  <Typography className="text-white text-sm">
                     เริ่ม <span>10/06/24</span>{" "}
                   </Typography>
                 </div>
                 <div className="p-2">
-                  <Typography className="text-white">
+                  <Typography className="text-white text-sm">
                     ถึง <span>15/06/24</span>{" "}
                   </Typography>
                 </div>
