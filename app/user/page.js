@@ -216,18 +216,26 @@ const User = () => {
             </div>
             <div className="flex flex-col bg-black rounded-md py-5 px-2 w-[60%] gap-3 justify-around align-middle ">
               <div className="  p-3">
-                <Typography className="text-white text-left border-2 ">
-                  ยอดจอง <span>9</span> / <span>10</span>
-                </Typography>
-                <Typography className="text-white">
-                  เหลือ <span>1</span> ที่นั้ง
-                </Typography>
-                <Typography className="text-white">
-                  เริ่ม <span>10/06/24</span>{" "}
-                </Typography>
-                <Typography className="text-white">
-                  ถึง <span>15/06/24</span>{" "}
-                </Typography>
+                <div className="border-2 p-2">
+                  <Typography className="text-white text-left ">
+                    ยอดจอง <span>9</span> / <span>10</span>
+                  </Typography>
+                </div>
+                <div className=" p-2">
+                  <Typography className="text-white">
+                    เหลือ <span>1</span> ที่นั้ง
+                  </Typography>
+                </div>
+                <div className="p-2">
+                  <Typography className="text-white">
+                    เริ่ม <span>10/06/24</span>{" "}
+                  </Typography>
+                </div>
+                <div className="p-2">
+                  <Typography className="text-white">
+                    ถึง <span>15/06/24</span>{" "}
+                  </Typography>
+                </div>
               </div>
             </div>
           </div>
