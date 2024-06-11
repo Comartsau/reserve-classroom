@@ -206,12 +206,12 @@ const User = () => {
             <div className="flex flex-col w-1/2 gap-3  align-middle  ">
               <Button
                 variant="contained"
-                className="w-[120px]"
+                className="w-full"
                 onClick={handleReset}
               >
                 เลือกใหม่
               </Button>
-              <Button variant="contained" className="w-[120px]">
+              <Button variant="contained" className="w-full">
                 จอง
               </Button>
             </div>
