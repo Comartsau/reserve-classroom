@@ -181,10 +181,10 @@ const User = () => {
               onChange={handleSelect("SET_DATE")}
               className=" border-green-300"
             >
-              <MenuItem value={0}>None</MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value="None">None</MenuItem>
+              <MenuItem value="Ten">Ten</MenuItem>
+              <MenuItem value="Twenty">Twenty</MenuItem>
+              <MenuItem value="Thirty">Thirty</MenuItem>
             </Select>
           </CustomFormControl>
           <CustomFormControl
@@ -203,10 +203,10 @@ const User = () => {
                 state.selectTime === "" ? "border-red-300" : "border-green-300"
               }`}
             >
-              <MenuItem value={0}>None</MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value="None">None</MenuItem>
+              <MenuItem value="Ten">Ten</MenuItem>
+              <MenuItem value="Twenty">Twenty</MenuItem>
+              <MenuItem value="Thirty">Thirty</MenuItem>
             </Select>
           </CustomFormControl>
           <CustomFormControl
@@ -225,10 +225,10 @@ const User = () => {
                 state.selectTrad === "" ? "border-red-300" : "border-green-300"
               }`}
             >
-              <MenuItem value={0}>None</MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value="None">None</MenuItem>
+              <MenuItem value="Ten">Ten</MenuItem>
+              <MenuItem value="Twenty">Twenty</MenuItem>
+              <MenuItem value="Thirty">Thirty</MenuItem>
             </Select>
           </CustomFormControl>
           <div className=" w-full flex gap-2 mt-2 ">
