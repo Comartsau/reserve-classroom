@@ -45,17 +45,12 @@ const reducer = (state, action) => {
 
 // Styled FormControl component
 const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
-  '& .MuiInputBase-root': {
-    '& fieldset': {
-      borderColor: disabled ? 'red' : 'green',
-    },
-    '&:hover fieldset': {
-      borderColor: disabled ? 'darkred' : 'darkgreen',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: disabled ? 'darkred' : 'limegreen',
-    },
+  '& .MuiInputBase-root.Mui-disabled': {
+    borderColor: disabled ? 'red' : 'green',
+    borderWidth: disabled ? '1px' : 'inherit',
+    borderStyle: disabled ? 'solid' : 'inherit',
   },
+  
 }));
 
 const User = () => {
@@ -142,7 +137,7 @@ const User = () => {
       </CardContent>
       <CardContent className="bg-white rounded-md">
         <div className="flex flex-col gap-5 items-center justify-around align-middle mt-2 bg-white">
-          <FormControl fullWidth size="small">
+          <CustomFormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
               labelId="date-select-label"
@@ -157,7 +152,7 @@ const User = () => {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </FormControl>
+          </CustomFormControl>
           <CustomFormControl
             fullWidth
             size="small"
