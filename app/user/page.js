@@ -6,7 +6,7 @@ import liff from "@line/liff";
 import {
   AppBar,
   Button,
-  CardContent,
+  CardContent as MuiCardContent,
   FormControl,
   InputLabel,
   MenuItem,
@@ -50,6 +50,13 @@ const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
     borderWidth: disabled ? "1px" : "inherit",
     borderStyle: disabled ? "solid" : "inherit",
   },
+}));
+
+const CardContent = styled(MuiCardContent)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: '10px',
+  padding: '0px',
+  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
 }));
 
 const User = () => {
