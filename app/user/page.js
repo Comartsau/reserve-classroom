@@ -66,9 +66,9 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "350px",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  // border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -131,7 +131,6 @@ const User = () => {
   const handleModalReserve = () => {
     setOpenModalReserve(!openModalReserve);
   };
-
 
   return (
     <div className="h-screen bg-gray-300  p-2">
@@ -230,7 +229,11 @@ const User = () => {
               >
                 เลือกใหม่
               </Button>
-              <Button variant="contained" className="w-full" onClick={handleModalReserve}>
+              <Button
+                variant="contained"
+                className="w-full"
+                onClick={handleModalReserve}
+              >
                 จอง
               </Button>
             </div>
@@ -282,9 +285,7 @@ const User = () => {
             <Button onClick={handleModalReserve} sx={{ mr: 1 }}>
               ยกเลิก
             </Button>
-            <Button  variant="contained">
-              ยืนยัน
-            </Button>
+            <Button variant="contained">ยืนยัน</Button>
           </Box>
         </Box>
       </Modal>
