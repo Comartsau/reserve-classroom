@@ -221,17 +221,17 @@ const User = () => {
                     ยอดจอง <span>9</span> / <span>10</span>
                   </Typography>
                 </div>
-                <div className=" p-1">
+                <div className=" px-1">
                   <Typography className="text-white  " sx={{ fontSize: '12px' }}>
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
-                <div className="p-1">
+                <div className="px-1">
                   <Typography className="text-white " sx={{ fontSize: "12px" }}>
                     เริ่ม <span>10/06/24</span>{" "}
                   </Typography>
                 </div>
-                <div className="p-2">
+                <div className="px-1">
                   <Typography className="text-white " sx={{ fontSize: '12px' }}>
                     ถึง <span>15/06/24</span>{" "}
                   </Typography>
