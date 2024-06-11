@@ -109,7 +109,7 @@ const User = () => {
   return (
     <div className="h-screen  p-2">
       <div className="bg-gray-300">
-        <AppBar position="static" >
+        <AppBar position="static">
           <Toolbar className="bg-black">
             <div className="flex gap-3 align-middle items-center ">
               <img
@@ -125,7 +125,7 @@ const User = () => {
           </Toolbar>
         </AppBar>
 
-        <CardContent>
+        <CardContent className="p-0" >
           <div className="flex gap-3 items-center  align-middle  ">
             <Button variant="contained" onClick={handleUserPage}>
               จองห้องเรียน
