@@ -14,6 +14,9 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const LoginPage = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -26,17 +29,15 @@ const LoginPage = () => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/login`,
-        data
+        // "http://26.182.55.77:5000/api/login",
+        data 
       );
-      const { token, error } = res.data;
+      const token = res.data.token;
+
       if (token) {
-        localStorage.setItem("Token", token);
-        const { status } = jwtDecode(token);
-        if (status === "0") {
-          toast.success("เข้าสู่ระบบสำเร็จ");
-          sessionStorage.setItem("login", "admin");
-          router.push("/admin");
-        }
+        toast.success("เข้าสู่ระบบสำเร็จ");
+        sessionStorage.setItem("login", "admin");
+        router.push("/admin");
       } else {
         toast.error(error);
       }
@@ -54,7 +55,7 @@ const LoginPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundImage: "url('/path-to-your-background-image.jpg')",
+        // backgroundImage: "url('/path-to-your-background-image.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -118,6 +119,7 @@ const LoginPage = () => {
           </Box>
         </Box>
       </Paper>
+      <ToastContainer autoClose={2000} theme="colored" />
     </Container>
   );
 };
