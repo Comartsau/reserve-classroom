@@ -135,7 +135,7 @@ const User = () => {
             <Select
               labelId="date-select-label"
               id="date-select"
-              value={profile.selectDate}
+              value={state.selectDate}
               label="วันที่จอง"
               onChange={handleSelect("SET_DATE")}
             >
@@ -150,7 +150,7 @@ const User = () => {
             <Select
               labelId="time-select-label"
               id="time-select"
-              value={profile.selectTime}
+              value={state.selectTime}
               label="เวลาจอง"
               onChange={handleSelect("SET_TIME")}
             >
@@ -169,7 +169,7 @@ const User = () => {
             <Select
               labelId="trad-select-label"
               id="trad-select"
-              value={profile.selectTrad}
+              value={state.selectTrad}
               label="บัญชีเทรด"
               onChange={handleSelect("SET_TRAD")}
             >
