@@ -66,11 +66,11 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "350px",
+  width: "320px",
   bgcolor: "background.paper",
   // border: "2px solid #000",
   boxShadow: 24,
-  p: 2,
+  p: 1,
 };
 
 const User = () => {
@@ -279,10 +279,16 @@ const User = () => {
             ยืนยันการจอง
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            คุณต้องการยืนยันการจองของคุณหรือไม่?
+            {state.selectDate}
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            {state.selectTime}
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            {state.selectTrad}
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-            <Button onClick={handleModalReserve} sx={{ mr: 1 }} className="text-red-500">
+            <Button onClick={handleModalReserve} sx={{ mr: 1, color: 'red' }} >
               ยกเลิก
             </Button>
             <Button variant="contained">ยืนยัน</Button>
