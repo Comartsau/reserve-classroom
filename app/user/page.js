@@ -133,6 +133,7 @@ const User = () => {
               value={state.selectDate}
               label="วันที่จอง"
               onChange={handleSelect("SET_DATE")}
+              className={`${state.selectDate === "" ? "bg-red-300": "bg-green-500"}`}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -140,7 +141,11 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth size="small" disabled={state.selectDate === ""}>
+          <FormControl
+            fullWidth
+            size="small"
+            disabled={state.selectDate === ""}
+          >
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
               labelId="time-select-label"
@@ -160,11 +165,7 @@ const User = () => {
             size="small"
             disabled={state.selectDate === "" || state.selectTime === ""}
           >
-            <InputLabel
-              id="demo-simple-select-label"
-            >
-              บัญชีเทรด
-            </InputLabel>
+            <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
             <Select
               labelId="trad-select-label"
               id="trad-select"
