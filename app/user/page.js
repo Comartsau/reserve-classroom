@@ -56,7 +56,7 @@ const CardContent = styled(MuiCardContent)({
   // backgroundColor: 'white',
   borderRadius: "10px",
   padding: "10px",
-  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+  // boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 });
 
 const User = () => {
