@@ -13,6 +13,8 @@ import {
   Select,
   Toolbar,
   Typography,
+  Modal,
+  Box,
 } from "@mui/material";
 
 import { styled } from "@mui/system";
@@ -58,6 +60,18 @@ const CardContent = styled(MuiCardContent)({
   padding: "10px",
   // boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 });
+
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -222,7 +236,10 @@ const User = () => {
                   </Typography>
                 </div>
                 <div className=" ps-2 mt-2">
-                  <Typography className="text-white  " sx={{ fontSize: '12px' }}>
+                  <Typography
+                    className="text-white  "
+                    sx={{ fontSize: "12px" }}
+                  >
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
@@ -232,7 +249,7 @@ const User = () => {
                   </Typography>
                 </div>
                 <div className="ps-2">
-                  <Typography className="text-white " sx={{ fontSize: '12px' }}>
+                  <Typography className="text-white " sx={{ fontSize: "12px" }}>
                     ถึง <span>15/06/24</span>{" "}
                   </Typography>
                 </div>
@@ -241,6 +258,30 @@ const User = () => {
           </div>
         </div>
       </CardContent>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography id="modal-title" variant="h6" component="h2">
+            ยืนยันการจอง
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            คุณต้องการยืนยันการจองของคุณหรือไม่?
+          </Typography>
+          <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
+            <Button onClick={handleClose} sx={{ mr: 1 }}>
+              ยกเลิก
+            </Button>
+            <Button onClick={handleClose} variant="contained">
+              ยืนยัน
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </div>
   );
 };
