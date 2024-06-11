@@ -45,10 +45,16 @@ const reducer = (state, action) => {
 
 // Styled FormControl component
 const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
-  '& .MuiInputBase-root.Mui-disabled': {
-    borderColor: disabled ? 'red' : 'inherit',
-    borderWidth: disabled ? '1px' : 'inherit',
-    borderStyle: disabled ? 'solid' : 'inherit',
+  '& .MuiInputBase-root': {
+    '& fieldset': {
+      borderColor: disabled ? 'red' : 'green',
+    },
+    '&:hover fieldset': {
+      borderColor: disabled ? 'darkred' : 'darkgreen',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: disabled ? 'darkred' : 'limegreen',
+    },
   },
 }));
 
