@@ -141,7 +141,7 @@ const User = () => {
       </div>
 
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle p-5 bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle  bg-white">
           <CustomFormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
@@ -203,7 +203,7 @@ const User = () => {
             </Select>
           </CustomFormControl>
           <div className=" w-full flex gap-1 ">
-            <div className="flex flex-col w-1/2 gap-3 items-center align-middle  ">
+            <div className="flex flex-col w-1/2 gap-3  align-middle  ">
               <Button
                 variant="contained"
                 className="w-[120px]"
