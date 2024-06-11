@@ -131,8 +131,10 @@ const User = () => {
   const handleModalReserve = () => {
     if (state.selectDate || state.selectTime || state.selectTrad !== "") {
       setOpenModalReserve(!openModalReserve);
+    }else {
+
+      alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
     }
-    alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
   };
 
   return (
