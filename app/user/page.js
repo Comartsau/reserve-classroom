@@ -41,6 +41,15 @@ const reducer = (state, action) => {
   }
 };
 
+// Styled FormControl component
+const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
+  '& .MuiInputBase-root.Mui-disabled': {
+    borderColor: disabled ? 'red' : 'inherit',
+    borderWidth: disabled ? '1px' : 'inherit',
+    borderStyle: disabled ? 'solid' : 'inherit',
+  },
+}));
+
 const User = () => {
   const [profile, setProfile] = useState(null);
   const [state, dispatch] = useReducer(reducer, initalState);
@@ -141,7 +150,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          <FormControl
+          <CustomFormControl
             fullWidth
             size="small"
             disabled={state.selectDate === ""}
@@ -160,8 +169,8 @@ const User = () => {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </FormControl>
-          <FormControl
+          </CustomFormControl>
+          <CustomFormControl
             fullWidth
             size="small"
             disabled={state.selectDate === "" || state.selectTime === ""}
@@ -180,7 +189,7 @@ const User = () => {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </FormControl>
+          </CustomFormControl>
           <div className=" w-full flex gap-5 ">
             <div className="flex flex-col w-1/2 gap-3 items-center justify-around align-middle mt-3 ">
               <Button
