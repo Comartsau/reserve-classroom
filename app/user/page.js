@@ -133,7 +133,7 @@ const User = () => {
               value={state.selectDate}
               label="วันที่จอง"
               onChange={handleSelect("SET_DATE")}
-              className={`${state.selectDate === "" ? "bg-red-300": "bg-green-500"}`}
+              className="bg-green-300"
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -153,6 +153,7 @@ const User = () => {
               value={state.selectTime}
               label="เวลาจอง"
               onChange={handleSelect("SET_TIME")}
+              className={`${state.selectTime === "" ? "bg-red-300": "bg-green-300"}`}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
@@ -172,6 +173,7 @@ const User = () => {
               value={state.selectTrad}
               label="บัญชีเทรด"
               onChange={handleSelect("SET_TRAD")}
+              className={`${state.selectTrad === "" ? "bg-red-300": "bg-green-300"}`}
             >
               <MenuItem value={0}>None</MenuItem>
               <MenuItem value={10}>Ten</MenuItem>
