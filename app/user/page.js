@@ -279,7 +279,7 @@ const User = () => {
       >
         <Box sx={modalStyle}>
           <Typography id="modal-title" variant="h6" component="h2">
-            ยืนยันการจอง
+            สรุปข้อมูลการจองห้องเรียน
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
             {state.selectDate}
