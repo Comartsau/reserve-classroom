@@ -129,8 +129,8 @@ const User = () => {
   };
 
   const handleModalReserve = () => {
-    if(state.selectDate || state.selectTime || state.selectTrad == "") {
-      alert("กรุณาใส่ข้อมูลให้ครบถ้วน")
+    if (state.selectDate || state.selectTime || state.selectTrad == "") {
+      alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
     }
     setOpenModalReserve(!openModalReserve);
   };
@@ -278,9 +278,11 @@ const User = () => {
         aria-describedby="modal-description"
       >
         <Box sx={modalStyle}>
-          <Typography id="modal-title" variant="h6" component="h2">
-            สรุปข้อมูลการจองห้องเรียน
-          </Typography>
+          <div className=" bg-black">
+            <Typography id="modal-title" variant="h6" component="h2" sx={{  color: "white" }}>
+              สรุปข้อมูลการจองห้องเรียน
+            </Typography>
+          </div>
           <Typography id="modal-description" sx={{ mt: 2 }}>
             {state.selectDate}
           </Typography>
@@ -291,7 +293,7 @@ const User = () => {
             {state.selectTrad}
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-            <Button onClick={handleModalReserve} sx={{ mr: 1, color: 'red' }} >
+            <Button onClick={handleModalReserve} sx={{ mr: 1, color: "red" }}>
               ยกเลิก
             </Button>
             <Button variant="contained">ยืนยัน</Button>
