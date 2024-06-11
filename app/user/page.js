@@ -114,132 +114,126 @@ const User = () => {
   };
 
   return (
-    <div className="h-screen  p-2">
-      <div className="bg-gray-300">
-        <AppBar position="static">
-          <Toolbar >
-            <div className="flex gap-3 align-middle items-center ">
-              <img
-                src={profile.pictureUrl}
-                alt="User profile"
-                style={styles.profileImage}
-                className=" "
-              />
-              <Typography component="div" className=" text-lg ms-5">
-                {profile.displayName}
-              </Typography>
+    <div className="h-screen bg-gray-300  p-2">
+      <AppBar position="static">
+        <Toolbar>
+          <div className="flex gap-3 align-middle items-center ">
+            <img
+              src={profile.pictureUrl}
+              alt="User profile"
+              style={styles.profileImage}
+              className=" "
+            />
+            <Typography component="div" className=" text-lg ms-5">
+              {profile.displayName}
+            </Typography>
+          </div>
+        </Toolbar>
+      </AppBar>
+
+      <div className="flex gap-3 items-center  align-middle p-2 ">
+        <Button variant="contained" onClick={handleUserPage}>
+          จองห้องเรียน
+        </Button>
+        <Button variant="contained" onClick={handleReservePage}>
+          รายการจอง
+        </Button>
+      </div>
+
+      <CardContent>
+        <div className="flex flex-col gap-3 items-center justify-around align-middle p-5 bg-white">
+          <CustomFormControl fullWidth size="small">
+            <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
+            <Select
+              labelId="date-select-label"
+              id="date-select"
+              value={state.selectDate}
+              label="วันที่จอง"
+              onChange={handleSelect("SET_DATE")}
+              className=" border-green-300"
+            >
+              <MenuItem value={0}>None</MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </CustomFormControl>
+          <CustomFormControl
+            fullWidth
+            size="small"
+            disabled={state.selectDate === ""}
+          >
+            <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
+            <Select
+              labelId="time-select-label"
+              id="time-select"
+              value={state.selectTime}
+              label="เวลาจอง"
+              onChange={handleSelect("SET_TIME")}
+              className={`${
+                state.selectTime === "" ? "border-red-300" : "border-green-300"
+              }`}
+            >
+              <MenuItem value={0}>None</MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </CustomFormControl>
+          <CustomFormControl
+            fullWidth
+            size="small"
+            disabled={state.selectDate === "" || state.selectTime === ""}
+          >
+            <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
+            <Select
+              labelId="trad-select-label"
+              id="trad-select"
+              value={state.selectTrad}
+              label="บัญชีเทรด"
+              onChange={handleSelect("SET_TRAD")}
+              className={`${
+                state.selectTrad === "" ? "border-red-300" : "border-green-300"
+              }`}
+            >
+              <MenuItem value={0}>None</MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </CustomFormControl>
+          <div className=" w-full flex gap-2 bg-red-500 ">
+            <div className="flex flex-col w-1/2 gap-3 items-center align-middle mt-3 ">
+              <Button
+                variant="contained"
+                className="w-[120px]"
+                onClick={handleReset}
+              >
+                เลือกใหม่
+              </Button>
+              <Button variant="contained" className="w-[120px]">
+                จอง
+              </Button>
             </div>
-          </Toolbar>
-        </AppBar>
-
-        <div className="flex gap-3 items-center  align-middle p-2 ">
-          <Button variant="contained" onClick={handleUserPage}>
-            จองห้องเรียน
-          </Button>
-          <Button variant="contained" onClick={handleReservePage}>
-            รายการจอง
-          </Button>
-        </div>
-
-        <CardContent>
-          <div className="flex flex-col gap-3 items-center justify-around align-middle p-5 bg-white">
-            <CustomFormControl fullWidth size="small">
-              <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
-              <Select
-                labelId="date-select-label"
-                id="date-select"
-                value={state.selectDate}
-                label="วันที่จอง"
-                onChange={handleSelect("SET_DATE")}
-                className=" border-green-300"
-              >
-                <MenuItem value={0}>None</MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </CustomFormControl>
-            <CustomFormControl
-              fullWidth
-              size="small"
-              disabled={state.selectDate === ""}
-            >
-              <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
-              <Select
-                labelId="time-select-label"
-                id="time-select"
-                value={state.selectTime}
-                label="เวลาจอง"
-                onChange={handleSelect("SET_TIME")}
-                className={`${
-                  state.selectTime === ""
-                    ? "border-red-300"
-                    : "border-green-300"
-                }`}
-              >
-                <MenuItem value={0}>None</MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </CustomFormControl>
-            <CustomFormControl
-              fullWidth
-              size="small"
-              disabled={state.selectDate === "" || state.selectTime === ""}
-            >
-              <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
-              <Select
-                labelId="trad-select-label"
-                id="trad-select"
-                value={state.selectTrad}
-                label="บัญชีเทรด"
-                onChange={handleSelect("SET_TRAD")}
-                className={`${
-                  state.selectTrad === ""
-                    ? "border-red-300"
-                    : "border-green-300"
-                }`}
-              >
-                <MenuItem value={0}>None</MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </CustomFormControl>
-            <div className=" w-full flex gap-2 bg-red-500 ">
-              <div className="flex flex-col w-1/2 gap-3 items-center align-middle mt-3 ">
-                <Button
-                  variant="contained"
-                  className="w-[120px]"
-                  onClick={handleReset}
-                >
-                  เลือกใหม่
-                </Button>
-                <Button variant="contained" className="w-[120px]">
-                  จอง
-                </Button>
-              </div>
-              <div className="flex flex-col bg-black rounded-md py-5 px-2 w-1/2 gap-3 justify-around align-middle ">
-                <div className=" border-2  p-3">
-                  <Typography className="text-white text-left">
-                    ยอดจอง <span>9</span> / <span>10</span>
-                  </Typography>
-                  <Typography className="text-white">
-                    เหลือ <span>1</span> ที่นั้ง
-                  </Typography>
-                  <Typography className="text-white">
-                    เริ่ม <span>10/06/24</span>{" "}
-                  </Typography>
-                  <Typography className="text-white">
-                    ถึง <span>15/06/24</span>{" "}
-                  </Typography>
-                </div>
+            <div className="flex flex-col bg-black rounded-md py-5 px-2 w-1/2 gap-3 justify-around align-middle ">
+              <div className=" border-2  p-3">
+                <Typography className="text-white text-left">
+                  ยอดจอง <span>9</span> / <span>10</span>
+                </Typography>
+                <Typography className="text-white">
+                  เหลือ <span>1</span> ที่นั้ง
+                </Typography>
+                <Typography className="text-white">
+                  เริ่ม <span>10/06/24</span>{" "}
+                </Typography>
+                <Typography className="text-white">
+                  ถึง <span>15/06/24</span>{" "}
+                </Typography>
               </div>
             </div>
           </div>
-        </CardContent>
-      </div>
+        </div>
+      </CardContent>
     </div>
   );
 };
