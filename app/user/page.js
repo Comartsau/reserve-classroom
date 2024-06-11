@@ -116,7 +116,7 @@ const User = () => {
   return (
     <div className="h-screen bg-gray-300  p-2">
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className="bg-black">
           <div className="flex gap-3 align-middle items-center ">
             <img
               src={profile.pictureUrl}
