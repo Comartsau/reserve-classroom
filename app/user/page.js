@@ -131,7 +131,7 @@ const User = () => {
         </Toolbar>
       </AppBar>
 
-      <div className="flex gap-3 items-center  align-middle p-2 mt-3 ">
+      <div className="flex gap-3 items-center  align-middle p-2 mt-2 ">
         <Button variant="contained" onClick={handleUserPage}>
           จองห้องเรียน
         </Button>
@@ -140,7 +140,7 @@ const User = () => {
         </Button>
       </div>
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle px-2 py-5  border-b-2  bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle px-2 py-4  border-b-2  bg-white">
           <CustomFormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
@@ -201,7 +201,7 @@ const User = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </CustomFormControl>
-          <div className=" w-full flex gap-2 mt-3 ">
+          <div className=" w-full flex gap-2 mt-2 ">
             <div className="flex flex-col w-[40%] gap-3  align-middle  ">
               <Button
                 variant="contained"
@@ -215,18 +215,18 @@ const User = () => {
               </Button>
             </div>
             <div className="flex flex-col bg-black rounded-md py-2 px-2 w-[60%] gap-3 justify-around align-middle ">
-              <div className="  p-3">
-                <div className="border-2 p-2">
+              <div className="  p-2">
+                <div className="border-2 p-1">
                   <Typography className="text-white text-left ">
                     ยอดจอง <span>9</span> / <span>10</span>
                   </Typography>
                 </div>
-                <div className=" p-2">
+                <div className=" p-1">
                   <Typography className="text-white">
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
-                <div className="p-2">
+                <div className="p-1">
                   <Typography className="text-white">
                     เริ่ม <span>10/06/24</span>{" "}
                   </Typography>
