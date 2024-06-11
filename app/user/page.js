@@ -117,7 +117,7 @@ const User = () => {
     <div className="h-screen  p-2">
       <div className="bg-gray-300">
         <AppBar position="static">
-          <Toolbar className="bg-black">
+          <Toolbar >
             <div className="flex gap-3 align-middle items-center ">
               <img
                 src={profile.pictureUrl}
@@ -141,7 +141,7 @@ const User = () => {
           </Button>
         </div>
 
-        <CardContent className=" rounded-md ">
+        <CardContent>
           <div className="flex flex-col gap-3 items-center justify-around align-middle p-5 bg-white">
             <CustomFormControl fullWidth size="small">
               <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
