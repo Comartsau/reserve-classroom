@@ -21,16 +21,17 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@/contexts/themeContext";
 
 const menuItems = [
-  { text: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
-  {
-    text: "Users",
-    icon: <PeopleIcon />,
-    subItems: [
-      { text: "Add User", path: "/admin/users/add" },
-      { text: "Manage Users", path: "/admin/users/manage" },
-    ],
-  },
-  { text: "Settings", icon: <SettingsIcon />, path: "/admin/settings" },
+  { text: "จัดการรายการ", icon: <DashboardIcon />, path: "/admin" },
+  { text: "รายงาน", icon: <DashboardIcon />, path: "/admin/report" },
+  // {
+  //   text: "Users",
+  //   icon: <PeopleIcon />,
+  //   subItems: [
+  //     { text: "Add User", path: "/admin/users/add" },
+  //     { text: "Manage Users", path: "/admin/users/manage" },
+  //   ],
+  // },
+  // { text: "Settings", icon: <SettingsIcon />, path: "/admin/settings" },
 ];
 
 const Sidebar = ({ setDrawerOpen }) => {
@@ -69,10 +70,11 @@ const Sidebar = ({ setDrawerOpen }) => {
       <Toolbar>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+           
           }}
         >
           <Typography
@@ -86,12 +88,11 @@ const Sidebar = ({ setDrawerOpen }) => {
         </Box>
       </Toolbar>
       <Divider />
-      <Box sx={{ overflow: "auto" }}>
+      <Box sx={{ overflow: "auto"   }}  >
         <List>
           {menuItems.map((item, index) => (
             <React.Fragment key={index}>
               <ListItem
-                button
                 onClick={() =>
                   item.path
                     ? handleNavigation(item.path)
@@ -99,12 +100,12 @@ const Sidebar = ({ setDrawerOpen }) => {
                 }
                 sx={{ cursor: "pointer" }}
               >
-                <ListItemIcon sx={{ color: theme.text }}>
+                <ListItemIcon sx={{ color: theme.text , minWidth: 35  }} >
                   {item.icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={item.text}
-                  sx={{ fontSize: theme.fontSize }}
+                  sx={{ fontSize: theme.fontSize  }}
                 />
                 {item.subItems ? (
                   open[item.text] ? (
@@ -119,7 +120,6 @@ const Sidebar = ({ setDrawerOpen }) => {
                   <List component="div" disablePadding>
                     {item.subItems.map((subItem, subIndex) => (
                       <ListItem
-                        button
                         key={subIndex}
                         onClick={() => handleNavigation(subItem.path)}
                         sx={{ pl: 4, cursor: "pointer" }}

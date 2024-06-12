@@ -1,11 +1,12 @@
-'use client'
+// layouts/AdminLayout.jsx
+"use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ThemeProvider } from "@/contexts/themeContext";
+import LayoutContent from "../components/admin/layout/layoutContent";
 
-
-function TestPage() {
-
-    const router = useRouter();
+const AdminLayout = ({ children }) => {
+  const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
@@ -20,9 +21,12 @@ function TestPage() {
   if (!isAuthorized) {
     return null; // ไม่แสดงเนื้อหาก่อนตรวจสอบสิทธิ์เสร็จสิ้น
   }
-  return (
-    <div>TestPage</div>
-  )
-}
 
-export default TestPage
+  return (
+    <ThemeProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </ThemeProvider>
+  );
+};
+
+export default AdminLayout;
