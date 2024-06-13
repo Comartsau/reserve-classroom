@@ -1,4 +1,5 @@
 // contexts/ThemeContext.js
+import { BorderAllRounded } from "@mui/icons-material";
 import React, { createContext, useState, useContext } from "react";
 
 const ThemeContext = createContext();
@@ -10,7 +11,10 @@ export const ThemeProvider = ({ children }) => {
     fontSize: "16px", // สามารถเพิ่มคุณสมบัติอื่นๆ ที่ต้องการได้
     menuWidth: "170px", // เพิ่มคุณสมบัติความกว้างของเมนู
     // activeBackground :"#f5f5f5"
-    activeBackground :"#dcdcdc"
+    // activeBackground :"#D9D9D9"
+    activeBackground :"#e6e6e6",
+    
+    
   });
 
   const changeTheme = (newTheme) => {
