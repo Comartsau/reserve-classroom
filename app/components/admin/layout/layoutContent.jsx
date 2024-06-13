@@ -11,7 +11,7 @@ import Sidebar from "./sidebar";
 import AppbarComponent from "./appbar";
 
 const AdminHomeContent = ({ children }) => {
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const isSmallScreen = useMediaQuery("(max-width:751px)");
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {

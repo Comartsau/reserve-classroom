@@ -1,5 +1,4 @@
-// components/Sidebar.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   List,
   ListItem,
@@ -12,37 +11,45 @@ import {
   Typography,
   Collapse,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation"; // Use useRouter from next/router
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleIcon from "@mui/icons-material/People";
-import SettingsIcon from "@mui/icons-material/Settings";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+
 import { useTheme } from "@/contexts/themeContext";
 
 const menuItems = [
-  { text: "จัดการรายการ", icon: <DashboardIcon />, path: "/admin" },
-  { text: "รายงาน", icon: <DashboardIcon />, path: "/admin/report" },
+  { text: "จัดการรายการ", icon: <FactCheckIcon />, path: "/admin" },
+  { text: "รายงาน", icon: <AssessmentIcon />, path: "/admin/report" },
   // {
   //   text: "Users",
-  //   icon: <PeopleIcon />,
+  //   icon: <DashboardIcon />,
   //   subItems: [
-  //     { text: "Add User", path: "/admin/users/add" },
-  //     { text: "Manage Users", path: "/admin/users/manage" },
+  //     { text: "Add User", path: "/admin/add" },
+  //     { text: "Manage Users", path: "/admin/manage" },
   //   ],
   // },
-  // { text: "Settings", icon: <SettingsIcon />, path: "/admin/settings" },
+  // { text: "Settings", icon: <DashboardIcon />, path: "/admin/settings" },
 ];
 
 const Sidebar = ({ setDrawerOpen }) => {
-  const router = useRouter();
+  const router = useRouter(); // Ensure using next/router
+  const pathname = usePathname();
   const { theme } = useTheme();
   const [open, setOpen] = useState({});
+  const [activePath, setActivePath] = useState("/admin");
+
+  useEffect(() => {
+    setActivePath(pathname);
+  }, [pathname]);
 
   const handleNavigation = (path) => {
+    setActivePath(path);
     router.push(path);
     if (setDrawerOpen) {
-      setDrawerOpen(false); // ปิด Drawer เมื่อเมนูถูกเลือกในหน้าจอขนาดเล็ก
+      setDrawerOpen(false);
     }
   };
 
@@ -74,7 +81,6 @@ const Sidebar = ({ setDrawerOpen }) => {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
-           
           }}
         >
           <Typography
@@ -88,53 +94,77 @@ const Sidebar = ({ setDrawerOpen }) => {
         </Box>
       </Toolbar>
       <Divider />
-      <Box sx={{ overflow: "auto"   }}  >
+      <Box sx={{ overflow: "auto" }}>
         <List>
-          {menuItems.map((item, index) => (
-            <React.Fragment key={index}>
-              <ListItem
-                onClick={() =>
-                  item.path
-                    ? handleNavigation(item.path)
-                    : handleClick(item.text)
-                }
-                sx={{ cursor: "pointer" }}
-              >
-                <ListItemIcon sx={{ color: theme.text , minWidth: 35  }} >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.text}
-                  sx={{ fontSize: theme.fontSize  }}
-                />
-                {item.subItems ? (
-                  open[item.text] ? (
-                    <ExpandLess />
-                  ) : (
-                    <ExpandMore />
-                  )
-                ) : null}
-              </ListItem>
-              {item.subItems && (
-                <Collapse in={open[item.text]} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {item.subItems.map((subItem, subIndex) => (
-                      <ListItem
-                        key={subIndex}
-                        onClick={() => handleNavigation(subItem.path)}
-                        sx={{ pl: 4, cursor: "pointer" }}
-                      >
-                        <ListItemText
-                          primary={subItem.text}
-                          sx={{ fontSize: theme.fontSize }}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-            </React.Fragment>
-          ))}
+          {menuItems.map((item, index) => {
+            const isActive = activePath === item.path;
+            return (
+              <React.Fragment key={index}>
+                <ListItem
+                  onClick={() =>
+                    item.path
+                      ? handleNavigation(item.path)
+                      : handleClick(item.text)
+                  }
+                  sx={{
+                    cursor: "pointer",
+                    backgroundColor: isActive ? theme.activeBackground : "",
+                    color: isActive ? theme.activeText : theme.text,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color: isActive ? theme.activeText : theme.text,
+                      minWidth: 35,
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.text}
+                    sx={{ fontSize: theme.fontSize }}
+                  />
+                  {item.subItems ? (
+                    open[item.text] ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )
+                  ) : null}
+                </ListItem>
+                {item.subItems && (
+                 <Collapse in={open[item.text]} timeout="auto" unmountOnExit>
+                 <List component="div" disablePadding>
+                   {item.subItems.map((subItem, subIndex) => {
+                     const isSubItemActive = activePath === subItem.path;
+                     return (
+                       <ListItem
+                         key={subIndex}
+                         onClick={() => handleNavigation(subItem.path)}
+                         sx={{
+                           pl: 4,
+                           cursor: "pointer",
+                           backgroundColor: isSubItemActive
+                             ? theme.activeBackground
+                             : "",
+                           color: isSubItemActive
+                             ? theme.activeText
+                             : theme.text,
+                         }}
+                       >
+                         <ListItemText
+                           primary={subItem.text}
+                           sx={{ fontSize: theme.fontSize }}
+                         />
+                       </ListItem>
+                     );
+                   })}
+                 </List>
+               </Collapse>
+                )}
+              </React.Fragment>
+            );
+          })}
         </List>
       </Box>
     </Drawer>

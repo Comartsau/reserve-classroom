@@ -36,6 +36,7 @@ const LoginPage = () => {
 
       if (token) {
         toast.success("เข้าสู่ระบบสำเร็จ");
+        localStorage.setItem("Token", res.data.token);
         sessionStorage.setItem("login", "admin");
         router.push("/admin");
       } else {
