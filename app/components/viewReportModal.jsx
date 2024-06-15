@@ -1,8 +1,24 @@
-import React from 'react';
-import { Box, Button, Typography, TextField, Modal } from '@mui/material';
-import { DatePicker, DesktopTimePicker, TimePicker } from '@mui/x-date-pickers';
+import React from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  Modal,
+  List,
+  ListItem,
+} from "@mui/material";
+import { DatePicker, DesktopTimePicker, TimePicker } from "@mui/x-date-pickers";
 
-const ViewReportModal = ({ open, onClose, onView, dispatch, modalStyleCreate ,data }) => {
+const ViewReportModal = ({
+  open,
+  onClose,
+  onView,
+  dispatch,
+  modalStyleCreate,
+  data,
+}) => {
+  console.log(data);
   return (
     <Modal
       open={open}
@@ -22,52 +38,12 @@ const ViewReportModal = ({ open, onClose, onView, dispatch, modalStyleCreate ,da
           </Typography>
         </div>
         <div className="flex flex-col p-4 gap-3">
-          <div className="flex items-center">
-            <DatePicker
-              label="วันที่"
-              onChange={(date) => dispatch({ type: "SET_DATE", payload: date })}
-              slotProps={{
-                textField: {
-                  size: "small",
-                },
-              }}
-              className="w-full"
-            />
-          </div>
-
-          <div className="flex gap-3">
-            <div className="flex w-1/2 items-center">
-              <DesktopTimePicker 
-                label="เวลาเริ่มต้น"
-                onChange={(time) => dispatch({ type: "SET_TIME_START", payload: time })}
-                slotProps={{
-                  textField: {
-                    size: "small",
-                  },
-                }}
-              />
-            </div>
-            <div className="flex w-1/2 items-center">
-              <DesktopTimePicker 
-                label="เวลาสิ้นสุด"
-                onChange={(time) => dispatch({ type: "SET_TIME_END", payload: time })}
-                slotProps={{
-                  textField: {
-                    size: "small",
-                  },
-                }}
-              />
-            </div>
-          </div>
-          <div>
-            <TextField
-              label="จำนวนที่นั่ง"
-              type="number"
-              size="small"
-              className="w-full"
-              onChange={(e) => dispatch({ type: "SET_COUNT", payload: e.target.value })}
-            />
-          </div>
+          <Typography>ชื่อผู้เรียน</Typography>
+          <List>
+            {data?.map((item, index) => (
+              <ListItem key={index}>{item?.name}</ListItem>
+            ))}
+          </List>
         </div>
 
         <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>

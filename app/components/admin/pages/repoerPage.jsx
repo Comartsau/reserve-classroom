@@ -86,7 +86,6 @@ function ReportAdmin() {
   const handleClearDateSearch = () => {
     dispatch({ type: "SET_DATE_SEARCH", payload: null });
     dispatch({ type: "SET_SELECTED_TIME", payload: null });
-    handleFetchReport();
   };
 
   const handleFetchTimeReport = async () => {
@@ -123,6 +122,7 @@ function ReportAdmin() {
       date: state?.dateSearch || "",
       id: state?.selectedTimeId || "",
     };
+    console.log(data);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/report/users`,
@@ -141,21 +141,21 @@ function ReportAdmin() {
   useEffect(() => {
     handleFetchReport();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [state.dateSearch, state.selectedTimeId]);
 
   // รวมค่า sum_count ใน array ทั้งหมด
   const totalSumCount = data?.reduce((acc, item) => {
     return acc + (parseInt(item?.sum_count, 10) || 0);
   }, 0);
 
-  const ModalViewReport = (item) => {
-    handleViewReport(item);
+  const ModalViewReport = () => {
+    setOpenModalViewReport((prev) => !prev);
   };
 
   const handleViewReport = async (item) => {
     let id = Number(item?.id);
     try {
-      const res = await axios.post(
+      const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API}/api/report/users/${id}`,
         {
           ...HeaderAPI(localStorage.getItem("Token")),
@@ -164,9 +164,8 @@ function ReportAdmin() {
       console.log(res);
       if (res.status === 200) {
         toast.success(res?.data?.message);
-        setDataViewReport(data);
-        // setOpenModalViewReport((prev) => !prev);
-        setOpenModalViewReport(true);
+        setDataViewReport(res.data);
+        ModalViewReport();
       } else {
         toast.error(error);
       }
@@ -193,31 +192,20 @@ function ReportAdmin() {
                     }
                     onChange={handleDateSearch}
                     slotProps={{ textField: { size: "small" } }}
-                    className="w-[250px]"
+                    className="w-auto sm:w-[250px]"
                   />
                 </div>
                 <div>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClearDateSearch}
+                  <CustomFormControl
+                    fullWidth
                     size="small"
-                    sx={{ whiteSpace: "nowrap" }}
+                    disabled={!state?.dateSearch}
                   >
-                    ล้างค้นหา
-                  </Button>
-                </div>
-
-                <div>
-                  <CustomFormControl fullWidth size="small">
-                    <InputLabel id="demo-simple-select-label">
-                      วันที่จอง
-                    </InputLabel>
+                    <InputLabel>วันที่จอง</InputLabel>
                     <Select
-                      labelId="date-select-label"
                       id="date-select"
                       label="วันที่จอง"
-                      className="w-[250px]"
+                      className=" w-auto  sm:w-[250px]"
                       value={state?.selectedTimeId || ""}
                       onChange={handleSelectChange}
                     >
@@ -233,11 +221,11 @@ function ReportAdmin() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleFetchReport}
+                    onClick={handleClearDateSearch}
                     size="small"
                     sx={{ whiteSpace: "nowrap" }}
                   >
-                    ค้นหา
+                    ล้างค้นหา
                   </Button>
                 </div>
               </div>
@@ -354,7 +342,7 @@ function ReportAdmin() {
                             }}
                           >
                             <IconButton
-                              onClick={() => ModalViewReport(item)}
+                              onClick={() => handleViewReport(item)}
                               sx={{
                                 whiteSpace: "nowrap",
                                 paddingX: "0",
