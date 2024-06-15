@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Typography, TextField, Modal } from '@mui/material';
 import { DatePicker, DesktopTimePicker, TimePicker } from '@mui/x-date-pickers';
 
-const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreate }) => {
+const ViewReportModal = ({ open, onClose, onView, dispatch, modalStyleCreate ,data }) => {
   return (
     <Modal
       open={open}
@@ -18,7 +18,7 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
             component="h2"
             sx={{ color: "white", textAlign: "center" }}
           >
-            สร้างห้องเรียน
+            ข้อมูลผู้เรียน
           </Typography>
         </div>
         <div className="flex flex-col p-4 gap-3">
@@ -74,7 +74,7 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
           <Button onClick={onClose} sx={{ mr: 1, color: "red" }}>
             ยกเลิก
           </Button>
-          <Button variant="contained" onClick={onCreate}>
+          <Button variant="contained" onClick={onView}>
             ยืนยัน
           </Button>
         </Box>
@@ -83,4 +83,4 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
   );
 };
 
-export default CreateReserveModal;
+export default ViewReportModal;

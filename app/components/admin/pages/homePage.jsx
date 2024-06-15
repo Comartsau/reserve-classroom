@@ -19,11 +19,6 @@ import {
   TableRow,
   Paper,
   IconButton,
-  Typography,
-  Box,
-  Modal,
-  InputLabel,
-  TablePagination,
 } from "@mui/material";
 
 import axios from "axios";
@@ -122,8 +117,8 @@ function HomeAdmin() {
       } else {
         toast.error(error);
       }
-    } catch {
-      toast.error("ดึงข้อมูลไม่สำเร็จ");
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -150,18 +145,19 @@ function HomeAdmin() {
         `${process.env.NEXT_PUBLIC_API}/api/booking/insert`,
         data,
         {
-          ...HeaderAPI(localStorage.getItem("Token")),
+          ...HeaderAPI(localStorage?.getItem("Token")),
         }
       );
+      console.log(res);
       if (res.status === 200) {
-        toast.success("บันทึกข้อมูล สำเร็จ");
+        toast.success(res?.data?.message);
         setOpenModalCreateReserve(false);
         handleFetchReserve();
       } else {
         toast.error(error);
       }
-    } catch {
-      toast.error("บันทึกข้อมูลไม่สำเร็จ กรุณาลองอีกครั้ง");
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -182,14 +178,14 @@ function HomeAdmin() {
         }
       );
       if (res.status === 200) {
-        toast.success("แก้ไขข้อมูล สำเร็จ");
+        toast.success(res?.data?.message);
         setOpenModalEditReserve(false);
         handleFetchReserve();
       } else {
         toast.error(error);
       }
     } catch (error) {
-      toast.error(error.response.data);
+      toast.error(error?.response?.data);
     }
   };
 
@@ -205,12 +201,13 @@ function HomeAdmin() {
 
       console.log(res);
       if (res.status === 200) {
-        toast.success("ลบข้อมูล สำเร็จ");
+        toast.success(res.data.message);
         handleFetchReserve();
       } else {
         toast.error(error);
       }
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data);
     }
   };

@@ -17,12 +17,17 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Typography,
+  IconButton,
 } from "@mui/material";
+
+import PreviewIcon from "@mui/icons-material/Preview";
 import { styled } from "@mui/system";
 import axios from "axios";
 import { HeaderAPI } from "@/headerApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ViewReportModal from "../../viewReportModal";
 
 const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
   "& .MuiInputBase-root.Mui-disabled": {
@@ -35,15 +40,17 @@ const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
 const initialState = {
   date: null,
   dateSearch: null,
-  selectDate: "",
+  selectTime: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SET_DATE":
-      return { ...state, selectDate: action.payload };
+    case "SET_TIMESELECT":
+      return { ...state, selectTime: action.payload };
     case "SET_DATE_SEARCH":
       return { ...state, dateSearch: action.payload };
+    case "SET_SELECTED_TIME":
+      return { ...state, selectedTimeId: action.payload }; // เพิ่ม case สำหรับเก็บค่า select
     case "CLEAR":
       return initialState;
     default:
@@ -51,9 +58,23 @@ const reducer = (state, action) => {
   }
 };
 
+const modalStyleCreate = {
+  position: "absolute",
+  top: "40%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "400px",
+  bgcolor: "background.paper",
+  // border: "2px solid #000",
+  boxShadow: 24,
+  p: 1,
+};
+
 function ReportAdmin() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [data, setData] = useState([]);
+  const [openModalViewReport, setOpenModalViewReport] = useState(false);
+  const [dataViewReport, setDataViewReport] = useState([]);
 
   const handleDateSearch = (date) => {
     const formattedDate = date
@@ -64,19 +85,22 @@ function ReportAdmin() {
 
   const handleClearDateSearch = () => {
     dispatch({ type: "SET_DATE_SEARCH", payload: null });
+    dispatch({ type: "SET_SELECTED_TIME", payload: null });
+    handleFetchReport();
   };
 
-  const handleFetchReport = async () => {
+  const handleFetchTimeReport = async () => {
     const data = { date: state?.dateSearch };
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/booking`,
+        `${process.env.NEXT_PUBLIC_API}/api/report/search/date`,
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
+      console.log(res);
       if (res.status === 200) {
-        setData(res.data);
+        dispatch({ type: "SET_TIMESELECT", payload: res?.data });
       } else {
         toast.error("Error fetching data");
       }
@@ -86,67 +110,146 @@ function ReportAdmin() {
   };
 
   useEffect(() => {
-    handleFetchReport();
+    handleFetchTimeReport();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.dateSearch]);
+  }, [state?.dateSearch]);
 
-  const handleSelect = (type) => (event) => {
-    console.log(event.target.value)
-    dispatch({ type, payload: event.target.value });
+  const handleSelectChange = (event) => {
+    dispatch({ type: "SET_SELECTED_TIME", payload: event.target.value });
   };
 
+  const handleFetchReport = async () => {
+    const data = {
+      date: state?.dateSearch || "",
+      id: state?.selectedTimeId || "",
+    };
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/report/users`,
+        data,
+        { ...HeaderAPI(localStorage.getItem("Token")) }
+      );
+      if (res.status === 200) {
+        setData(res?.data); //
+      } else {
+        toast.error("Error fetching data");
+      }
+    } catch {
+      toast.error("ดึงข้อมูลไม่สำเร็จ");
+    }
+  };
+  useEffect(() => {
+    handleFetchReport();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // รวมค่า sum_count ใน array ทั้งหมด
+  const totalSumCount = data?.reduce((acc, item) => {
+    return acc + (parseInt(item?.sum_count, 10) || 0);
+  }, 0);
+
+  const ModalViewReport = (item) => {
+    handleViewReport(item);
+  };
+
+  const handleViewReport = async (item) => {
+    let id = Number(item?.id);
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/report/users/${id}`,
+        {
+          ...HeaderAPI(localStorage.getItem("Token")),
+        }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        toast.success(res?.data?.message);
+        setDataViewReport(data);
+        // setOpenModalViewReport((prev) => !prev);
+        setOpenModalViewReport(true);
+      } else {
+        toast.error(error);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data);
+    }
+  };
 
   return (
     <div className="flex justify-center">
       <ToastContainer autoClose={2000} theme="colored" />
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
         <Card sx={{ display: "flex", width: "800px", height: "85vh" }}>
-          <div className="w-full p-5  items-center align-middle">
-            <div className="flex flex-col sm:flex-row  gap-3 px-5 ">
-              <div className="flex gap-3">
-                <DatePicker
-                  label="ค้นหาจากวันที่"
-                  value={
-                    state.dateSearch
-                      ? dayjs(state.dateSearch).add(-543, "year")
-                      : null
-                  }
-                  onChange={handleDateSearch}
-                  slotProps={{ textField: { size: "small" } }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleClearDateSearch}
-                  size="small"
-                  sx={{ whiteSpace: "nowrap" }}
-                >
-                  ล้างค้นหา
-                </Button>
-              </div>
-              <div className="flex w-[200px] justify-start">
-                <CustomFormControl fullWidth size="small">
-                  <InputLabel id="demo-simple-select-label">
-                    วันที่จอง
-                  </InputLabel>
-                  <Select
-                    labelId="date-select-label"
-                    id="date-select"
-                    value={state.selectDate}
-                    label="วันที่จอง"
-                    onChange={handleSelect("SET_DATE")}
-                    className=" border-green-300"
+          <div className="w-full p-5 align-middle  ">
+            <div className="flex ">
+              <div className="flex flex-col  sm:items-center  sm:flex-row gap-3 ">
+                <div>
+                  <DatePicker
+                    label="ค้นหาจากวันที่"
+                    value={
+                      state.dateSearch
+                        ? dayjs(state.dateSearch).add(-543, "year")
+                        : null
+                    }
+                    onChange={handleDateSearch}
+                    slotProps={{ textField: { size: "small" } }}
+                    className="w-[250px]"
+                  />
+                </div>
+                <div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleClearDateSearch}
+                    size="small"
+                    sx={{ whiteSpace: "nowrap" }}
                   >
-                    <MenuItem value="None">None</MenuItem>
-                    <MenuItem value="Ten">Ten</MenuItem>
-                    <MenuItem value="Twenty">Twenty</MenuItem>
-                    <MenuItem value="Thirty">Thirty</MenuItem>
-                  </Select>
-                </CustomFormControl>
+                    ล้างค้นหา
+                  </Button>
+                </div>
+
+                <div>
+                  <CustomFormControl fullWidth size="small">
+                    <InputLabel id="demo-simple-select-label">
+                      วันที่จอง
+                    </InputLabel>
+                    <Select
+                      labelId="date-select-label"
+                      id="date-select"
+                      label="วันที่จอง"
+                      className="w-[250px]"
+                      value={state?.selectedTimeId || ""}
+                      onChange={handleSelectChange}
+                    >
+                      {state.selectTime?.map((item, index) => (
+                        <MenuItem key={index} value={item?.id || ""}>
+                          รอบเวลา: {item?.time_start || ""}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </CustomFormControl>
+                </div>
+                <div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleFetchReport}
+                    size="small"
+                    sx={{ whiteSpace: "nowrap" }}
+                  >
+                    ค้นหา
+                  </Button>
+                </div>
               </div>
             </div>
+            <div className="mt-5  ">
+              <Typography>
+                จำนวนนักเรียนที่จองทั้งหมด:{" "}
+                <span>{totalSumCount || 0} ท่าน</span>
+              </Typography>
+            </div>
 
-            <div className="mt-3">
+            <div>
               <TableContainer
                 component={Paper}
                 sx={{
@@ -154,6 +257,8 @@ function ReportAdmin() {
                   marginTop: "20px",
                   height: "500px",
                   overflow: "auto",
+                  padding: "0px",
+                  marginTop: "10px",
                 }}
                 size="small"
               >
@@ -170,31 +275,101 @@ function ReportAdmin() {
                         เวลาสิ้นสุด
                       </TableCell>
                       <TableCell sx={{ whiteSpace: "nowrap" }}>
+                        จำนวนจอง
+                      </TableCell>
+                      <TableCell sx={{ whiteSpace: "nowrap" }}>
                         จำนวนที่นั่ง
+                      </TableCell>
+                      <TableCell sx={{ whiteSpace: "nowrap" }}>
+                        ดูผู้เรียน
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.length === 0 ? (
+                    {data?.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={6} sx={{ textAlign: "center" }}>
                           ไม่พบข้อมูล
                         </TableCell>
                       </TableRow>
                     ) : (
-                      data.map((item, index) => (
+                      data?.map((item, index) => (
                         <TableRow key={index}>
-                          <TableCell sx={{ whiteSpace: "nowrap" }}>
+                          <TableCell
+                            sx={{
+                              whiteSpace: "nowrap",
+                              padding: "0px",
+                              margin: "0px",
+                              paddingLeft: "15px",
+                            }}
+                          >
                             {item?.date}
                           </TableCell>
-                          <TableCell sx={{ whiteSpace: "nowrap" }}>
+                          <TableCell
+                            sx={{
+                              whiteSpace: "nowrap",
+                              padding: "0px",
+                              margin: "0px",
+                              paddingLeft: "15px",
+                            }}
+                          >
                             {item?.time_start}
                           </TableCell>
-                          <TableCell sx={{ whiteSpace: "nowrap" }}>
+                          <TableCell
+                            sx={{
+                              whiteSpace: "nowrap",
+                              padding: "0px",
+                              margin: "0px",
+                              paddingLeft: "15px",
+                            }}
+                          >
                             {item?.time_end}
                           </TableCell>
-                          <TableCell sx={{ whiteSpace: "nowrap" }}>
+                          <TableCell
+                            sx={{
+                              whiteSpace: "nowrap",
+                              padding: "0px",
+                              margin: "0px",
+                              paddingLeft: "15px",
+                            }}
+                          >
+                            {item?.sum_count}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              whiteSpace: "nowrap",
+                              padding: "0px",
+                              margin: "0px",
+                              paddingLeft: "15px",
+                            }}
+                          >
                             {item?.count}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              whiteSpace: "nowrap",
+                              padding: "0px",
+                              margin: "0px",
+                              paddingLeft: "15px",
+                            }}
+                          >
+                            <IconButton
+                              onClick={() => ModalViewReport(item)}
+                              sx={{
+                                whiteSpace: "nowrap",
+                                paddingX: "0",
+                                color: "#4CAF50",
+                              }}
+                            >
+                              <PreviewIcon
+                                sx={{
+                                  width: "30px",
+                                  height: "30px",
+                                  padding: "0px",
+                                  margin: "0px",
+                                }}
+                              />
+                            </IconButton>
                           </TableCell>
                         </TableRow>
                       ))
@@ -204,6 +379,15 @@ function ReportAdmin() {
               </TableContainer>
             </div>
           </div>
+
+          <ViewReportModal
+            open={openModalViewReport}
+            onClose={ModalViewReport}
+            onView={handleViewReport}
+            dispatch={dispatch}
+            modalStyleCreate={modalStyleCreate}
+            data={dataViewReport}
+          />
         </Card>
       </LocalizationProvider>
     </div>
