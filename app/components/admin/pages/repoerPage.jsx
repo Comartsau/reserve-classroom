@@ -222,7 +222,7 @@ function ReportAdmin() {
                     variant="contained"
                     color="primary"
                     onClick={handleClearDateSearch}
-                    size="small"
+                    // size="small"
                     sx={{ whiteSpace: "nowrap" }}
                   >
                     ล้างค้นหา
