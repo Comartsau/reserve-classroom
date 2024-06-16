@@ -37,26 +37,28 @@ function Reserve() {
 
   return (
     <div>
-      <CardContent  sx={{ color: "white", textAlign: "center" }}>
-        <div className="bg-black rounded-sm">
-          <Typography
-            id="modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ color: "white", textAlign: "center" }}
-          >
-            ข้อมูลรายการจอง
-          </Typography>
-        </div>
-        <div className="flex flex-col p-4 gap-3">
-          <List>
-            {/* {data?.map((item, index) => (
+      <CardContent>
+        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
+          <div className="bg-black rounded-sm">
+            <Typography
+              id="modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ color: "white", textAlign: "center" }}
+            >
+              ข้อมูลรายการจอง
+            </Typography>
+          </div>
+          <div className="flex flex-col p-4 gap-3">
+            <List>
+              {/* {data?.map((item, index) => (
               <ListItem key={index}>{item?.name}</ListItem>
             ))} */}
-            <ListItem>aaaaa</ListItem>
-            <ListItem>bbbbb</ListItem>
-            <ListItem>ccccc</ListItem>
-          </List>
+              <ListItem>aaaaa</ListItem>
+              <ListItem>bbbbb</ListItem>
+              <ListItem>ccccc</ListItem>
+            </List>
+          </div>
         </div>
       </CardContent>
     </div>
