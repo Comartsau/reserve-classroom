@@ -4,20 +4,19 @@ import { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import liff from "@line/liff";
 import {
-  AppBar,
   Button,
   CardContent as MuiCardContent,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Toolbar,
   Typography,
   Modal,
   Box,
 } from "@mui/material";
 
 import { styled } from "@mui/system";
+import LayoutUser from "./layout";
 
 const initalState = {
   selectDate: "",
@@ -145,30 +144,11 @@ const User = () => {
 
   return (
     <div className="h-screen bg-gray-300  p-2">
-      <AppBar position="static">
-        <Toolbar className="bg-black">
-          <div className="flex gap-3 align-middle items-center ">
-            <img
-              src={profile.pictureUrl}
-              alt="User profile"
-              style={styles.profileImage}
-              className=" "
-            />
-            <Typography component="div" className=" text-lg ms-5">
-              {profile.displayName}
-            </Typography>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-      <div className="flex gap-3 items-center  align-middle p-2 mt-2 ">
-        <Button variant="contained" onClick={handleUserPage}>
-          จองห้องเรียน
-        </Button>
-        <Button variant="contained" onClick={handleReservePage}>
-          รายการจอง
-        </Button>
-      </div>
+      <LayoutUser
+        profile={profile}
+        handleUserPage={handleUserPage}
+        handleReservePage={handleReservePage}
+      />
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <CustomFormControl fullWidth size="small">
