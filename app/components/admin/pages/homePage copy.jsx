@@ -5,7 +5,6 @@ import {
   DatePicker,
   TimePicker,
 } from "@mui/x-date-pickers";
-import moment from "moment";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import "dayjs/locale/th"; // Import Thai locale
@@ -98,6 +97,8 @@ function HomeAdmin() {
     setOpenModalEditReserve((prev) => !prev);
   };
 
+
+
   const handleFetchReserve = async () => {
     const data = {
       date: state?.dateSearch,
@@ -116,7 +117,7 @@ function HomeAdmin() {
         toast.error(error);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
       toast.error(error?.response?.data);
     }
   };
@@ -160,23 +161,15 @@ function HomeAdmin() {
   };
 
   const handleEditReserve = async (id) => {
-    // const data = {
-    //   date: dayjs(state.date).add(543, "year").format("YYYY-MM-DD"),
-    //   time_start: dayjs(state.time_start).format("HH:mm"),
-    //   time_end: dayjs(state.time_end).format("HH:mm"),
-    //   count: Number(state.count),
-    // };
-
-    const NewDate = moment(editData.date,"DD-MM-YYYY").format("YYYY-MM-DD")
-
+    console.log(state.data)
     const data = {
-      date: dayjs(state.date).add(543, "year").format("YYYY-MM-DD") == "Invalid Date" ? NewDate : dayjs(state.date).add(543, "year").format("YYYY-MM-DD") ,
-      time_start: dayjs(state.time_start).format("HH:mm"),
-      time_end: dayjs(state.time_end).format("HH:mm"),
-      count: Number(state.count) == 0 ? editData.count : Number(state.count),
+      date: dayjs(state?.date).add(543, "year").format("YYYY-MM-DD"),
+      time_start: dayjs(state?.time_start).format("HH:mm"),
+      time_end: dayjs(state?.time_end).format("HH:mm"),
+      count: Number(state?.count),
     };
 
-    console.log(data);
+    console.log(data)
     try {
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API}/api/booking/${id}`,
