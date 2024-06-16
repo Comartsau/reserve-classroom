@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 
 import { styled } from "@mui/system";
-import LayoutUser from "./layout";
+import UserLayout from "./layout";
 
 const initalState = {
   selectDate: "",
@@ -144,7 +144,7 @@ const User = () => {
 
   return (
     <div className="h-screen bg-gray-300  p-2">
-      <LayoutUser
+      <UserLayout
         profile={profile}
         handleUserPage={handleUserPage}
         handleReservePage={handleReservePage}
@@ -295,39 +295,6 @@ const User = () => {
       </Modal>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    backgroundColor: "#f0f2f5",
-    padding: "20px",
-  },
-  heading: {
-    fontSize: "2em",
-    marginBottom: "20px",
-  },
-  profileContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "20px",
-    backgroundColor: "#fff",
-    borderRadius: "10px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-  },
-  profileImage: {
-    width: "50px",
-    height: "50px",
-    borderRadius: "50%",
-  },
-  profileDetails: {
-    textAlign: "center",
-  },
 };
 
 export default User;
