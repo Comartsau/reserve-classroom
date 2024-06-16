@@ -120,7 +120,7 @@ const EditReserveModal = ({
           <Button onClick={onClose} sx={{ mr: 1, color: "red" }}>
             ยกเลิก
           </Button>
-          <Button variant="contained" onClick={() => onEdit(data.id)}>
+          <Button variant="contained" onClick={() => onEdit(data?.id)}>
             ยืนยัน
           </Button>
         </Box>
