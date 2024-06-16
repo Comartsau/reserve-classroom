@@ -49,7 +49,7 @@ function Reserve() {
               ข้อมูลรายการจอง
             </Typography>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col p-0 m-0">
             <List>
               {/* {data?.map((item, index) => (
               <ListItem key={index}>{item?.name}</ListItem>
