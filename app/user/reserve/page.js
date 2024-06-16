@@ -48,7 +48,7 @@ function Reserve() {
             ข้อมูลรายการจอง
           </Typography>
         </div>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle  py-6  rounded-md  shadow-md  bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle p-0 m-0  rounded-md  shadow-md  bg-white">
           <div className="flex flex-col p-0 m-0">
             <List>
               {/* {data?.map((item, index) => (
