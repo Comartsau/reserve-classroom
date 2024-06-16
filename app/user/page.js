@@ -1,21 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useReducer, useState } from "react";
-import { useRouter } from "next/navigation";
-import liff from "@line/liff";
+import { useReducer, useState } from "react";
 import {
+  AppBar,
   Button,
   CardContent as MuiCardContent,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  Toolbar,
   Typography,
   Modal,
   Box,
 } from "@mui/material";
+
 import { styled } from "@mui/system";
-import UserLayout from "./UserLayout";
 
 const initalState = {
   selectDate: "",
@@ -53,8 +53,10 @@ const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
 }));
 
 const CardContent = styled(MuiCardContent)({
+  // backgroundColor: 'white',
   borderRadius: "10px",
   padding: "10px",
+  // boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 });
 
 const modalStyle = {
@@ -64,6 +66,7 @@ const modalStyle = {
   transform: "translate(-50%, -50%)",
   width: "320px",
   bgcolor: "background.paper",
+  // border: "2px solid #000",
   boxShadow: 24,
   p: 1,
 };
@@ -71,57 +74,11 @@ const modalStyle = {
 const User = () => {
   const [profile, setProfile] = useState(null);
   const [state, dispatch] = useReducer(reducer, initalState);
-  const router = useRouter();
   const [openModalReserve, setOpenModalReserve] = useState(false);
 
-  useEffect(() => {
-    const initializeLiff = async () => {
-      try {
-        const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
-        if (!liffId) {
-          throw new Error("LIFF ID is not set in environment variables");
-        }
-        await liff.init({ liffId: liffId });
-        if (liff.isLoggedIn()) {
-          const userProfile = await liff.getProfile();
-          setProfile(userProfile);
-
-          document.cookie = "liff_token=1; path=/";
-          document.cookie = "user_permition=user; path=/";
-
-          if (liff.isInClient()) {
-            liff.ready.then(() => {
-              liff.hide();
-            });
-          }
-        } else {
-          liff.login();
-        }
-      } catch (error) {
-        console.error("LIFF Initialization failed:", error);
-      }
-    };
-
-    initializeLiff();
-  }, []);
-
-  if (!profile) {
-    return (
-      <div>
-        <p>Loading user profile...</p>
-      </div>
-    );
-  }
 
   const handleSelect = (type) => (event) => {
     dispatch({ type, payload: event.target.value });
-  };
-
-  const handleReservePage = () => {
-    router.push("/user/reserve");
-  };
-  const handleUserPage = () => {
-    router.push("/user");
   };
 
   const handleReset = () => {
@@ -137,13 +94,10 @@ const User = () => {
   };
 
   return (
-    <UserLayout
-      profile={profile}
-      handleUserPage={handleUserPage}
-      handleReservePage={handleReservePage}
-    >
+    <div className="h-screen bg-gray-300  p-2">
+      
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6 rounded-md shadow-md bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <CustomFormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
             <Select
@@ -152,7 +106,7 @@ const User = () => {
               value={state.selectDate}
               label="วันที่จอง"
               onChange={handleSelect("SET_DATE")}
-              className="border-green-300"
+              className=" border-green-300"
             >
               <MenuItem value="None">None</MenuItem>
               <MenuItem value="Ten">Ten</MenuItem>
@@ -160,7 +114,11 @@ const User = () => {
               <MenuItem value="Thirty">Thirty</MenuItem>
             </Select>
           </CustomFormControl>
-          <CustomFormControl fullWidth size="small" disabled={state.selectDate === ""}>
+          <CustomFormControl
+            fullWidth
+            size="small"
+            disabled={state.selectDate === ""}
+          >
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
               labelId="time-select-label"
@@ -168,7 +126,9 @@ const User = () => {
               value={state.selectTime}
               label="เวลาจอง"
               onChange={handleSelect("SET_TIME")}
-              className={`${state.selectTime === "" ? "border-red-300" : "border-green-300"}`}
+              className={`${
+                state.selectTime === "" ? "border-red-300" : "border-green-300"
+              }`}
             >
               <MenuItem value="None">None</MenuItem>
               <MenuItem value="Ten">Ten</MenuItem>
@@ -176,7 +136,11 @@ const User = () => {
               <MenuItem value="Thirty">Thirty</MenuItem>
             </Select>
           </CustomFormControl>
-          <CustomFormControl fullWidth size="small" disabled={state.selectDate === "" || state.selectTime === ""}>
+          <CustomFormControl
+            fullWidth
+            size="small"
+            disabled={state.selectDate === "" || state.selectTime === ""}
+          >
             <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
             <Select
               labelId="trad-select-label"
@@ -184,7 +148,9 @@ const User = () => {
               value={state.selectTrad}
               label="บัญชีเทรด"
               onChange={handleSelect("SET_TRAD")}
-              className={`${state.selectTrad === "" ? "border-red-300" : "border-green-300"}`}
+              className={`${
+                state.selectTrad === "" ? "border-red-300" : "border-green-300"
+              }`}
             >
               <MenuItem value="None">None</MenuItem>
               <MenuItem value="Ten">Ten</MenuItem>
@@ -192,35 +158,46 @@ const User = () => {
               <MenuItem value="Thirty">Thirty</MenuItem>
             </Select>
           </CustomFormControl>
-          <div className="w-full flex gap-2 mt-2">
-            <div className="flex flex-col w-[48%] gap-3 align-middle">
-              <Button variant="contained" className="w-full" onClick={handleReset}>
+          <div className=" w-full flex gap-2 mt-2 ">
+            <div className="flex flex-col w-[48%] gap-3  align-middle  ">
+              <Button
+                variant="contained"
+                className="w-full"
+                onClick={handleReset}
+              >
                 เลือกใหม่
               </Button>
-              <Button variant="contained" className="w-full" onClick={handleModalReserve}>
+              <Button
+                variant="contained"
+                className="w-full"
+                onClick={handleModalReserve}
+              >
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-2 w-[52%] gap-3 justify-around align-middle">
-              <div className="p-2">
+            <div className="flex flex-col bg-black rounded-md py-2  w-[52%] gap-3 justify-around align-middle ">
+              <div className="  p-2">
                 <div className="border-2 p-1">
-                  <Typography className="text-white text-left">
+                  <Typography className="text-white text-left ">
                     ยอดจอง <span>9</span> / <span>10</span>
                   </Typography>
                 </div>
-                <div className="ps-2 mt-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
+                <div className=" ps-2 mt-2">
+                  <Typography
+                    className="text-white  "
+                    sx={{ fontSize: "12px" }}
+                  >
                     เหลือ <span>1</span> ที่นั้ง
                   </Typography>
                 </div>
                 <div className="ps-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
-                    เริ่ม <span>10/06/24</span>
+                  <Typography className="text-white " sx={{ fontSize: "12px" }}>
+                    เริ่ม <span>10/06/24</span>{" "}
                   </Typography>
                 </div>
                 <div className="ps-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
-                    ถึง <span>15/06/24</span>
+                  <Typography className="text-white " sx={{ fontSize: "12px" }}>
+                    ถึง <span>15/06/24</span>{" "}
                   </Typography>
                 </div>
               </div>
@@ -229,10 +206,20 @@ const User = () => {
         </div>
       </CardContent>
 
-      <Modal open={openModalReserve} onClose={handleModalReserve} aria-labelledby="modal-title" aria-describedby="modal-description">
+      <Modal
+        open={openModalReserve}
+        onClose={handleModalReserve}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
         <Box sx={modalStyle}>
-          <div className="bg-black rounded-sm">
-            <Typography id="modal-title" variant="h6" component="h2" sx={{ color: "white", textAlign: "center" }}>
+          <div className=" bg-black rounded-sm">
+            <Typography
+              id="modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ color: "white", textAlign: "center" }}
+            >
               สรุปข้อมูลการจองห้องเรียน
             </Typography>
           </div>
@@ -253,8 +240,41 @@ const User = () => {
           </Box>
         </Box>
       </Modal>
-    </UserLayout>
+    </div>
   );
+};
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    backgroundColor: "#f0f2f5",
+    padding: "20px",
+  },
+  heading: {
+    fontSize: "2em",
+    marginBottom: "20px",
+  },
+  profileContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+  },
+  profileImage: {
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+  },
+  profileDetails: {
+    textAlign: "center",
+  },
 };
 
 export default User;
