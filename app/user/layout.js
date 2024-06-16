@@ -2,8 +2,8 @@
 
 "use client";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useEffect, useState } from "react";
+// import { useRouter } from "next/navigation";
 
 const UserLayout = ({
   children,
@@ -11,7 +11,7 @@ const UserLayout = ({
   handleUserPage,
   handleReservePage,
 }) => {
-  const router = useRouter();
+//   const router = useRouter();
 //   const [isAuthorized, setIsAuthorized] = useState(false);
 
 //   useEffect(() => {
