@@ -193,7 +193,7 @@ const User = () => {
                 </div>
                 <div className="ps-2">
                   <Typography className="text-white " sx={{ fontSize: "12px" }}>
-                    ถึง <span>15/06/24</span>{" "}
+                    ถึง <span> 15/06/24</span>{" "}
                   </Typography>
                 </div>
               </div>
