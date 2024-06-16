@@ -91,7 +91,7 @@ const User = () => {
   };
 
   return (
-    <div className="h-screen bg-gray-300  p-2">
+    <div className="h-screen bg-gray-300  ">
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <CustomFormControl fullWidth size="small">
