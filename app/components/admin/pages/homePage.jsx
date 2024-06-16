@@ -101,8 +101,6 @@ function HomeAdmin() {
     const data = {
       date: state?.dateSearch,
     };
-
-    console.log(data);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/booking`,
@@ -112,7 +110,7 @@ function HomeAdmin() {
         }
       );
       if (res.status === 200) {
-        console.log(res.data);
+        console.log("fectdata " + res.data);
         setData(res.data);
       } else {
         toast.error(error);
