@@ -20,6 +20,8 @@ const EditReserveModal = ({
     }
   }, [data]);
 
+  console.log(data)
+
   return (
     <Modal
       open={open}
