@@ -110,7 +110,7 @@ function HomeAdmin() {
         }
       );
       if (res.status === 200) {
-        console.log("fectdata " + res.data);
+        console.log(res.data);
         setData(res.data);
       } else {
         toast.error(error);
@@ -123,7 +123,7 @@ function HomeAdmin() {
   useEffect(() => {
     handleFetchReserve();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.dateSearch]);
+  }, [state?.dateSearch]);
 
   const handleCreateReserve = async () => {
     if (!state.date || !state.time_start || !state.time_end || !state.count) {
@@ -160,14 +160,12 @@ function HomeAdmin() {
   };
 
   const handleEditReserve = async (id) => {
-    console.log(id)
     const data = {
       date: dayjs(state?.date).add(543, "year").format("YYYY-MM-DD"),
       time_start: dayjs(state?.time_start).format("HH:mm"),
       time_end: dayjs(state?.time_end).format("HH:mm"),
       count: Number(state?.count),
     };
-    console.log(data);
     try {
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API}/api/booking/${id}`,
