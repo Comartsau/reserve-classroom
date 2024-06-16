@@ -38,17 +38,17 @@ function Reserve() {
   return (
     <div>
       <CardContent>
+        <div className="w-full bg-black rounded-sm">
+          <Typography
+            id="modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ color: "white", textAlign: "center" }}
+          >
+            ข้อมูลรายการจอง
+          </Typography>
+        </div>
         <div className="flex flex-col gap-3 items-center justify-around align-middle  py-6  rounded-md  shadow-md  bg-white">
-          <div className="w-full bg-black rounded-sm">
-            <Typography
-              id="modal-title"
-              variant="h6"
-              component="h2"
-              sx={{ color: "white", textAlign: "center" }}
-            >
-              ข้อมูลรายการจอง
-            </Typography>
-          </div>
           <div className="flex flex-col p-0 m-0">
             <List>
               {/* {data?.map((item, index) => (
