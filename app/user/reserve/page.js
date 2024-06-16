@@ -37,7 +37,7 @@ function Reserve() {
 
   return (
     <div>
-      <CardContent>
+      <CardContent  sx={{ color: "white", textAlign: "center" }}>
         <div className="bg-black rounded-sm">
           <Typography
             id="modal-title"
@@ -45,11 +45,10 @@ function Reserve() {
             component="h2"
             sx={{ color: "white", textAlign: "center" }}
           >
-            ข้อมูลผู้เรียน
+            ข้อมูลรายการจอง
           </Typography>
         </div>
         <div className="flex flex-col p-4 gap-3">
-          <Typography>ชื่อผู้เรียน</Typography>
           <List>
             {/* {data?.map((item, index) => (
               <ListItem key={index}>{item?.name}</ListItem>
