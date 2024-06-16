@@ -1,5 +1,5 @@
 "use client";
-import { Button, Typography } from "@mui/material";
+import { Button, CardContent, List, ListItem, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import {useEffect , useState} from "react";
 
@@ -46,11 +46,31 @@ function Reserve() {
 
   return (
     <div>
-      <Typography> Reserve Page</Typography>
+    <CardContent>
+        
+    <div className="bg-black rounded-sm">
+          <Typography
+            id="modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ color: "white", textAlign: "center" }}
+          >
+            ข้อมูลผู้เรียน
+          </Typography>
+        </div>
+        <div className="flex flex-col p-4 gap-3">
+          <Typography>ชื่อผู้เรียน</Typography>
+          <List>
+            {/* {data?.map((item, index) => (
+              <ListItem key={index}>{item?.name}</ListItem>
+            ))} */}
+            <ListItem>aaaaa</ListItem>
+            <ListItem>bbbbb</ListItem>
+            <ListItem>ccccc</ListItem>
+          </List>
+        </div>
 
-      <Button variant="contained" onClick={handleHomePage}>
-        Home Page
-      </Button>
+      </CardContent>
     </div>
   );
 }

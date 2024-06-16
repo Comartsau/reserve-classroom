@@ -2,14 +2,12 @@
 "use client";
 import { useReducer, useState } from "react";
 import {
-  AppBar,
   Button,
   CardContent as MuiCardContent,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Toolbar,
   Typography,
   Modal,
   Box,
@@ -76,7 +74,6 @@ const User = () => {
   const [state, dispatch] = useReducer(reducer, initalState);
   const [openModalReserve, setOpenModalReserve] = useState(false);
 
-
   const handleSelect = (type) => (event) => {
     dispatch({ type, payload: event.target.value });
   };
@@ -95,7 +92,6 @@ const User = () => {
 
   return (
     <div className="h-screen bg-gray-300  p-2">
-      
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <CustomFormControl fullWidth size="small">
