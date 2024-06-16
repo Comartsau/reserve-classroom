@@ -97,6 +97,8 @@ function HomeAdmin() {
     setOpenModalEditReserve((prev) => !prev);
   };
 
+  console.log(data)
+
   const handleFetchReserve = async () => {
     const data = {
       date: state?.dateSearch,
