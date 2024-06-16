@@ -14,13 +14,24 @@ const EditReserveModal = ({
 }) => {
   const [localCount, setLocalCount] = useState("");
 
-  console.log(data)
+  console.log(data);
 
   useEffect(() => {
     if (data) {
-      dispatch({ type: "SET_DATE", payload: data.date ? dayjs(data.date, "YYYY-MM-DD").subtract(543, "year") : null });
-      dispatch({ type: "SET_TIME_START", payload: dayjs(data.time_start, "HH:mm") });
-      dispatch({ type: "SET_TIME_END", payload: dayjs(data.time_end, "HH:mm") });
+      dispatch({
+        type: "SET_DATE",
+        payload: data.date
+          ? dayjs(data.date, "YYYY-MM-DD").subtract(543, "year")
+          : null,
+      });
+      dispatch({
+        type: "SET_TIME_START",
+        payload: dayjs(data.time_start, "HH:mm"),
+      });
+      dispatch({
+        type: "SET_TIME_END",
+        payload: dayjs(data.time_end, "HH:mm"),
+      });
       setLocalCount(data.count || "");
     }
   }, [data, dispatch]);
@@ -101,6 +112,9 @@ const EditReserveModal = ({
               size="small"
               className="w-full"
               value={localCount}
+              inputProps={{
+                min: 0,
+              }}
               onChange={(e) => setLocalCount(e.target.value)}
               onBlur={() =>
                 dispatch({ type: "SET_COUNT", payload: localCount })

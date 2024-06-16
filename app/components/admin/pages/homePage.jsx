@@ -160,17 +160,13 @@ function HomeAdmin() {
   };
 
   const handleEditReserve = async (id) => {
-    // const data = {
-    //   date: dayjs(state.date).add(543, "year").format("YYYY-MM-DD"),
-    //   time_start: dayjs(state.time_start).format("HH:mm"),
-    //   time_end: dayjs(state.time_end).format("HH:mm"),
-    //   count: Number(state.count),
-    // };
-
-    const NewDate = moment(editData.date,"DD-MM-YYYY").format("YYYY-MM-DD")
+    const NewDate = dayjs(editData?.date, "DD-MM-YYYY").format("YYYY-MM-DD");
 
     const data = {
-      date: dayjs(state.date).add(543, "year").format("YYYY-MM-DD") == "Invalid Date" ? NewDate : dayjs(state.date).add(543, "year").format("YYYY-MM-DD") ,
+      date:
+        state.date.add(543, "year").format("YYYY-MM-DD") == "Invalid Date"
+          ? NewDate
+          : dayjs(state.date).add(543, "year").format("YYYY-MM-DD"),
       time_start: dayjs(state.time_start).format("HH:mm"),
       time_end: dayjs(state.time_end).format("HH:mm"),
       count: Number(state.count) == 0 ? editData.count : Number(state.count),
