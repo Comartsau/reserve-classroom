@@ -10,6 +10,7 @@ export const ThemeProvider = ({ children }) => {
     fontSize: "16px", // สามารถเพิ่มคุณสมบัติอื่นๆ ที่ต้องการได้
     menuWidth: "170px", // เพิ่มคุณสมบัติความกว้างของเมนู
     // activeBackground :"#e6e6e6",
+    // activeBackground :"#e6e6e6",
     activeBackground: "rgb(233 213 255)",
   });
 
