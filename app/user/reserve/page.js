@@ -38,7 +38,7 @@ function Reserve() {
   return (
     <div>
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle  py-6  rounded-md  shadow-md  bg-white">
           <div className="w-full bg-black rounded-sm">
             <Typography
               id="modal-title"
