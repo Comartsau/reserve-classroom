@@ -19,6 +19,9 @@ import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import "dayjs/locale/th"; // Import Thai locale
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const initalState = {
   selectDate: "",
   selectTrad: "",
@@ -130,6 +133,7 @@ const User = () => {
 
   return (
     <div className="h-screen bg-gray-300  ">
+      <ToastContainer autoClose={2000} theme="colored" />
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
