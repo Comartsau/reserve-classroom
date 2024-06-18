@@ -89,7 +89,9 @@ function ReportAdmin() {
   };
 
   const handleFetchTimeReport = async () => {
-    const data = { date: state?.dateSearch };
+    const data = {
+       date: state?.dateSearch,
+     };
 
     try {
       const res = await axios.post(
@@ -97,7 +99,6 @@ function ReportAdmin() {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res);
       if (res.status === 200) {
         dispatch({ type: "SET_TIMESELECT", payload: res?.data });
       } else {
@@ -129,8 +130,9 @@ function ReportAdmin() {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
+      console.log(res)
       if (res.status === 200) {
-        setData(res?.data); //
+        setData(res?.data.data); //
       } else {
         toast.error("Error fetching data");
       }

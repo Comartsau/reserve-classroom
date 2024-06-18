@@ -1,40 +1,46 @@
 /* eslint-disable @next/next/no-img-element */
 
 "use client";
-import { useEffect, useState } from "react";
+import  React,{ useEffect, useState } from "react";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import liff from "@line/liff";
 
 const UserLayout = ({ children }) => {
-  const [profile, setProfile] = useState(null);
+  // const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState({
+    userId: "U92083888a355cc56b56b3b0bfcdc391e",
+    displayName: "Warakorn Muntongsuk",
+    pictureUrl:
+      "https://profile.line-scdn.net/0h3CHpNw6kbGxlCUb4ifQSExVZbwZGeDV-GTwgCgUBYV9RbisyTGwnClgKZlhaOis8SW0nClAMMF5pGhsKe1-QWGI5MV1ZPS88QW8ijQ",
+  });
   const router = useRouter();
   useEffect(() => {
     const initializeLiff = async () => {
       try {
         const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
-        if (!liffId) {
-          throw new Error("LIFF ID is not set in environment variables");
-        }
-        await liff.init({ liffId: liffId });
-        if (liff.isLoggedIn()) {
-          const userProfile = await liff.getProfile();
-          console.log(userProfile)
-          setProfile(userProfile);
+        // if (!liffId) {
+        //   throw new Error("LIFF ID is not set in environment variables");
+        // }
+        // await liff.init({ liffId: liffId });
+        // if (liff.isLoggedIn()) {
+        //   const userProfile = await liff.getProfile();
+        //   console.log(userProfile)
+        //   setProfile(userProfile);
 
-          // Set a cookie to indicate LIFF login
-          document.cookie = "liff_token=1; path=/";
-          document.cookie = "user_permition=user; path=/";
+        //   // Set a cookie to indicate LIFF login
+        //   document.cookie = "liff_token=1; path=/";
+        //   document.cookie = "user_permition=user; path=/";
 
-          // Hide the title bar in Line LIFF
-          if (liff.isInClient()) {
-            liff.ready.then(() => {
-              liff.hide();
-            });
-          }
-        } else {
-          liff.login();
-        }
+        //   // Hide the title bar in Line LIFF
+        //   if (liff.isInClient()) {
+        //     liff.ready.then(() => {
+        //       liff.hide();
+        //     });
+        //   }
+        // } else {
+        //   liff.login();
+        // }
       } catch (error) {
         console.error("LIFF Initialization failed:", error);
       }
@@ -84,7 +90,7 @@ const UserLayout = ({ children }) => {
           รายการจอง
         </Button>
       </div>
-      {children}
+      {React.cloneElement(children, { profile })}
     </div>
   );
 };

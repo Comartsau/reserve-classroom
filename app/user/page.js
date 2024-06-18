@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useReducer, useState,useEffect } from "react";
+import { useReducer, useState, useEffect } from "react";
 import {
   Button,
   CardContent as MuiCardContent,
@@ -11,6 +11,7 @@ import {
   Typography,
   Modal,
   Box,
+  TextField,
 } from "@mui/material";
 
 import axios from "axios";
@@ -25,30 +26,36 @@ import "dayjs/locale/th"; // Import Thai locale
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const initalState = {
-  selectDate: "",
-  selectTrad: "",
+// const initalState = {
+//   selectDate: "",
+//   selectTrad: "",
+//   selectTime: "",
+//   dateSearch: null,
+// };
+
+const initialState = {
+  date: null,
+  dateSearch: "",
   selectTime: [],
-  dateSearch: null,
+  selectDate: [],
+  selectedTimeId: "",
+  selectedDateId: "",
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SET_DATE":
-      return {
-        ...state,
-        selectDate: action.payload,
-        selectTime: "",
-        selectTrad: "",
-      };
+    case "SET_DATESELECT":
+      return { ...state, selectDate: action.payload };
+    case "SET_TIMESELECT":
+      return { ...state, selectTime: action.payload };
     case "SET_DATE_SEARCH":
       return { ...state, dateSearch: action.payload };
-    case "SET_TIME":
-      return { ...state, selectTime: action.payload, selectTrad: "" };
-    case "SET_TRAD":
-      return { ...state, selectTrad: action.payload };
-    case "RESET":
-      return initalState;
+    case "SET_SELECTED_DATE":
+      return { ...state, selectedDateId: action.payload };
+    case "SET_SELECTED_TIME":
+      return { ...state, selectedTimeId: action.payload };
+    case "CLEAR":
+      return initialState;
     default:
       return state;
   }
@@ -82,38 +89,63 @@ const modalStyle = {
   p: 1,
 };
 
-const User = () => {
-  const [profile, setProfile] = useState(null);
-  const [state, dispatch] = useReducer(reducer, initalState);
+const User = ({ profile }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [openModalReserve, setOpenModalReserve] = useState(false);
+  const [data, setData] = useState([]);
+  const [dataBlack, setDataBlack] = useState({});
 
   const handleSelect = (type) => (event) => {
     dispatch({ type, payload: event.target.value });
   };
 
   const handleReset = () => {
-    dispatch({ type: "RESET" });
+    dispatch({ type: "CLEAR" });
+    handleFetchDate();
   };
 
-  const handleModalReserve = () => {
-    if (state.selectDate && state.selectTime && state.selectTrad) {
-      setOpenModalReserve(!openModalReserve);
-    } else {
-      alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
-    }
-  };
+  // const handleModalReserve = () => {
+  //   if (state.selectDate && state.selectTime && state.selectTrad) {
+  //     setOpenModalReserve(!openModalReserve);
+  //   } else {
+  //     alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
+  //   }
+  // };
 
-  const handleDateSearch = (date) => {
+  const handleDateSearch = (event) => {
+    const date = event.target.value;
     const formattedDate = date
-      ? dayjs(date).add(543, "year").format("YYYY-MM-DD")
+      ? dayjs(date, "DD-MM-YYYY").format("YYYY-MM-DD")
       : null;
     dispatch({ type: "SET_DATE_SEARCH", payload: formattedDate });
   };
 
-  const handleFetchTimeReport = async () => {
-    const data = { date: state?.dateSearch };
+  const handleFetchDate = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/api/user/date`,
+        { ...HeaderAPI(localStorage.getItem("Token")) }
+      );
+      if (res.status === 200) {
+        dispatch({ type: "SET_DATESELECT", payload: res?.data });
+      } else {
+        toast.error("Error fetching data");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("ดึงข้อมูลไม่สำเร็จ");
+    }
+  };
 
-    console.log(data)
+  useEffect(() => {
+    handleFetchDate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleFetchTimeUser = async () => {
+    const data = {
+      date: state?.dateSearch,
+    };
 
     try {
       const res = await axios.post(
@@ -121,22 +153,74 @@ const User = () => {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res);
       if (res.status === 200) {
         dispatch({ type: "SET_TIMESELECT", payload: res?.data });
       } else {
         toast.error("Error fetching data");
       }
-    } catch (error) {
-      console.log(error)
+    } catch {
       toast.error("ดึงข้อมูลไม่สำเร็จ");
     }
   };
 
   useEffect(() => {
-    handleFetchTimeReport();
+    handleFetchTimeUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.dateSearch]);
+
+  const handleSelectTimeChange = (event) => {
+    dispatch({ type: "SET_SELECTED_TIME", payload: event.target.value });
+    handleFetchDetail(event.target.value);
+  };
+
+  const handleFetchDetail = async (id) => {
+    console.log(state.selectedTimeId);
+    const data = {
+      date: state?.dateSearch || "",
+      id: id || "",
+    };
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/report/users`,
+        data,
+        { ...HeaderAPI(localStorage.getItem("Token")) }
+      );
+
+      if (res.status === 200) {
+        setData(res?.data);
+        setDataBlack(res.data.data[0]);
+      } else {
+        toast.error("Error fetching data");
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  // const handleFetchUser = async () => {
+  //   const data = {
+  //     user_id: "",
+  //     date: state?.dateSearch || "",
+  //     id: state?.selectedTimeId || "",
+  //   };
+  //   console.log(data);
+  //   try {
+  //     const res = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API}/api/users`,
+  //       data,
+  //       { ...HeaderAPI(localStorage.getItem("Token")) }
+  //     );
+  //     if (res.status === 200) {
+  //       setData(res?.data); //
+  //     } else {
+  //       toast.error("Error fetching data");
+  //     }
+  //   } catch {
+  //     toast.error("ดึงข้อมูลไม่สำเร็จ");
+  //   }
+  // };
+
+  console.log(state.dateSearch);
 
   return (
     <div className="h-screen bg-gray-300  ">
@@ -144,63 +228,67 @@ const User = () => {
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
-            <CustomFormControl fullWidth size="small">
-              <DatePicker
-                label="ค้นหาจากวันที่"
+            <CustomFormControl
+              fullWidth
+              size="small"
+              disabled={state.dateSearch}
+            >
+              <InputLabel>วันที่</InputLabel>
+              <Select
+                id="date-select"
+                label="วันที่จอง"
+                className=" w-auto  sm:w-[250px]"
                 value={
-                  state.dateSearch
-                    ? dayjs(state.dateSearch).add(-543, "year")
-                    : null
+                  state?.dateSearch == ""
+                    ? ""
+                    : dayjs(state?.dateSearch).format("DD-MM-YYYY")
                 }
+                disabled={state.dateSearch}
                 onChange={handleDateSearch}
-                slotProps={{ textField: { size: "small" } }}
-                className="w-auto sm:w-[250px]"
-              />
+              >
+                {state.selectDate?.map((item, index) => (
+                  <MenuItem key={index} value={item?.date || ""}>
+                    {item?.date || ""}
+                  </MenuItem>
+                ))}
+              </Select>
             </CustomFormControl>
           </LocalizationProvider>
           <CustomFormControl
             fullWidth
             size="small"
-            disabled={state.selectDate === ""}
+            disabled={!state.dateSearch}
           >
             <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
-              labelId="time-select-label"
-              id="time-select"
-              value={state.selectTime}
-              label="เวลาจอง"
-              onChange={handleSelect("SET_TIME")}
-              className={`${
-                state.selectTime === "" ? "border-red-300" : "border-green-300"
-              }`}
+              id="date-select"
+              label="วันที่จอง"
+              className=" w-auto  sm:w-[250px]"
+              value={state?.selectedTimeId || ""}
+              onChange={handleSelectTimeChange}
             >
-              <MenuItem value="None">None</MenuItem>
-              <MenuItem value="Ten">Ten</MenuItem>
-              <MenuItem value="Twenty">Twenty</MenuItem>
-              <MenuItem value="Thirty">Thirty</MenuItem>
+              {state.selectTime?.map((item, index) => (
+                <MenuItem key={index} value={item?.id || ""}>
+                  เวลา: {`${item?.time_start} - ${item?.time_end} `}
+                </MenuItem>
+              ))}
             </Select>
           </CustomFormControl>
           <CustomFormControl
             fullWidth
             size="small"
-            disabled={state.selectDate === "" || state.selectTime === ""}
+            disabled={!state.dateSearch || !state.selectedTimeId}
           >
-            <InputLabel id="demo-simple-select-label">บัญชีเทรด</InputLabel>
-            <Select
-              labelId="trad-select-label"
-              id="trad-select"
-              value={state.selectTrad}
+            <TextField
               label="บัญชีเทรด"
-              onChange={handleSelect("SET_TRAD")}
-              className={`${
-                state.selectTrad === "" ? "border-red-300" : "border-green-300"
-              }`}
-            >
-              <MenuItem value="None">None</MenuItem>
-              <MenuItem value="Ten">Ten</MenuItem>
-              <MenuItem value="Twenty">Twenty</MenuItem>
-              <MenuItem value="Thirty">Thirty</MenuItem>
-            </Select>
+              type="text"
+              size="small"
+              className="w-full"
+              disabled={!state.dateSearch || !state.selectedTimeId}
+              onChange={(e) =>
+                dispatch({ type: "SET_COUNT", payload: e.target.value })
+              }
+            />
           </CustomFormControl>
           <div className=" w-full flex gap-2 mt-2 ">
             <div className="flex flex-col w-[48%] gap-3  align-middle  ">
@@ -214,7 +302,7 @@ const User = () => {
               <Button
                 variant="contained"
                 className="w-full"
-                onClick={handleModalReserve}
+                // onClick={() => handleFetchUser()}
               >
                 จอง
               </Button>
@@ -223,7 +311,8 @@ const User = () => {
               <div className="  p-2">
                 <div className="border-2 p-1">
                   <Typography className="text-white text-left ">
-                    ยอดจอง <span>9</span> / <span>10</span>
+                    ยอดจอง <span>{data?.sum_count || 0}</span> /{" "}
+                    <span>{data?.count || 0}</span>
                   </Typography>
                 </div>
                 <div className=" ps-2 mt-2">
@@ -231,17 +320,23 @@ const User = () => {
                     className="text-white  "
                     sx={{ fontSize: "12px" }}
                   >
-                    เหลือ <span>1</span> ที่นั้ง
+                    เหลือ{" "}
+                    <span>
+                      {data?.count && data?.sum_count
+                        ? Number(data?.count) - Number(data?.sum_count)
+                        : 0}
+                    </span>{" "}
+                    ที่นั่ง
                   </Typography>
                 </div>
                 <div className="ps-2">
                   <Typography className="text-white " sx={{ fontSize: "12px" }}>
-                    เริ่ม <span>10/06/24</span>{" "}
+                    เวลาเริ่ม <span> {dataBlack?.time_start}</span>{" "}
                   </Typography>
                 </div>
                 <div className="ps-2">
                   <Typography className="text-white " sx={{ fontSize: "12px" }}>
-                    ถึง <span>{`  15/06/24`}</span>{" "}
+                    เวลาสิ้นสุด <span> {dataBlack?.time_end}</span>{" "}
                   </Typography>
                 </div>
               </div>
@@ -250,7 +345,7 @@ const User = () => {
         </div>
       </CardContent>
 
-      <Modal
+      {/* <Modal
         open={openModalReserve}
         onClose={handleModalReserve}
         aria-labelledby="modal-title"
@@ -283,7 +378,7 @@ const User = () => {
             <Button variant="contained">ยืนยัน</Button>
           </Box>
         </Box>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
