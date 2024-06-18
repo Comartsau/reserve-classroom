@@ -141,7 +141,6 @@ const User = () => {
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
             <CustomFormControl fullWidth size="small">
-              <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
               <DatePicker
                 label="ค้นหาจากวันที่"
                 value={
