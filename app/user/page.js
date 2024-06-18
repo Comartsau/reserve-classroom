@@ -124,7 +124,8 @@ const User = () => {
       } else {
         toast.error("Error fetching data");
       }
-    } catch {
+    } catch (error) {
+      console.log(error)
       toast.error("ดึงข้อมูลไม่สำเร็จ");
     }
   };
