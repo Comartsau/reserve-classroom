@@ -14,11 +14,15 @@ import {
 } from "@mui/material";
 
 import { styled } from "@mui/system";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import "dayjs/locale/th"; // Import Thai locale
 
 const initalState = {
   selectDate: "",
-  selectTime: "",
   selectTrad: "",
+  selectTime: [],
 };
 
 const reducer = (state, action) => {
@@ -30,6 +34,8 @@ const reducer = (state, action) => {
         selectTime: "",
         selectTrad: "",
       };
+    case "SET_DATE_SEARCH":
+      return { ...state, dateSearch: action.payload };
     case "SET_TIME":
       return { ...state, selectTime: action.payload, selectTrad: "" };
     case "SET_TRAD":
@@ -90,26 +96,58 @@ const User = () => {
     }
   };
 
+  const handleDateSearch = (date) => {
+    const formattedDate = date
+      ? dayjs(date).add(543, "year").format("YYYY-MM-DD")
+      : null;
+    dispatch({ type: "SET_DATE_SEARCH", payload: formattedDate });
+  };
+
+  const handleFetchTimeReport = async () => {
+    const data = { date: state?.dateSearch };
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/report/search/date`,
+        data,
+        { ...HeaderAPI(localStorage.getItem("Token")) }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        dispatch({ type: "SET_TIMESELECT", payload: res?.data });
+      } else {
+        toast.error("Error fetching data");
+      }
+    } catch {
+      toast.error("ดึงข้อมูลไม่สำเร็จ");
+    }
+  };
+
+  useEffect(() => {
+    handleFetchTimeReport();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state?.dateSearch]);
+
   return (
     <div className="h-screen bg-gray-300  ">
       <CardContent>
         <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
-          <CustomFormControl fullWidth size="small">
-            <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
-            <Select
-              labelId="date-select-label"
-              id="date-select"
-              value={state.selectDate}
-              label="วันที่จอง"
-              onChange={handleSelect("SET_DATE")}
-              className=" border-green-300"
-            >
-              <MenuItem value="None">None</MenuItem>
-              <MenuItem value="Ten">Ten</MenuItem>
-              <MenuItem value="Twenty">Twenty</MenuItem>
-              <MenuItem value="Thirty">Thirty</MenuItem>
-            </Select>
-          </CustomFormControl>
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
+            <CustomFormControl fullWidth size="small">
+              <InputLabel id="demo-simple-select-label">วันที่จอง</InputLabel>
+              <DatePicker
+                label="ค้นหาจากวันที่"
+                value={
+                  state.dateSearch
+                    ? dayjs(state.dateSearch).add(-543, "year")
+                    : null
+                }
+                onChange={handleDateSearch}
+                slotProps={{ textField: { size: "small" } }}
+                className="w-auto sm:w-[250px]"
+              />
+            </CustomFormControl>
+          </LocalizationProvider>
           <CustomFormControl
             fullWidth
             size="small"
