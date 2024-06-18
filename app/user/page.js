@@ -109,6 +109,8 @@ const User = () => {
   const handleFetchTimeReport = async () => {
     const data = { date: state?.dateSearch };
 
+    console.log(data)
+
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/report/search/date`,
