@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useReducer, useState } from "react";
+import { useReducer, useState,useEffect } from "react";
 import {
   Button,
   CardContent as MuiCardContent,
