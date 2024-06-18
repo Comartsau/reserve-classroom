@@ -19,6 +19,7 @@ const UserLayout = ({ children }) => {
         await liff.init({ liffId: liffId });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
+          console.log(userProfile)
           setProfile(userProfile);
 
           // Set a cookie to indicate LIFF login
