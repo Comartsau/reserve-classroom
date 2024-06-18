@@ -26,6 +26,7 @@ const initalState = {
   selectDate: "",
   selectTrad: "",
   selectTime: [],
+  dateSearch: null,
 };
 
 const reducer = (state, action) => {
