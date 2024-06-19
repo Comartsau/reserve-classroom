@@ -139,7 +139,7 @@ const User = () => {
           clearInterval(interval);
           handleFetchDate();
         }
-      }, 2000); // เช็คทุกๆ 1 วินาที
+      }, 2000); 
     }
   }, []);
 
