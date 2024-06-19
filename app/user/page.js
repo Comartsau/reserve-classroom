@@ -92,7 +92,7 @@ const User = () => {
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
-  const [token , setToken ] = useState("")
+  const [token, setToken] = useState("");
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
@@ -124,11 +124,23 @@ const User = () => {
     }
   };
 
-  useEffect(() => {
-    handleFetchDate();
-    const test = localStorage.getItem("Token")
-    setToken(test)
+  // useEffect(() => {
+  //   handleFetchDate();
+  // }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("Token");
+    if (token) {
+      handleFetchDate();
+    } else {
+      const interval = setInterval(() => {
+        const tokenCheck = localStorage.getItem("Token");
+        if (tokenCheck) {
+          clearInterval(interval);
+          handleFetchDate();
+        }
+      }, 2000); // เช็คทุกๆ 1 วินาที
+    }
   }, []);
 
   const handleFetchTimeUser = async () => {
@@ -234,7 +246,7 @@ const User = () => {
         if (res.status === 200) {
           MySwal.close();
           toast.success(res.data.message);
-          handleReset()
+          handleReset();
           setOpenModalReserve(!openModalReserve);
         } else {
           MySwal.close();
@@ -251,7 +263,6 @@ const User = () => {
     <div className="h-screen bg-gray-300">
       <ToastContainer autoClose={2000} theme="colored" />
       <CardContent>
-      vvvv :{ token}
         <div className="flex flex-col gap-3 items-center justify-around px-6 py-6 rounded-md shadow-md bg-white">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
             <CustomFormControl
