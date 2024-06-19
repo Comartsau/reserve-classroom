@@ -9,19 +9,17 @@ import {
   MenuItem,
   Select,
   Typography,
-  TextField,
-  Box,
   Modal,
+  Box,
+  TextField,
 } from "@mui/material";
 
 import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 import { styled } from "@mui/system";
 import { HeaderAPI } from "@/headerApi";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import "dayjs/locale/th"; // Import Thai locale
 
@@ -29,6 +27,13 @@ import { useProfile } from "./layout";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// const initalState = {
+//   selectDate: "",
+//   selectTrad: "",
+//   selectTime: "",
+//   dateSearch: null,
+// };
 
 const initialState = {
   date: null,
@@ -47,10 +52,10 @@ const reducer = (state, action) => {
       return { ...state, selectTime: action.payload };
     case "SET_DATE_SEARCH":
       return { ...state, dateSearch: action.payload };
-    case "SET_SELECTED_TIME_Id":
-      return { ...state, selectedTimeId: action.payload };
     case "SET_SELECTED_TRAD":
       return { ...state, selectedTrad: action.payload };
+    case "SET_SELECTED_TIME":
+      return { ...state, selectedTimeId: action.payload };
     case "CLEAR":
       return initialState;
     default:
@@ -68,8 +73,10 @@ const CustomFormControl = styled(FormControl)(({ theme, disabled }) => ({
 }));
 
 const CardContent = styled(MuiCardContent)({
+  // backgroundColor: 'white',
   borderRadius: "10px",
   padding: "10px",
+  // boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 });
 
 const modalStyle = {
@@ -84,19 +91,29 @@ const modalStyle = {
   p: 1,
 };
 
-const MySwal = withReactContent(Swal);
-
 const User = () => {
-  const { profile } = useProfile();
+  const { profile, setProfile } = useProfile();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
 
+  const handleSelect = (type) => (event) => {
+    dispatch({ type, payload: event.target.value });
+  };
+
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
     handleFetchDate();
   };
+
+  // const handleModalReserve = () => {
+  //   if (state.selectDate && state.selectTime && state.selectTrad) {
+  //     setOpenModalReserve(!openModalReserve);
+  //   } else {
+  //     alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
+  //   }
+  // };
 
   const handleDateSearch = (event) => {
     const date = event.target.value;
@@ -118,13 +135,14 @@ const User = () => {
         toast.error("Error fetching data");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       toast.error("ดึงข้อมูลไม่สำเร็จ");
     }
   };
 
   useEffect(() => {
     handleFetchDate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleFetchTimeUser = async () => {
@@ -149,18 +167,17 @@ const User = () => {
   };
 
   useEffect(() => {
-    if (state?.dateSearch) {
-      handleFetchTimeUser();
-    }
+    handleFetchTimeUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.dateSearch]);
 
   const handleSelectTimeChange = (event) => {
-    dispatch({ type: "SET_SELECTED_TIME_Id", payload: event.target.value });
+    dispatch({ type: "SET_SELECTED_TIME", payload: event.target.value });
     handleFetchDetail(event.target.value);
   };
 
   const handleFetchDetail = async (id) => {
+    console.log(state.selectedTimeId);
     const data = {
       date: state?.dateSearch || "",
       id: id || "",
@@ -183,71 +200,36 @@ const User = () => {
     }
   };
 
-  const handleModalReserve = () => {
-    if (state.dateSearch && state.selectTime && state.selectedTrad) {
-      setOpenModalReserve(!openModalReserve);
-    } else {
-      toast.error("กรุณาใส่ข้อมูลให้ครบถ้วน");
-    }
-  };
+  // const handleFetchUser = async () => {
+  //   const data = {
+  //     user_id: "",
+  //     date: state?.dateSearch || "",
+  //     id: state?.selectedTimeId || "",
+  //   };
+  //   console.log(data);
+  //   try {
+  //     const res = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API}/api/users`,
+  //       data,
+  //       { ...HeaderAPI(localStorage.getItem("Token")) }
+  //     );
+  //     if (res.status === 200) {
+  //       setData(res?.data); //
+  //     } else {
+  //       toast.error("Error fetching data");
+  //     }
+  //   } catch {
+  //     toast.error("ดึงข้อมูลไม่สำเร็จ");
+  //   }
+  // };
 
-  const handleSendReserve = async () => {
-    const data = {
-      user_id: profile?.userId || "",
-      name: profile?.displayName || "",
-      image: profile?.pictureUrl || "",
-      date: state?.dateSearch || "",
-      booking_id: Number(state?.selectedTimeId) || "",
-      trade: state?.selectedTrad || "",
-    };
-
-    try {
-      console.log(data);
-
-      // แสดง SweetAlert2 เพื่อแสดงการโหลด และปรับ z-index ให้สูงกว่า modal
-      MySwal.fire({
-        title: "Loading...",
-        text: "กรุณารอสักครู่",
-        allowOutsideClick: false,
-        didOpen: () => {
-          MySwal.showLoading();
-          // Adjust z-index here
-          const swalContainer = document.querySelector(".swal2-container");
-          if (swalContainer) {
-            swalContainer.style.zIndex = "9999";
-          }
-        },
-      });
-
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/user/booking`,
-        data,
-        { ...HeaderAPI(localStorage.getItem("Token")) }
-      );
-
-      // หน่วงเวลา 5 วินาที
-      setTimeout(() => {
-        if (res.status === 200) {
-          MySwal.close();
-          toast.success(res.data.message);
-          handleReset()
-          setOpenModalReserve(!openModalReserve);
-        } else {
-          MySwal.close();
-          toast.error("Error fetching data");
-        }
-      }, 3000);
-    } catch (error) {
-      MySwal.close();
-      toast.error(error.response.data);
-    }
-  };
+  console.log(profile);
 
   return (
-    <div className="h-screen bg-gray-300">
+    <div className="h-screen bg-gray-300  ">
       <ToastContainer autoClose={2000} theme="colored" />
       <CardContent>
-        <div className="flex flex-col gap-3 items-center justify-around px-6 py-6 rounded-md shadow-md bg-white">
+        <div className="flex flex-col gap-3 items-center justify-around align-middle px-6 py-6  rounded-md  shadow-md  bg-white">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
             <CustomFormControl
               fullWidth
@@ -258,12 +240,13 @@ const User = () => {
               <Select
                 id="date-select"
                 label="วันที่จอง"
-                className="w-auto sm:w-[250px]"
+                className=" w-auto  sm:w-[250px]"
                 value={
-                  state?.dateSearch === ""
+                  state?.dateSearch == ""
                     ? ""
                     : dayjs(state?.dateSearch).format("DD-MM-YYYY")
                 }
+                disabled={state.dateSearch}
                 onChange={handleDateSearch}
               >
                 {state.selectDate?.map((item, index) => (
@@ -279,17 +262,17 @@ const User = () => {
             size="small"
             disabled={!state.dateSearch}
           >
-            <InputLabel>เวลาจอง</InputLabel>
+            <InputLabel id="demo-simple-select-label">เวลาจอง</InputLabel>
             <Select
-              id="time-select"
-              label="เวลาจอง"
-              className="w-auto sm:w-[250px]"
+              id="date-select"
+              label="วันที่จอง"
+              className=" w-auto  sm:w-[250px]"
               value={state?.selectedTimeId || ""}
               onChange={handleSelectTimeChange}
             >
               {state.selectTime?.map((item, index) => (
                 <MenuItem key={index} value={item?.id || ""}>
-                  เวลา: {`${item?.time_start} - ${item?.time_end}`}
+                  เวลา: {`${item?.time_start} - ${item?.time_end} `}
                 </MenuItem>
               ))}
             </Select>
@@ -304,13 +287,14 @@ const User = () => {
               type="text"
               size="small"
               className="w-full"
+              disabled={!state.dateSearch || !state.selectedTimeId}
               onChange={(e) =>
                 dispatch({ type: "SET_SELECTED_TRAD", payload: e.target.value })
               }
             />
           </CustomFormControl>
-          <div className="w-full flex gap-2 mt-2">
-            <div className="flex flex-col w-[48%] gap-3">
+          <div className=" w-full flex gap-2 mt-2 ">
+            <div className="flex flex-col w-[48%] gap-3  align-middle  ">
               <Button
                 variant="contained"
                 className="w-full"
@@ -321,21 +305,24 @@ const User = () => {
               <Button
                 variant="contained"
                 className="w-full"
-                onClick={handleModalReserve}
+                // onClick={() => handleFetchUser()}
               >
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-2 w-[52%] gap-3 justify-around">
-              <div className="p-2">
+            <div className="flex flex-col bg-black rounded-md py-2  w-[52%] gap-3 justify-around align-middle ">
+              <div className="  p-2">
                 <div className="border-2 p-1">
-                  <Typography className="text-white text-left">
+                  <Typography className="text-white text-left ">
                     ยอดจอง <span>{data?.sum_count || 0}</span> /{" "}
                     <span>{data?.count || 0}</span>
                   </Typography>
                 </div>
-                <div className="ps-2 mt-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
+                <div className=" ps-2 mt-2">
+                  <Typography
+                    className="text-white  "
+                    sx={{ fontSize: "12px" }}
+                  >
                     เหลือ{" "}
                     <span>
                       {data?.count && data?.sum_count
@@ -346,13 +333,13 @@ const User = () => {
                   </Typography>
                 </div>
                 <div className="ps-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
-                    เวลาเริ่ม <span>{dataBlack?.time_start}</span>
+                  <Typography className="text-white " sx={{ fontSize: "12px" }}>
+                    เวลาเริ่ม <span> {dataBlack?.time_start}</span>{" "}
                   </Typography>
                 </div>
                 <div className="ps-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
-                    เวลาสิ้นสุด <span>{dataBlack?.time_end}</span>
+                  <Typography className="text-white " sx={{ fontSize: "12px" }}>
+                    เวลาสิ้นสุด <span> {dataBlack?.time_end}</span>{" "}
                   </Typography>
                 </div>
               </div>
@@ -360,7 +347,8 @@ const User = () => {
           </div>
         </div>
       </CardContent>
-      <Modal
+
+      {/* <Modal
         open={openModalReserve}
         onClose={handleModalReserve}
         aria-labelledby="modal-title"
@@ -378,26 +366,57 @@ const User = () => {
             </Typography>
           </div>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            วันที่จอง : {state.dateSearch}
+            วันที่จอง : {state.selectDate}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            เวลาจอง : {`${dataBlack?.time_start} - ${dataBlack?.time_end} `}
+            เวลาจอง : {state.selectTime}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            บัญชีเทรด : {state.selectedTrad}
+            บัญชีเทรด : {state.selectTrad}
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
             <Button onClick={handleModalReserve} sx={{ mr: 1, color: "red" }}>
               ยกเลิก
             </Button>
-            <Button variant="contained" onClick={handleSendReserve}>
-              ยืนยัน
-            </Button>
+            <Button variant="contained">ยืนยัน</Button>
           </Box>
         </Box>
-      </Modal>
+      </Modal> */}
     </div>
   );
+};
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    backgroundColor: "#f0f2f5",
+    padding: "20px",
+  },
+  heading: {
+    fontSize: "2em",
+    marginBottom: "20px",
+  },
+  profileContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+  },
+  profileImage: {
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+  },
+  profileDetails: {
+    textAlign: "center",
+  },
 };
 
 export default User;

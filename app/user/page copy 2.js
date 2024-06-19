@@ -15,8 +15,6 @@ import {
 } from "@mui/material";
 
 import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 import { styled } from "@mui/system";
 import { HeaderAPI } from "@/headerApi";
@@ -36,6 +34,7 @@ const initialState = {
   selectTime: [],
   selectDate: [],
   selectedTimeId: "",
+  selectedTimeName: "",
   selectedTrad: "",
 };
 
@@ -49,6 +48,8 @@ const reducer = (state, action) => {
       return { ...state, dateSearch: action.payload };
     case "SET_SELECTED_TIME_Id":
       return { ...state, selectedTimeId: action.payload };
+    case "SET_SELECTED_TIME_Name":
+      return { ...state, selectedTimeName: action.payload };
     case "SET_SELECTED_TRAD":
       return { ...state, selectedTrad: action.payload };
     case "CLEAR":
@@ -84,14 +85,16 @@ const modalStyle = {
   p: 1,
 };
 
-const MySwal = withReactContent(Swal);
-
 const User = () => {
   const { profile } = useProfile();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
+
+  // const handleSelect = (type) => (event) => {
+  //   dispatch({ type, payload: event.target.value });
+  // };
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
@@ -149,6 +152,7 @@ const User = () => {
   };
 
   useEffect(() => {
+    console.log(state.dateSearch);
     if (state?.dateSearch) {
       handleFetchTimeUser();
     }
@@ -156,6 +160,7 @@ const User = () => {
   }, [state?.dateSearch]);
 
   const handleSelectTimeChange = (event) => {
+    // dispatch({ type: "SET_SELECTED_TIME_Name", payload: selectedTimeName });
     dispatch({ type: "SET_SELECTED_TIME_Id", payload: event.target.value });
     handleFetchDetail(event.target.value);
   };
@@ -187,62 +192,11 @@ const User = () => {
     if (state.dateSearch && state.selectTime && state.selectedTrad) {
       setOpenModalReserve(!openModalReserve);
     } else {
-      toast.error("กรุณาใส่ข้อมูลให้ครบถ้วน");
+      alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
     }
   };
 
-  const handleSendReserve = async () => {
-    const data = {
-      user_id: profile?.userId || "",
-      name: profile?.displayName || "",
-      image: profile?.pictureUrl || "",
-      date: state?.dateSearch || "",
-      booking_id: Number(state?.selectedTimeId) || "",
-      trade: state?.selectedTrad || "",
-    };
-
-    try {
-      console.log(data);
-
-      // แสดง SweetAlert2 เพื่อแสดงการโหลด และปรับ z-index ให้สูงกว่า modal
-      MySwal.fire({
-        title: "Loading...",
-        text: "กรุณารอสักครู่",
-        allowOutsideClick: false,
-        didOpen: () => {
-          MySwal.showLoading();
-          // Adjust z-index here
-          const swalContainer = document.querySelector(".swal2-container");
-          if (swalContainer) {
-            swalContainer.style.zIndex = "9999";
-          }
-        },
-      });
-
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/user/booking`,
-        data,
-        { ...HeaderAPI(localStorage.getItem("Token")) }
-      );
-
-      // หน่วงเวลา 5 วินาที
-      setTimeout(() => {
-        if (res.status === 200) {
-          MySwal.close();
-          toast.success(res.data.message);
-          handleReset()
-          setOpenModalReserve(!openModalReserve);
-        } else {
-          MySwal.close();
-          toast.error("Error fetching data");
-        }
-      }, 3000);
-    } catch (error) {
-      MySwal.close();
-      toast.error(error.response.data);
-    }
-  };
-
+  console.log(state.selectedTimeName)
   return (
     <div className="h-screen bg-gray-300">
       <ToastContainer autoClose={2000} theme="colored" />
@@ -288,7 +242,16 @@ const User = () => {
               onChange={handleSelectTimeChange}
             >
               {state.selectTime?.map((item, index) => (
-                <MenuItem key={index} value={item?.id || ""}>
+                <MenuItem
+                  key={index}
+                  value={item?.id || ""}
+                  onChange={() =>
+                    dispatch({
+                      type: "SET_SELECTED_TIME_Name",
+                      payload: ` ${item?.time_start} - ${item?.time_end}`,
+                    })
+                  }
+                >
                   เวลา: {`${item?.time_start} - ${item?.time_end}`}
                 </MenuItem>
               ))}
@@ -381,7 +344,7 @@ const User = () => {
             วันที่จอง : {state.dateSearch}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            เวลาจอง : {`${dataBlack?.time_start} - ${dataBlack?.time_end} `}
+            เวลาจอง : {state.selectedTime}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
             บัญชีเทรด : {state.selectedTrad}
@@ -390,9 +353,7 @@ const User = () => {
             <Button onClick={handleModalReserve} sx={{ mr: 1, color: "red" }}>
               ยกเลิก
             </Button>
-            <Button variant="contained" onClick={handleSendReserve}>
-              ยืนยัน
-            </Button>
+            <Button variant="contained">ยืนยัน</Button>
           </Box>
         </Box>
       </Modal>
