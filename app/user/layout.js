@@ -29,7 +29,7 @@ const UserLayout = ({ children }) => {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/login`,
-        data 
+        data
       );
       const token = res.data.token;
 
@@ -58,11 +58,14 @@ const UserLayout = ({ children }) => {
           setProfile(userProfile);
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
-          handleLogin()
-
-
 
           if (liff.isInClient()) liff.ready.then(() => liff.hide());
+
+          setTimeout(() => {
+            handleLogin();
+            // window.location.reload()
+           }, 3000);
+
         } else {
           liff.login();
         }
