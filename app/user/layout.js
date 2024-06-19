@@ -22,18 +22,46 @@ const UserLayout = ({ children }) => {
 
   const router = useRouter();
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const data = { username: "admin", password: "1234" };
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/login`,
+        data 
+      );
+      const token = res.data.token;
+
+      if (token) {
+        localStorage.setItem("Token", res.data.token);
+        // sessionStorage.setItem("login", "admin");
+        // router.push("/admin");
+      } else {
+        toast.error(error);
+      }
+    } catch {
+      toast.error("ไม่สำเร็จ กรุณาลองอีกครั้ง");
+    }
+  };
+
   useEffect(() => {
     const initializeLiff = async () => {
       try {
         const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
         // Uncomment the lines below if LIFF initialization is needed
-        if (!liffId) throw new Error("LIFF ID is not set in environment variables");
+        if (!liffId)
+          throw new Error("LIFF ID is not set in environment variables");
         await liff.init({ liffId });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
           setProfile(userProfile);
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
+          handleLogin()
+
+
+
           if (liff.isInClient()) liff.ready.then(() => liff.hide());
         } else {
           liff.login();
