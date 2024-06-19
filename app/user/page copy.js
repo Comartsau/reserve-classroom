@@ -92,7 +92,6 @@ const User = () => {
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
-  const [token , setToken ] = useState("")
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
@@ -126,9 +125,6 @@ const User = () => {
 
   useEffect(() => {
     handleFetchDate();
-    const test = localStorage.getItem("Token")
-    setToken(test)
-
   }, []);
 
   const handleFetchTimeUser = async () => {
@@ -251,7 +247,7 @@ const User = () => {
     <div className="h-screen bg-gray-300">
       <ToastContainer autoClose={2000} theme="colored" />
       <CardContent>
-      vvvv :{ token}
+      vvvv :{  localStorage.getItem("Token")}
         <div className="flex flex-col gap-3 items-center justify-around px-6 py-6 rounded-md shadow-md bg-white">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
             <CustomFormControl
