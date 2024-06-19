@@ -6,6 +6,8 @@ import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import liff from "@line/liff";
 
+import axios from "axios";
+
 // Profile context setup
 const ProfileContext = createContext();
 
@@ -22,10 +24,8 @@ const UserLayout = ({ children }) => {
 
   const router = useRouter();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     const data = { username: "admin", password: "1234" };
-
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/login`,
