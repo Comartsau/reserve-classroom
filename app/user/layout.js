@@ -23,7 +23,7 @@ const UserLayout = ({ children }) => {
   });
 
   const router = useRouter();
-
+ // ต้องการให้หลัง Login Line เสร็จแล้ว ให้เก็บ Token
   const handleLogin = async () => {
     const data = { username: "admin", password: "1234" };
     try {
@@ -32,11 +32,8 @@ const UserLayout = ({ children }) => {
         data
       );
       const token = res.data.token;
-
       if (token) {
         localStorage.setItem("Token", res.data.token);
-        // sessionStorage.setItem("login", "admin");
-        // router.push("/admin");
       } else {
         toast.error(error);
       }
@@ -45,7 +42,7 @@ const UserLayout = ({ children }) => {
     }
   };
 
-  // ต้องการให้หลัง Login Line เสร็จแล้ว 
+ 
   useEffect(() => {
     const initializeLiff = async () => {
       try {
@@ -56,7 +53,7 @@ const UserLayout = ({ children }) => {
        
         await liff.init({ liffId });
         if (liff.isLoggedIn()) {
-          handleLogin()
+         await handleLogin()
           const userProfile = await liff.getProfile();
           console.log('userProfile :', userProfile);
           // setProfile(userProfile);
