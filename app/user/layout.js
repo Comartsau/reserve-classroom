@@ -62,7 +62,7 @@ const UserLayout = ({ children }) => {
           document.cookie = "user_permition=user; path=/";
 
           if (liff.isInClient()) liff.ready.then(() => liff.hide());
-          window.location.reload()
+          
         } else {
           liff.login();
         }
