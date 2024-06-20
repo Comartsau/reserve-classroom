@@ -320,6 +320,7 @@ const User = () => {
               type="text"
               size="small"
               className="w-full"
+              value={state?.selectedTrad}
               onChange={(e) =>
                 dispatch({ type: "SET_SELECTED_TRAD", payload: e.target.value })
               }
