@@ -338,39 +338,6 @@ const User = () => {
             />
           </CustomFormControl>
           <div className="w-full flex gap-2 mt-2">
-            <div className="flex flex-col w-[48%] gap-3">
-              <Button
-                variant="contained"
-                className="w-full"
-                onClick={handleReset}
-                sx={{
-                  backgroundColor: "#093165",
-                  color: "#fff",
-                  whiteSpace: "nowrap",
-                  "&:hover": {
-                    backgroundColor: "#062a51", // สีเมื่อ hover
-                  },
-                }}
-              >
-                เลือกใหม่
-              </Button>
-              <Button
-                variant="contained"
-                className="w-full"
-                onClick={handleModalReserve}
-                disabled={disableReserve == 0 ? true : false}
-                sx={{
-                  backgroundColor: "#df9e10",
-                  color: "#fff",
-                  whiteSpace: "nowrap",
-                  "&:hover": {
-                    backgroundColor: "#c98e0e", // สีเมื่อ hover
-                  },
-                }}
-              >
-                จอง
-              </Button>
-            </div>
             <div
               className="flex flex-col  rounded-md py-2 w-[52%] gap-3 justify-around "
               style={
@@ -409,6 +376,39 @@ const User = () => {
                 </div> */}
               </div>
             </div>
+            <div className="flex flex-col w-[48%] gap-3">
+              <Button
+                variant="contained"
+                className="w-full"
+                onClick={handleReset}
+                sx={{
+                  backgroundColor: "#093165",
+                  color: "#fff",
+                  whiteSpace: "nowrap",
+                  "&:hover": {
+                    backgroundColor: "#062a51", // สีเมื่อ hover
+                  },
+                }}
+              >
+                เลือกใหม่
+              </Button>
+              <Button
+                variant="contained"
+                className="w-full"
+                onClick={handleModalReserve}
+                disabled={disableReserve == 0 ? true : false}
+                sx={{
+                  backgroundColor: "#df9e10",
+                  color: "#fff",
+                  whiteSpace: "nowrap",
+                  "&:hover": {
+                    backgroundColor: "#c98e0e", // สีเมื่อ hover
+                  },
+                }}
+              >
+                จอง
+              </Button>
+            </div>
           </div>
         </div>
       </CardContent>
@@ -442,7 +442,18 @@ const User = () => {
             <Button onClick={handleModalReserve} sx={{ mr: 1, color: "red" }}>
               ยกเลิก
             </Button>
-            <Button variant="contained" onClick={handleSendReserve}>
+            <Button
+              variant="contained"
+              onClick={handleSendReserve}
+              sx={{
+                backgroundColor: "#093165",
+                color: "#fff",
+                whiteSpace: "nowrap",
+                "&:hover": {
+                  backgroundColor: "#062a51", // สีเมื่อ hover
+                },
+              }}
+            >
               ยืนยัน
             </Button>
           </Box>
