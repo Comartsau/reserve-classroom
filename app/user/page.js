@@ -119,7 +119,7 @@ const User = () => {
         toast.error("Error fetching data");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("ดึงข้อมูลไม่สำเร็จ");
     }
   };
@@ -218,7 +218,7 @@ const User = () => {
     };
 
     try {
-      console.log(data);
+      // console.log(data);
 
       // แสดง SweetAlert2 เพื่อแสดงการโหลด และปรับ z-index ให้สูงกว่า modal
       MySwal.fire({

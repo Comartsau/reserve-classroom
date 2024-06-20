@@ -54,7 +54,7 @@ const UserLayout = ({ children }) => {
         if (liff.isLoggedIn()) {
           await handleLogin();
           const userProfile = await liff.getProfile();
-          console.log("userProfile :", userProfile);
+          // console.log("userProfile :", userProfile);
           setProfile(userProfile);
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";

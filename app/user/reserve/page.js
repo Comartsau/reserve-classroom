@@ -69,7 +69,7 @@ function Reserve() {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res.data);
+      // console.log(res.data);
       if (res.status === 200) {
         dispatch({ type: "SET_DATESELECT", payload: res?.data });
         const uniqueDates = [...new Set(res.data.map((item) => item.date))];
@@ -94,7 +94,7 @@ function Reserve() {
   };
 
   const handleDateSearch = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const date = event.target.value;
     const formattedDate = date
       ? dayjs(date, "DD-MM-YYYY").format("YYYY-MM-DD")
