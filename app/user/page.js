@@ -252,7 +252,7 @@ const User = () => {
           MySwal.close();
           toast.error("Error fetching data");
         }
-      }, 3000);
+      }, 1500);
     } catch (error) {
       MySwal.close();
       toast.error(error.response.data);
