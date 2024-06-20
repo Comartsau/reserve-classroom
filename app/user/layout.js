@@ -45,6 +45,7 @@ const UserLayout = ({ children }) => {
     }
   };
 
+  // ต้องการให้หลัง Login Line เสร็จแล้ว 
   useEffect(() => {
     const initializeLiff = async () => {
       try {
@@ -52,9 +53,10 @@ const UserLayout = ({ children }) => {
         // Uncomment the lines below if LIFF initialization is needed
         if (!liffId)
           throw new Error("LIFF ID is not set in environment variables");
-        handleLogin()
+       
         await liff.init({ liffId });
         if (liff.isLoggedIn()) {
+          handleLogin()
           const userProfile = await liff.getProfile();
           console.log('userProfile :', userProfile);
           // setProfile(userProfile);
