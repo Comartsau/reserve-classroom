@@ -153,11 +153,11 @@ function Reserve() {
         </div>
         <div className="flex flex-col  gap-3 items-center justify-around align-middle p-0 m-0  rounded-md  shadow-md  bg-white ">
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
-            <div>
+            <div className="mt-5">
               <CustomFormControl
                 fullWidth
                 size="small"
-                className="mt-3"
+                // className="mt-3"
                 // disabled={state.dateSearch}
               >
                 <InputLabel>ค้นหาวันที่</InputLabel>
