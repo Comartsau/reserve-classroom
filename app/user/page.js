@@ -382,11 +382,11 @@ const User = () => {
                 className="w-full"
                 onClick={handleReset}
                 sx={{
-                  backgroundColor: "#093165",
+                  backgroundColor: "#df9e10",
                   color: "#fff",
                   whiteSpace: "nowrap",
                   "&:hover": {
-                    backgroundColor: "#062a51", // สีเมื่อ hover
+                    backgroundColor: "#c98e0e", // สีเมื่อ hover
                   },
                 }}
               >
@@ -398,11 +398,11 @@ const User = () => {
                 onClick={handleModalReserve}
                 disabled={disableReserve == 0 ? true : false}
                 sx={{
-                  backgroundColor: "#df9e10",
+                  backgroundColor: "#093165",
                   color: "#fff",
                   whiteSpace: "nowrap",
                   "&:hover": {
-                    backgroundColor: "#c98e0e", // สีเมื่อ hover
+                    backgroundColor: "#062a51", // สีเมื่อ hover
                   },
                 }}
               >
