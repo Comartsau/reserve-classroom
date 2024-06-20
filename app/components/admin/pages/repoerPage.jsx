@@ -123,14 +123,14 @@ function ReportAdmin() {
       date: state?.dateSearch || "",
       id: state?.selectedTimeId || "",
     };
-    console.log(data);
+    // console.log(data);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/report/users`,
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res)
+      // console.log(res)
       if (res.status === 200) {
         setData(res?.data.data); //
       } else {
@@ -163,7 +163,7 @@ function ReportAdmin() {
           ...HeaderAPI(localStorage.getItem("Token")),
         }
       );
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
         toast.success(res?.data?.message);
         setDataViewReport(res.data);
@@ -245,7 +245,7 @@ function ReportAdmin() {
                 sx={{
                   width: "100%",
                   marginTop: "20px",
-                  height: "500px",
+                  height: "460px",
                   overflow: "auto",
                   padding: "0px",
                   marginTop: "10px",

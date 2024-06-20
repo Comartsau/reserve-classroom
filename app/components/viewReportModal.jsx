@@ -3,28 +3,26 @@ import {
   Box,
   Button,
   Typography,
-  TextField,
   Modal,
   List,
   ListItem,
 } from "@mui/material";
-import { DatePicker, DesktopTimePicker, TimePicker } from "@mui/x-date-pickers";
 
 const ViewReportModal = ({
   open,
   onClose,
   onView,
-  dispatch,
   modalStyleCreate,
   data,
 }) => {
-  console.log(data);
+  // console.log(data);
   return (
     <Modal
       open={open}
       onClose={onClose}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
+      className="mt-24"
     >
       <Box sx={modalStyleCreate}>
         <div className="bg-black rounded-sm">
@@ -37,13 +35,20 @@ const ViewReportModal = ({
             ข้อมูลผู้เรียน
           </Typography>
         </div>
-        <div className="flex flex-col p-4 gap-3">
-          <Typography>ชื่อผู้เรียน</Typography>
-          <List>
-            {data?.map((item, index) => (
-              <ListItem key={index}>{item?.name}</ListItem>
-            ))}
-          </List>
+        <div className="flex flex-col p-4 ">
+          <Typography>ผู้เรียน (ชื่อตามไอดีไลน์)</Typography>
+          <div className="flex flex-col   overflow-auto h-[50vh] ">
+            <List >
+              {data?.map((item, index) => (
+                <ListItem
+                  key={index}
+                  className="text-xs border-4 border-white bg-gray-200 "
+                >
+                  {`${index +1}. ${item?.name}`}
+                </ListItem>
+              ))}
+            </List>
+          </div>
         </div>
 
         <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>

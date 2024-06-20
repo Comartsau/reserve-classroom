@@ -14,7 +14,7 @@ const EditReserveModal = ({
 }) => {
   const [localCount, setLocalCount] = useState("");
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     if (data) {
