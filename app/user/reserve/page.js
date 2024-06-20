@@ -195,7 +195,7 @@ function Reserve() {
             </div>
             <div className="flex flex-col overflow-auto h-[50vh] ">
               <List>
-                {state.selectDate?.map((item, index) => (
+                {state?.selectDate?.map((item, index) => (
                   <ListItem
                     key={index}
                     className="text-xs border-4 border-white bg-gray-200 "
