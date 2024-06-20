@@ -85,7 +85,7 @@ const UserLayout = ({ children }) => {
         <Toolbar className="bg-black">
           <div className="flex gap-3 align-middle items-center">
             <img
-              src={profile.pictureUrl}
+              src={profile.pictureUrl  || ''}
               alt="User profile"
               style={styles.profileImage}
             />
