@@ -128,20 +128,20 @@ const User = () => {
   //   handleFetchDate();
   // }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem("Token");
-    if (token) {
-      handleFetchDate();
-    } else {
-      const interval = setInterval(() => {
-        const tokenCheck = localStorage.getItem("Token");
-        if (tokenCheck) {
-          clearInterval(interval);
-          handleFetchDate();
-        }
-      }, 2000); 
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("Token");
+  //   if (token) {
+  //     handleFetchDate();
+  //   } else {
+  //     const interval = setInterval(() => {
+  //       const tokenCheck = localStorage.getItem("Token");
+  //       if (tokenCheck) {
+  //         clearInterval(interval);
+  //         handleFetchDate();
+  //       }
+  //     }, 2000); 
+  //   }
+  // }, []);
 
   const handleFetchTimeUser = async () => {
     const data = {

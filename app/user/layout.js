@@ -14,13 +14,13 @@ const ProfileContext = createContext();
 export const useProfile = () => useContext(ProfileContext);
 
 const UserLayout = ({ children }) => {
-  const [profile, setProfile] = useState([]);
-  // const [profile, setProfile] = useState({
-  //   userId: "U92083888a355cc56b56b3b0bfcdc391e",
-  //   displayName: "Warakorn Muntongsuk",
-  //   pictureUrl:
-  //     "https://profile.line-scdn.net/0h3CHpNw6kbGxlCUb4ifQSExVZbwZGeDV-GTwgCgUBYV9RbisyTGwnClgKZlhaOis8SW0nClAMMF5pGhsKe1-QWGI5MV1ZPS88QW8ijQ",
-  // });
+  // const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState({
+    userId: "U92083888a355cc56b56b3b0bfcdc391e",
+    displayName: "Warakorn Muntongsuk",
+    pictureUrl:
+      "https://profile.line-scdn.net/0h3CHpNw6kbGxlCUb4ifQSExVZbwZGeDV-GTwgCgUBYV9RbisyTGwnClgKZlhaOis8SW0nClAMMF5pGhsKe1-QWGI5MV1ZPS88QW8ijQ",
+  });
 
   const router = useRouter();
 
@@ -52,14 +52,17 @@ const UserLayout = ({ children }) => {
         // Uncomment the lines below if LIFF initialization is needed
         if (!liffId)
           throw new Error("LIFF ID is not set in environment variables");
+        handleLogin()
         await liff.init({ liffId });
         if (liff.isLoggedIn()) {
           const userProfile = await liff.getProfile();
-          setProfile(userProfile);
+          console.log('userProfile :', userProfile);
+          // setProfile(userProfile);
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
 
           if (liff.isInClient()) liff.ready.then(() => liff.hide());
+          window.location.reload()
         } else {
           liff.login();
         }
