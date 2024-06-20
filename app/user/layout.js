@@ -71,7 +71,7 @@ const UserLayout = ({ children }) => {
     initializeLiff();
   }, []);
 
-  if (!profile) {
+  if (!profile?.displayName) {
     return <p>Loading user profile...</p>;
   }
 
