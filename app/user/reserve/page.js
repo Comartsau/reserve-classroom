@@ -102,7 +102,6 @@ function Reserve() {
     dispatch({ type: "SET_DATE_SEARCH", payload: formattedDate });
   };
 
-
   // useEffect(() => {
   //   const initializeLiff = async () => {
   //     try {
@@ -135,7 +134,6 @@ function Reserve() {
 
   //   initializeLiff();
   // }, []);
-
 
   return (
     <div>
@@ -186,10 +184,17 @@ function Reserve() {
                     variant="contained"
                     className="w-[200px]"
                     onClick={handleReset}
+                    sx={{
+                      backgroundColor: "#093165",
+                      color: "#fff",
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        backgroundColor: "#062a51", // สีเมื่อ hover
+                      },
+                    }}
                   >
                     เคลียร์ค่า
                   </Button>
-                
                 </div>
               </CustomFormControl>
             </div>
