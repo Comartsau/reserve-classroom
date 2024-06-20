@@ -243,7 +243,14 @@ function HomeAdmin() {
                   color="primary"
                   onClick={handleClearDateSearch}
                   size="small"
-                  sx={{ whiteSpace: "nowrap" }}
+                  sx={{
+                    backgroundColor: "#093165",
+                    color: "#fff",
+                    whiteSpace: "nowrap",
+                    "&:hover": {
+                      backgroundColor: "#062a51", // สีเมื่อ hover
+                    },
+                  }}
                 >
                   ล้างค้นหา
                 </Button>
@@ -253,6 +260,14 @@ function HomeAdmin() {
                   variant="contained"
                   color="primary"
                   onClick={ModalCreateReserve}
+                  sx={{
+                    backgroundColor: "#093165",
+                    color: "#fff",
+                    whiteSpace: "nowrap",
+                    "&:hover": {
+                      backgroundColor: "#062a51", // สีเมื่อ hover
+                    },
+                  }}
                 >
                   สร้างรอบใหม่
                 </Button>
@@ -266,7 +281,7 @@ function HomeAdmin() {
               >
                 <Table size="small">
                   <TableHead>
-                    <TableRow className="bg-purple-200">
+                    <TableRow sx={{backgroundColor:"#ced6e0"}}>
                       <TableCell sx={{ whiteSpace: "nowrap" }}>
                         วันที่
                       </TableCell>
@@ -323,7 +338,7 @@ function HomeAdmin() {
                               sx={{
                                 whiteSpace: "nowrap",
                                 paddingX: "0",
-                                color: "#ffc107",
+                                color: "#df9e10",
                               }}
                             >
                               <EditIcon />

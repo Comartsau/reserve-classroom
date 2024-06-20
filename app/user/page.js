@@ -92,10 +92,13 @@ const User = () => {
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
+  const [disableReserve, setDisableReserve] = useState();
   const [token, setToken] = useState("");
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
+    setDisableReserve(null);
+    setData([]);
     handleFetchDate();
   };
 
@@ -139,7 +142,7 @@ const User = () => {
           clearInterval(interval);
           handleFetchDate();
         }
-      }, 2000); 
+      }, 2000);
     }
   }, []);
 
@@ -191,6 +194,10 @@ const User = () => {
       if (res.status === 200) {
         setData(res?.data);
         setDataBlack(res.data.data[0]);
+
+        setDisableReserve(
+          Number(res?.data?.sum_count) - Number(res?.data?.count)
+        );
       } else {
         toast.error("Error fetching data");
       }
@@ -198,6 +205,10 @@ const User = () => {
       toast.error(error);
     }
   };
+
+  console.log(disableReserve);
+  console.log(data.sum_count);
+  console.log(data.count);
 
   const handleModalReserve = () => {
     if (state.dateSearch && state.selectTime && state.selectedTrad) {
@@ -241,7 +252,7 @@ const User = () => {
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
 
-      // หน่วงเวลา 5 วินาที
+      // หน่วงเวลา 1.5 วินาที
       setTimeout(() => {
         if (res.status === 200) {
           MySwal.close();
@@ -268,7 +279,7 @@ const User = () => {
             <CustomFormControl
               fullWidth
               size="small"
-              disabled={state.dateSearch}
+              disabled={state?.dateSearch}
             >
               <InputLabel>วันที่</InputLabel>
               <Select
@@ -332,6 +343,14 @@ const User = () => {
                 variant="contained"
                 className="w-full"
                 onClick={handleReset}
+                sx={{
+                  backgroundColor: "#093165",
+                  color: "#fff",
+                  whiteSpace: "nowrap",
+                  "&:hover": {
+                    backgroundColor: "#062a51", // สีเมื่อ hover
+                  },
+                }}
               >
                 เลือกใหม่
               </Button>
@@ -339,20 +358,36 @@ const User = () => {
                 variant="contained"
                 className="w-full"
                 onClick={handleModalReserve}
+                disabled={disableReserve == 0 ? true : false}
+                sx={{
+                  backgroundColor: "#df9e10",
+                  color: "#fff",
+                  whiteSpace: "nowrap",
+                  "&:hover": {
+                    backgroundColor: "#c98e0e", // สีเมื่อ hover
+                  },
+                }}
               >
                 จอง
               </Button>
             </div>
-            <div className="flex flex-col bg-black rounded-md py-2 w-[52%] gap-3 justify-around">
-              <div className="p-2">
-                <div className="border-2 p-1">
-                  <Typography className="text-white text-left">
+            <div
+              className="flex flex-col  rounded-md py-2 w-[52%] gap-3 justify-around "
+              style={
+                disableReserve == 0
+                  ? { backgroundColor: "#fc9f9f" }
+                  : { backgroundColor: "#ced6e0" }
+              }
+            >
+              <div className="p-2 text-center">
+                <div className="border-2 border-black rounded-md p-1">
+                  <Typography className=" text-left">
                     ยอดจอง <span>{data?.sum_count || 0}</span> /{" "}
                     <span>{data?.count || 0}</span>
                   </Typography>
                 </div>
-                <div className="ps-2 mt-2">
-                  <Typography className="text-white" sx={{ fontSize: "12px" }}>
+                <div className="ps-2 mt-2 w-full  ">
+                  <Typography className="" sx={{ fontSize: "14px" }}>
                     เหลือ{" "}
                     <span>
                       {data?.count && data?.sum_count
@@ -362,7 +397,7 @@ const User = () => {
                     ที่นั่ง
                   </Typography>
                 </div>
-                <div className="ps-2">
+                {/* <div className="ps-2">
                   <Typography className="text-white" sx={{ fontSize: "12px" }}>
                     เวลาเริ่ม <span>{dataBlack?.time_start}</span>
                   </Typography>
@@ -371,7 +406,7 @@ const User = () => {
                   <Typography className="text-white" sx={{ fontSize: "12px" }}>
                     เวลาสิ้นสุด <span>{dataBlack?.time_end}</span>
                   </Typography>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

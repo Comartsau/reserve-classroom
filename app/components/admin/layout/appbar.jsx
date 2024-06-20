@@ -6,10 +6,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/themeContext";
 
-const AppbarComponent = ({ isSmallScreen, handleDrawerToggle  }) => {
+const AppbarComponent = ({ isSmallScreen, handleDrawerToggle }) => {
   const { theme } = useTheme();
   const router = useRouter();
-  
 
   const handleLogout = () => {
     sessionStorage.removeItem("login");
@@ -22,6 +21,7 @@ const AppbarComponent = ({ isSmallScreen, handleDrawerToggle  }) => {
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
         ml: !isSmallScreen ? `${theme.menuWidth}px` : 0,
+        backgroundColor: "#093165",
       }}
     >
       <Toolbar className="justify-between">
@@ -37,7 +37,7 @@ const AppbarComponent = ({ isSmallScreen, handleDrawerToggle  }) => {
           </IconButton>
         )}
         <Typography variant="h6" noWrap component="div">
-          ระบบจองห้องเรียน
+          ระบบจอง <span style={{ color: "#df9e10" }}>ห้องเรียน</span>
         </Typography>
         <IconButton color="inherit" onClick={handleLogout}>
           <LogoutIcon />

@@ -1,21 +1,8 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  Modal,
-  List,
-  ListItem,
-} from "@mui/material";
+import { Box, Button, Typography, Modal, List, ListItem } from "@mui/material";
 
-const ViewReportModal = ({
-  open,
-  onClose,
-  onView,
-  modalStyleCreate,
-  data,
-}) => {
-  // console.log(data);
+const ViewReportModal = ({ open, onClose, onView, modalStyleCreate, data }) => {
+  console.log(data);
   return (
     <Modal
       open={open}
@@ -38,13 +25,24 @@ const ViewReportModal = ({
         <div className="flex flex-col p-4 ">
           <Typography>ผู้เรียน (ชื่อตามไอดีไลน์)</Typography>
           <div className="flex flex-col   overflow-auto h-[50vh] ">
-            <List >
+            <List>
               {data?.map((item, index) => (
                 <ListItem
                   key={index}
                   className="text-xs border-4 border-white bg-gray-200 "
                 >
-                  {`${index +1}. ${item?.name}`}
+                  <div className="flex w-full  justify-between">
+                    <div className="flex items-center gap-3">
+                      {" "}
+                      <img
+                        src={item?.image}
+                        alt="User Profile"
+                        style={styles.profileImage}
+                      />
+                      {`${index + 1}. ${item?.name} `}
+                    </div>
+                    <div className="flex items-center">{`${item?.trade}`}</div>
+                  </div>
                 </ListItem>
               ))}
             </List>
@@ -55,13 +53,32 @@ const ViewReportModal = ({
           <Button onClick={onClose} sx={{ mr: 1, color: "red" }}>
             ยกเลิก
           </Button>
-          <Button variant="contained" onClick={onView}>
+          <Button
+            variant="contained"
+            onClick={onView}
+            sx={{
+              backgroundColor: "#093165",
+              color: "#fff",
+              whiteSpace: "nowrap",
+              "&:hover": {
+                backgroundColor: "#062a51", // สีเมื่อ hover
+              },
+            }}
+          >
             ยืนยัน
           </Button>
         </Box>
       </Box>
     </Modal>
   );
+};
+
+const styles = {
+  profileImage: {
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+  },
 };
 
 export default ViewReportModal;

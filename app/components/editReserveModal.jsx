@@ -127,7 +127,18 @@ const EditReserveModal = ({
           <Button onClick={onClose} sx={{ mr: 1, color: "red" }}>
             ยกเลิก
           </Button>
-          <Button variant="contained" onClick={() => onEdit(data.id)}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#093165",
+              color: "#fff",
+              whiteSpace: "nowrap",
+              "&:hover": {
+                backgroundColor: "#062a51", // สีเมื่อ hover
+              },
+            }}
+            onClick={() => onEdit(data.id)}
+          >
             ยืนยัน
           </Button>
         </Box>

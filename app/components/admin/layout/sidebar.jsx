@@ -95,7 +95,7 @@ const Sidebar = ({ setDrawerOpen }) => {
       </Toolbar>
       <Divider />
       <Box sx={{ overflow: "auto" }}>
-        <List>
+        <List sx={{ marginTop: "10px" }}>
           {menuItems.map((item, index) => {
             const isActive = activePath === item.path;
             return (
@@ -133,34 +133,34 @@ const Sidebar = ({ setDrawerOpen }) => {
                   ) : null}
                 </ListItem>
                 {item.subItems && (
-                 <Collapse in={open[item.text]} timeout="auto" unmountOnExit>
-                 <List component="div" disablePadding>
-                   {item.subItems.map((subItem, subIndex) => {
-                     const isSubItemActive = activePath === subItem.path;
-                     return (
-                       <ListItem
-                         key={subIndex}
-                         onClick={() => handleNavigation(subItem.path)}
-                         sx={{
-                           pl: 4,
-                           cursor: "pointer",
-                           backgroundColor: isSubItemActive
-                             ? theme.activeBackground
-                             : "",
-                           color: isSubItemActive
-                             ? theme.activeText
-                             : theme.text,
-                         }}
-                       >
-                         <ListItemText
-                           primary={subItem.text}
-                           sx={{ fontSize: theme.fontSize }}
-                         />
-                       </ListItem>
-                     );
-                   })}
-                 </List>
-               </Collapse>
+                  <Collapse in={open[item.text]} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {item.subItems.map((subItem, subIndex) => {
+                        const isSubItemActive = activePath === subItem.path;
+                        return (
+                          <ListItem
+                            key={subIndex}
+                            onClick={() => handleNavigation(subItem.path)}
+                            sx={{
+                              pl: 4,
+                              cursor: "pointer",
+                              backgroundColor: isSubItemActive
+                                ? theme.activeBackground
+                                : "",
+                              color: isSubItemActive
+                                ? theme.activeText
+                                : theme.text,
+                            }}
+                          >
+                            <ListItemText
+                              primary={subItem.text}
+                              sx={{ fontSize: theme.fontSize }}
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Collapse>
                 )}
               </React.Fragment>
             );

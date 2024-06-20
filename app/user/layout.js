@@ -14,13 +14,13 @@ const ProfileContext = createContext();
 export const useProfile = () => useContext(ProfileContext);
 
 const UserLayout = ({ children }) => {
-  const [profile, setProfile] = useState([]);
-  // const [profile, setProfile] = useState({
-  //   userId: "U92083888a355cc56b56b3b0bfcdc391e",
-  //   displayName: "Warakorn Muntongsuk",
-  //   pictureUrl:
-  //     "https://profile.line-scdn.net/0h3CHpNw6kbGxlCUb4ifQSExVZbwZGeDV-GTwgCgUBYV9RbisyTGwnClgKZlhaOis8SW0nClAMMF5pGhsKe1-QWGI5MV1ZPS88QW8ijQ",
-  // });
+  // const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState({
+    userId: "U92083888a355cc56b56b3b0bfcdc391e",
+    displayName: "Warakorn Muntongsuk",
+    pictureUrl:
+      "https://profile.line-scdn.net/0h3CHpNw6kbGxlCUb4ifQSExVZbwZGeDV-GTwgCgUBYV9RbisyTGwnClgKZlhaOis8SW0nClAMMF5pGhsKe1-QWGI5MV1ZPS88QW8ijQ",
+  });
 
   const router = useRouter();
   // ต้องการให้หลัง Login Line เสร็จแล้ว ให้เก็บ Token
@@ -47,22 +47,22 @@ const UserLayout = ({ children }) => {
       try {
         const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
         // Uncomment the lines below if LIFF initialization is needed
-        if (!liffId)
-          throw new Error("LIFF ID is not set in environment variables");
+        // if (!liffId)
+        //   throw new Error("LIFF ID is not set in environment variables");
 
-        await liff.init({ liffId });
-        if (liff.isLoggedIn()) {
-          await handleLogin();
-          const userProfile = await liff.getProfile();
-          // console.log("userProfile :", userProfile);
-          setProfile(userProfile);
-          document.cookie = "liff_token=1; path=/";
-          document.cookie = "user_permition=user; path=/";
+        // await liff.init({ liffId });
+        // if (liff.isLoggedIn()) {
+        //   await handleLogin();
+        //   const userProfile = await liff.getProfile();
+        //   // console.log("userProfile :", userProfile);
+        //   setProfile(userProfile);
+        //   document.cookie = "liff_token=1; path=/";
+        //   document.cookie = "user_permition=user; path=/";
 
-          if (liff.isInClient()) liff.ready.then(() => liff.hide());
-        } else {
-          liff.login();
-        }
+        //   if (liff.isInClient()) liff.ready.then(() => liff.hide());
+        // } else {
+        //   liff.login();
+        // }
       } catch (error) {
         console.error("LIFF Initialization failed:", error);
       }
@@ -99,12 +99,31 @@ const UserLayout = ({ children }) => {
       </AppBar>
 
       <div className="flex gap-3 items-center align-middle p-2 mt-2">
-        <Button variant="contained" onClick={handlePageNavigation("/user")}>
+        <Button
+          variant="contained"
+          onClick={handlePageNavigation("/user")}
+          sx={{
+            backgroundColor: "#093165",
+            color: "#fff",
+            whiteSpace: "nowrap",
+            "&:hover": {
+              backgroundColor: "#062a51", // สีเมื่อ hover
+            },
+          }}
+        >
           จองห้องเรียน
         </Button>
         <Button
           variant="contained"
           onClick={handlePageNavigation("/user/reserve")}
+          sx={{
+            backgroundColor: "#093165",
+            color: "#fff",
+            whiteSpace: "nowrap",
+            "&:hover": {
+              backgroundColor: "#062a51", // สีเมื่อ hover
+            },
+          }}
         >
           รายการจอง
         </Button>

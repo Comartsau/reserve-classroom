@@ -1,8 +1,14 @@
-import React from 'react';
-import { Box, Button, Typography, TextField, Modal } from '@mui/material';
-import { DatePicker, DesktopTimePicker, TimePicker } from '@mui/x-date-pickers';
+import React from "react";
+import { Box, Button, Typography, TextField, Modal } from "@mui/material";
+import { DatePicker, DesktopTimePicker, TimePicker } from "@mui/x-date-pickers";
 
-const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreate }) => {
+const CreateReserveModal = ({
+  open,
+  onClose,
+  onCreate,
+  dispatch,
+  modalStyleCreate,
+}) => {
   return (
     <Modal
       open={open}
@@ -10,7 +16,8 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
-      <Box sx={modalStyleCreate}>
+      <Box sx={modalStyleCreate}
+       >
         <div className="bg-black rounded-sm">
           <Typography
             id="modal-title"
@@ -37,9 +44,11 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
 
           <div className="flex gap-3">
             <div className="flex w-1/2 items-center">
-              <DesktopTimePicker 
+              <DesktopTimePicker
                 label="เวลาเริ่มต้น"
-                onChange={(time) => dispatch({ type: "SET_TIME_START", payload: time })}
+                onChange={(time) =>
+                  dispatch({ type: "SET_TIME_START", payload: time })
+                }
                 slotProps={{
                   textField: {
                     size: "small",
@@ -48,9 +57,11 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
               />
             </div>
             <div className="flex w-1/2 items-center">
-              <DesktopTimePicker 
+              <DesktopTimePicker
                 label="เวลาสิ้นสุด"
-                onChange={(time) => dispatch({ type: "SET_TIME_END", payload: time })}
+                onChange={(time) =>
+                  dispatch({ type: "SET_TIME_END", payload: time })
+                }
                 slotProps={{
                   textField: {
                     size: "small",
@@ -65,7 +76,9 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
               type="number"
               size="small"
               className="w-full"
-              onChange={(e) => dispatch({ type: "SET_COUNT", payload: e.target.value })}
+              onChange={(e) =>
+                dispatch({ type: "SET_COUNT", payload: e.target.value })
+              }
             />
           </div>
         </div>
@@ -74,7 +87,18 @@ const CreateReserveModal = ({ open, onClose, onCreate, dispatch, modalStyleCreat
           <Button onClick={onClose} sx={{ mr: 1, color: "red" }}>
             ยกเลิก
           </Button>
-          <Button variant="contained" onClick={onCreate}>
+          <Button
+            variant="contained"
+            onClick={onCreate}
+            sx={{
+              backgroundColor: "#093165",
+              color: "#fff",
+              whiteSpace: "nowrap",
+              "&:hover": {
+                backgroundColor: "#062a51", // สีเมื่อ hover
+              },
+            }}
+          >
             ยืนยัน
           </Button>
         </Box>

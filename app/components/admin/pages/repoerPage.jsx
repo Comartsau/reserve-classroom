@@ -225,7 +225,14 @@ function ReportAdmin() {
                     color="primary"
                     onClick={handleClearDateSearch}
                     // size="small"
-                    sx={{ whiteSpace: "nowrap" }}
+                    sx={{
+                      backgroundColor: "#093165",
+                      color: "#fff",
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        backgroundColor: "#062a51", // สีเมื่อ hover
+                      },
+                    }}
                   >
                     ล้างค้นหา
                   </Button>
@@ -254,7 +261,7 @@ function ReportAdmin() {
               >
                 <Table size="small">
                   <TableHead>
-                    <TableRow className="bg-purple-200">
+                    <TableRow sx={{backgroundColor:"#ced6e0"}}>
                       <TableCell sx={{ whiteSpace: "nowrap" }}>
                         วันที่
                       </TableCell>
@@ -348,7 +355,7 @@ function ReportAdmin() {
                               sx={{
                                 whiteSpace: "nowrap",
                                 paddingX: "0",
-                                color: "#4CAF50",
+                                color: "#df9e10",
                               }}
                             >
                               <PreviewIcon
