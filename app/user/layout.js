@@ -89,11 +89,11 @@ const UserLayout = ({ children }) => {
               alt="User profile"
               style={styles.profileImage}
             /> */}
-            {profile.pictureUrl && (
-              <img src={profile.pictureUrl} alt="Profile Picture" />
+            {profile?.pictureUrl && (
+              <img src={profile?.pictureUrl} alt="Profile Picture" />
             )}
             <Typography component="div" className="text-lg ms-5">
-              {profile.displayName}
+              {profile?.displayName}
             </Typography>
           </div>
         </Toolbar>
