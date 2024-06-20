@@ -84,12 +84,14 @@ const UserLayout = ({ children }) => {
       <AppBar position="static">
         <Toolbar className="bg-black">
           <div className="flex gap-3 align-middle items-center">
-            <img
-              // src={profile.pictureUrl  || ''}
-              src={'#'}
+            {/* <img
+              src={profile.pictureUrl  || ''}
               alt="User profile"
               style={styles.profileImage}
-            />
+            /> */}
+            {profile.pictureUrl && (
+              <img src={profile.pictureUrl} alt="Profile Picture" />
+            )}
             <Typography component="div" className="text-lg ms-5">
               {profile.displayName}
             </Typography>
