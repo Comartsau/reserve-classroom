@@ -435,7 +435,7 @@ const User = () => {
             </Typography>
           </div>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            วันที่จอง : {state.dateSearch}
+            วันที่จอง : {dayjs(state?.dateSearch).format("DD-MM-YYYY")}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
             เวลาจอง : {`${dataBlack?.time_start} - ${dataBlack?.time_end} `}
