@@ -195,7 +195,7 @@ const User = () => {
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
       console.log(res)
-      if (res.status === 200) {
+      if (res.data.status === 200) {
         setData(res?.data);
         setDataBlack(res?.data?.items?.data[0]);
         setDisableReserve(
