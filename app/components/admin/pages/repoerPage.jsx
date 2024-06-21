@@ -179,7 +179,7 @@ function ReportAdmin() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center ">
       <ToastContainer autoClose={2000} theme="colored" />
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
         <Card sx={{ display: "flex", width: "800px", height: "85vh" }}>
@@ -248,14 +248,13 @@ function ReportAdmin() {
               </Typography>
             </div>
 
-            <div>
+            <div className=" overflow-auto h-[90%]">
               <TableContainer
                 component={Paper}
                 sx={{
                   width: "100%",
                   marginTop: "20px",
                   height: "460px",
-                  overflow: "auto",
                   padding: "0px",
                   marginTop: "10px",
                 }}
@@ -393,7 +392,7 @@ function ReportAdmin() {
                     ก่อนหน้า
                     {/* <IoIosArrowBack /> */}
                   </Button>
-                  <span>
+                  <span  style={{ whiteSpace: "nowrap" }}>
                     หน้าที่ {page} / {data?.totalPages || 1}{" "}
                   </span>
                   <Button

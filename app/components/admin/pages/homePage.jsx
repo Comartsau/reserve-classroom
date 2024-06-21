@@ -280,7 +280,7 @@ function HomeAdmin() {
                 </Button>
               </div>
             </div>
-            <div className="mt-3 ">
+            <div className=" overflow-auto h-[80%]  lg:h-[100%]   ">
               <TableContainer
                 component={Paper}
                 sx={{ width: "100%", marginTop: "20px", height: "500px" }}
@@ -390,7 +390,7 @@ function HomeAdmin() {
                     ก่อนหน้า
                     {/* <IoIosArrowBack /> */}
                   </Button>
-                  <span>
+                  <span style={{ whiteSpace: "nowrap" }}>
                     หน้าที่ {page} / {data?.totalPages || 1}{" "}
                   </span>
                   <Button

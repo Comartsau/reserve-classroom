@@ -41,7 +41,7 @@ const AdminHomeContent = ({ children }) => {
           // backgroundColor: "rgb(229 231 235)",
           backgroundColor: "rgb(229 231 235)",
           height: "100vh",
-          overflow: "auto",
+          overflow:"auto",
           mt: isSmallScreen ? 7 : 0,
         }}
       >
