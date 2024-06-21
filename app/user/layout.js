@@ -57,10 +57,10 @@ const UserLayout = ({ children }) => {
           const userProfile = await liff.getProfile();
           // console.log("userProfile :", userProfile);
           setProfile(userProfile);
-          // document.cookie = "liff_token=1; path=/";
-          // document.cookie = "user_permition=user; path=/";
+          document.cookie = "liff_token=1; path=/";
+          document.cookie = "user_permition=user; path=/";
 
-          // if (liff.isInClient()) liff.ready.then(() => liff.hide());
+          if (liff.isInClient()) liff.ready.then(() => liff.hide());
         } else {
           liff.login();
         }
