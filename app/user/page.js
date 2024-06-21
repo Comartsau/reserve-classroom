@@ -116,7 +116,7 @@ const User = () => {
         `${process.env.NEXT_PUBLIC_API}/api/user/date`,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res)
+      console.log(res);
       if (res.status === 200) {
         dispatch({ type: "SET_DATESELECT", payload: res?.data });
       } else {
@@ -158,7 +158,7 @@ const User = () => {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res)
+      console.log(res);
       if (res.status === 200) {
         dispatch({ type: "SET_TIMESELECT", payload: res?.data });
       } else {
@@ -186,23 +186,19 @@ const User = () => {
       date: state?.dateSearch || "",
       id: id || "",
     };
-    console.log(data)
+    console.log(data);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/report/users`,
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res)
       if (res.status === 200) {
         setData(res?.data);
         setDataBlack(res?.data?.items[0]);
-        // setDisableReserve(Number(res?.data?.sum_count) - Number(res?.data?.count));
-        setDisableReserve((Number(res?.data?.count) - Number(res?.data?.sum_count)))
-        console.log(disableReserve);
-        console.log(res?.data?.sum_count);
-        console.log(res?.data?.count);
-        console.log(res?.data?.items?.[0]);
+        setDisableReserve(
+          Number(res?.data?.count) - Number(res?.data?.sum_count)
+        );
       } else {
         toast.error("Error fetching data");
       }
@@ -210,8 +206,6 @@ const User = () => {
       toast.error(error);
     }
   };
-
-
 
   const handleModalReserve = () => {
     if (state.dateSearch && state.selectTime && state.selectedTrad) {
