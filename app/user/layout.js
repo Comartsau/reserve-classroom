@@ -51,7 +51,7 @@ const UserLayout = ({ children }) => {
         if (!liffId)
           throw new Error("LIFF ID is not set in environment variables");
 
-        await liff.init({ liffId , size: 'tall' });
+        await liff.init({ liffId }); 
         if (liff.isLoggedIn()) {
           await handleLogin();
           const userProfile = await liff.getProfile();
