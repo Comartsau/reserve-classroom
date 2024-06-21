@@ -198,11 +198,11 @@ const User = () => {
         setData(res?.data);
         setDataBlack(res?.data?.items[0]);
         // setDisableReserve(Number(res?.data?.sum_count) - Number(res?.data?.count));
-        setDisableReserve(Number(res?.data?.count) - Number(res?.data?.sum_count))
+        setDisableReserve((Number(res?.data?.count) + Number(res?.data?.sum_count)))
         console.log(disableReserve);
         console.log(res?.data?.sum_count);
         console.log(res?.data?.count);
-        console.log(res?.data?.items?.data[0]);
+        console.log(res?.data?.items?.[0]);
       } else {
         toast.error("Error fetching data");
       }
