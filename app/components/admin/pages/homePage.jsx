@@ -28,6 +28,8 @@ import { HeaderAPI } from "@/headerApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateReserveModal from "../../createReserveModal";
@@ -64,6 +66,7 @@ function HomeAdmin() {
   const [openModalEditReserve, setOpenModalEditReserve] = useState(false);
   const [editData, setEditData] = useState(null);
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
   const modalStyleCreate = {
     position: "absolute",
@@ -101,6 +104,7 @@ function HomeAdmin() {
   const handleFetchReserve = async () => {
     const data = {
       date: state?.dateSearch,
+      page: page,
     };
     try {
       const res = await axios.post(
@@ -110,8 +114,9 @@ function HomeAdmin() {
           ...HeaderAPI(localStorage.getItem("Token")),
         }
       );
+      console.log(res.data);
       if (res.status === 200) {
-        setData(res.data);
+        setData(res?.data);
       } else {
         toast.error(error);
       }
@@ -124,7 +129,7 @@ function HomeAdmin() {
   useEffect(() => {
     handleFetchReserve();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state?.dateSearch]);
+  }, [state?.dateSearch, page]);
 
   const handleCreateReserve = async () => {
     if (!state.date || !state.time_start || !state.time_end || !state.count) {
@@ -216,6 +221,8 @@ function HomeAdmin() {
     }
   };
 
+  console.log(data);
+
   return (
     <div className="flex justify-center">
       <ToastContainer autoClose={2000} theme="colored" />
@@ -281,7 +288,7 @@ function HomeAdmin() {
               >
                 <Table size="small">
                   <TableHead>
-                    <TableRow sx={{backgroundColor:"#ced6e0"}}>
+                    <TableRow sx={{ backgroundColor: "#ced6e0" }}>
                       <TableCell sx={{ whiteSpace: "nowrap" }}>
                         วันที่
                       </TableCell>
@@ -309,15 +316,16 @@ function HomeAdmin() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.length === 0 ? (
+                    {data?.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={6} sx={{ textAlign: "center" }}>
                           ไม่พบข้อมูล
                         </TableCell>
                       </TableRow>
                     ) : (
-                      data?.map((data, index) => (
-                        <TableRow key={index} style={{ top: 57 }}>
+                      data?.items?.map((data, index) => (
+                        // <TableRow key={index} style={{ top: 57 }} >
+                        <TableRow key={index}>
                           <TableCell sx={{ whiteSpace: "nowrap" }}>
                             {data?.date}
                           </TableCell>
@@ -364,6 +372,47 @@ function HomeAdmin() {
                     )}
                   </TableBody>
                 </Table>
+                <div className="flex justify-end gap-5 mt-1 px-2 items-center ">
+                  <Button
+                    size="small"
+                    disabled={page == 1}
+                    onClick={() => setPage((page) => Math.max(page - 1, 1))}
+                    sx={{
+                      backgroundColor: "#CCCCCC",
+                      color: "#fff",
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        backgroundColor: "#909090", // สีเมื่อ hover
+                      },
+                      width: "0px",
+                    }}
+                  >
+                    ก่อนหน้า
+                    {/* <IoIosArrowBack /> */}
+                  </Button>
+                  <span>
+                    หน้าที่ {page} / {data?.totalPages || 1}{" "}
+                  </span>
+                  <Button
+                    size="small"
+                    disabled={
+                      Number(data?.totalPages) - Number(page) < 1 ? true : false
+                    }
+                    onClick={() => setPage((page) => page + 1)}
+                    sx={{
+                      backgroundColor: "#CCCCCC",
+                      color: "#fff",
+
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        backgroundColor: "#909090", // สีเมื่อ hover
+                      },
+                      width: "0px",
+                    }}
+                  >
+                    ถัดไป
+                  </Button>
+                </div>
               </TableContainer>
             </div>
           </div>

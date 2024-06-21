@@ -73,6 +73,7 @@ const modalStyleCreate = {
 function ReportAdmin() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
   const [openModalViewReport, setOpenModalViewReport] = useState(false);
   const [dataViewReport, setDataViewReport] = useState([]);
 
@@ -122,6 +123,7 @@ function ReportAdmin() {
     const data = {
       date: state?.dateSearch || "",
       id: state?.selectedTimeId || "",
+      page: page,
     };
     // console.log(data);
     try {
@@ -130,9 +132,9 @@ function ReportAdmin() {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      // console.log(res)
+      console.log(res)
       if (res.status === 200) {
-        setData(res?.data.data); //
+        setData(res?.data); //
       } else {
         toast.error("Error fetching data");
       }
@@ -143,10 +145,10 @@ function ReportAdmin() {
   useEffect(() => {
     handleFetchReport();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.dateSearch, state.selectedTimeId]);
+  }, [state.dateSearch, state.selectedTimeId ,page]);
 
   // รวมค่า sum_count ใน array ทั้งหมด
-  const totalSumCount = data?.reduce((acc, item) => {
+  const totalSumCount = data?.items?.reduce((acc, item) => {
     return acc + (parseInt(item?.sum_count, 10) || 0);
   }, 0);
 
@@ -290,7 +292,7 @@ function ReportAdmin() {
                         </TableCell>
                       </TableRow>
                     ) : (
-                      data?.map((item, index) => (
+                      data?.items?.map((item, index) => (
                         <TableRow key={index}>
                           <TableCell
                             sx={{
@@ -373,6 +375,47 @@ function ReportAdmin() {
                     )}
                   </TableBody>
                 </Table>
+                <div className="flex justify-end gap-5 mt-1 px-2 items-center ">
+                  <Button
+                    size="small"
+                    disabled={page == 1}
+                    onClick={() => setPage((page) => Math.max(page - 1, 1))}
+                    sx={{
+                      backgroundColor: "#CCCCCC",
+                      color: "#fff",
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        backgroundColor: "#909090", // สีเมื่อ hover
+                      },
+                      width: "0px",
+                    }}
+                  >
+                    ก่อนหน้า
+                    {/* <IoIosArrowBack /> */}
+                  </Button>
+                  <span>
+                    หน้าที่ {page} / {data?.totalPages || 1}{" "}
+                  </span>
+                  <Button
+                    size="small"
+                    disabled={
+                      Number(data?.totalPages) - Number(page) < 1 ? true : false
+                    }
+                    onClick={() => setPage((page) => page + 1)}
+                    sx={{
+                      backgroundColor: "#CCCCCC",
+                      color: "#fff",
+
+                      whiteSpace: "nowrap",
+                      "&:hover": {
+                        backgroundColor: "#909090", // สีเมื่อ hover
+                      },
+                      width: "0px",
+                    }}
+                  >
+                    ถัดไป
+                  </Button>
+                </div>
               </TableContainer>
             </div>
           </div>
