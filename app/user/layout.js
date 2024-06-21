@@ -60,7 +60,8 @@ const UserLayout = ({ children }) => {
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
 
-          if (liff.isInClient()) liff.ready.then(() => liff.hide());
+          // if (liff.isInClient()) liff.ready.then(() => liff.hide());
+          if (liff.isInClient()) liff.ready.then(() => liff.show());
         } else {
           liff.login();
         }
