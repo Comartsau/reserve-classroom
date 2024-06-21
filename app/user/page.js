@@ -199,7 +199,7 @@ const User = () => {
         setData(res?.data);
         setDataBlack(res?.data?.items[0]);
         // setDisableReserve(Number(res?.data?.sum_count) - Number(res?.data?.count));
-        setDisableReserve(Number(data?.count) - Number(data?.sum_count))
+        setDisableReserve(Number(res?.data?.count) - Number(res?.data?.sum_count))
         console.log(disableReserve);
         console.log(res?.data?.sum_count);
         console.log(res?.data?.count);
