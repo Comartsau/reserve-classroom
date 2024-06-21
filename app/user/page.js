@@ -116,6 +116,7 @@ const User = () => {
         `${process.env.NEXT_PUBLIC_API}/api/user/date`,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
+      console.log(res)
       if (res.status === 200) {
         dispatch({ type: "SET_DATESELECT", payload: res?.data });
       } else {
@@ -157,6 +158,7 @@ const User = () => {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
+      console.log(res)
       if (res.status === 200) {
         dispatch({ type: "SET_TIMESELECT", payload: res?.data });
       } else {
@@ -190,7 +192,7 @@ const User = () => {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-
+      console.log(res);
       if (res.status === 200) {
         setData(res?.data);
         setDataBlack(res.data.data[0]);
