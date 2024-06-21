@@ -97,7 +97,7 @@ const User = () => {
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
-    setDisableReserve(null);
+    setDisableReserve();
     setData([]);
     handleFetchDate();
   };
