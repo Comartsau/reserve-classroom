@@ -97,7 +97,7 @@ const User = () => {
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
-    setDisableReserve(1);
+    setDisableReserve();
     setData([]);
     handleFetchDate();
   };
@@ -178,7 +178,6 @@ const User = () => {
 
   const handleSelectTimeChange = (event) => {
     dispatch({ type: "SET_SELECTED_TIME_Id", payload: event.target.value });
-    console.log("aaaaa")
     handleFetchDetail(event.target.value);
   };
 
