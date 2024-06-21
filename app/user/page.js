@@ -194,7 +194,7 @@ const User = () => {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(` bbbbb ${res.data}`);
+      console.log(res.data)
       if (res.status === 200) {
         setData(res?.data);
         setDataBlack(res?.data?.items?.data[0]);
