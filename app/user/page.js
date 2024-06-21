@@ -92,12 +92,12 @@ const User = () => {
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
-  const [disableReserve, setDisableReserve] = useState();
+  const [disableReserve, setDisableReserve] = useState(1);
   const [token, setToken] = useState("");
 
   const handleReset = () => {
     dispatch({ type: "CLEAR" });
-    setDisableReserve();
+    setDisableReserve(1);
     setData([]);
     handleFetchDate();
   };
@@ -198,7 +198,7 @@ const User = () => {
         setData(res?.data);
         setDataBlack(res?.data?.items[0]);
         // setDisableReserve(Number(res?.data?.sum_count) - Number(res?.data?.count));
-        setDisableReserve((Number(res?.data?.count) + Number(res?.data?.sum_count)))
+        setDisableReserve((Number(res?.data?.count) - Number(res?.data?.sum_count)))
         console.log(disableReserve);
         console.log(res?.data?.sum_count);
         console.log(res?.data?.count);
