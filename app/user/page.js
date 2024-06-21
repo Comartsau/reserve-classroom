@@ -187,13 +187,14 @@ const User = () => {
       date: state?.dateSearch || "",
       id: id || "",
     };
+    console.log(data)
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/api/report/users`,
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(` bbbbb ${res}`);
+      console.log(` bbbbb ${res.data}`);
       if (res.status === 200) {
         setData(res?.data);
         setDataBlack(res?.data?.items?.data[0]);
