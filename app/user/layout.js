@@ -51,7 +51,7 @@ const UserLayout = ({ children }) => {
         if (!liffId)
           throw new Error("LIFF ID is not set in environment variables");
 
-        await liff.init({ liffId });
+        await liff.init({ liffId , size: 'tall' });
         if (liff.isLoggedIn()) {
           await handleLogin();
           const userProfile = await liff.getProfile();
@@ -60,8 +60,7 @@ const UserLayout = ({ children }) => {
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
 
-          // if (liff.isInClient()) liff.ready.then(() => liff.hide());
-          if (liff.isInClient()) liff.ready.then(() => liff.show());
+          if (liff.isInClient()) liff.ready.then(() => liff.hide());
         } else {
           liff.login();
         }
