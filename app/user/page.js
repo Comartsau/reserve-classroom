@@ -178,6 +178,7 @@ const User = () => {
 
   const handleSelectTimeChange = (event) => {
     dispatch({ type: "SET_SELECTED_TIME_Id", payload: event.target.value });
+    console.log("aaaaa")
     handleFetchDetail(event.target.value);
   };
 
@@ -192,7 +193,7 @@ const User = () => {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res);
+      console.log(` bbbbb ${res}`);
       if (res.status === 200) {
         setData(res?.data);
         setDataBlack(res?.data?.items?.data[0]);
