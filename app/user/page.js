@@ -195,7 +195,7 @@ const User = () => {
       console.log(res);
       if (res.status === 200) {
         setData(res?.data);
-        setDataBlack(res.data.data[0]);
+        setDataBlack(res?.data?.items?.data[0]);
         setDisableReserve(
           Number(res?.data?.sum_count) - Number(res?.data?.count)
         );
