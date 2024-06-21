@@ -92,7 +92,7 @@ const User = () => {
   const [openModalReserve, setOpenModalReserve] = useState(false);
   const [data, setData] = useState([]);
   const [dataBlack, setDataBlack] = useState({});
-  const [disableReserve, setDisableReserve] = useState(1);
+  const [disableReserve, setDisableReserve] = useState();
   const [token, setToken] = useState("");
 
   const handleReset = () => {
