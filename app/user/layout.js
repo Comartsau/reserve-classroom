@@ -57,11 +57,10 @@ const UserLayout = ({ children }) => {
           const userProfile = await liff.getProfile();
           // console.log("userProfile :", userProfile);
           setProfile(userProfile);
-          document.cookie = "liff_token=1; path=/";
-          document.cookie = "user_permition=user; path=/";
+          // document.cookie = "liff_token=1; path=/";
+          // document.cookie = "user_permition=user; path=/";
 
-              if (liff.isInClient()) liff.ready.then(() => liff.hide());
-        
+          // if (liff.isInClient()) liff.ready.then(() => liff.hide());
         } else {
           liff.login();
         }
@@ -82,8 +81,7 @@ const UserLayout = ({ children }) => {
   };
 
   return (
-    // <div className="h-screen bg-gray-300 p-2">
-    <div className=" h-[70%] bg-gray-300 p-2">
+    <div className="h-screen bg-gray-300 p-2">
       <AppBar position="static">
         <Toolbar className="bg-black">
           <div className="flex gap-3 align-middle items-center">
