@@ -48,7 +48,6 @@ const UserLayout = ({ children }) => {
         const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
         // Uncomment the lines below if LIFF initialization is needed
 
-
         if (!liffId)
           throw new Error("LIFF ID is not set in environment variables");
 
@@ -61,7 +60,9 @@ const UserLayout = ({ children }) => {
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
 
-          // if (liff.isInClient()) liff.ready.then(() => liff.hide());
+          // ซ่อนหัวหน้าต่าง และจะแสดงแบบ 100% ตลอด / ถ้าปิดจะสามารถ กำหนด 100% 70% 30% ได้ 
+              // if (liff.isInClient()) liff.ready.then(() => liff.hide());
+        
         } else {
           liff.login();
         }
