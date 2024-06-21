@@ -197,7 +197,7 @@ const User = () => {
         setData(res?.data);
         setDataBlack(res?.data?.items?.data[0]);
         setDisableReserve(
-          Number(res?.data?.sum_count) - Number(res?.data?.count)
+          Number(data?.sum_count) - Number(data?.count)
         );
       } else {
         toast.error("Error fetching data");
