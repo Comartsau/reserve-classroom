@@ -60,8 +60,7 @@ const UserLayout = ({ children }) => {
           document.cookie = "liff_token=1; path=/";
           document.cookie = "user_permition=user; path=/";
 
-          // ซ่อนหัวหน้าต่าง และจะแสดงแบบ 100% ตลอด / ถ้าปิดจะสามารถ กำหนด 100% 70% 30% ได้ 
-              // if (liff.isInClient()) liff.ready.then(() => liff.hide());
+              if (liff.isInClient()) liff.ready.then(() => liff.hide());
         
         } else {
           liff.login();
