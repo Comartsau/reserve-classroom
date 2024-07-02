@@ -33,7 +33,7 @@ const UserLayout = ({ children }) => {
       );
       const token = res.data.token;
       if (token) {
-        localStorage.clear(); // Clear localStorage before setting new token
+        // localStorage.clear(); // Clear localStorage before setting new token
         localStorage.setItem("Token", res.data.token);
       } else {
         toast.error(error);
