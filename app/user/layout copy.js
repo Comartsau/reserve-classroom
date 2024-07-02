@@ -42,35 +42,34 @@ const UserLayout = ({ children }) => {
     }
   };
 
-  const initializeLiff = async () => {
-    try {
-      const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
-      // Uncomment the lines below if LIFF initialization is needed
-
-      if (!liffId)
-        throw new Error("LIFF ID is not set in environment variables");
-
-      await liff.init({ liffId });
-      if (liff.isLoggedIn()) {
-        await handleLogin();
-        const userProfile = await liff.getProfile();
-        // console.log("userProfile :", userProfile);
-        setProfile(userProfile);
-        document.cookie = "liff_token=1; path=/";
-        document.cookie = "user_permition=user; path=/";
-
-        if (liff.isInClient()) liff.ready.then(() => liff.hide());
-      } else {
-        liff.login();
-      }
-    } catch (error) {
-      console.error("LIFF Initialization failed:", error);
-    }
-  };
-
   useEffect(() => {
+    const initializeLiff = async () => {
+      try {
+        const liffId = process.env.NEXT_PUBLIC_LIFF_ID;
+        // Uncomment the lines below if LIFF initialization is needed
+
+        if (!liffId)
+          throw new Error("LIFF ID is not set in environment variables");
+
+        await liff.init({ liffId }); 
+        if (liff.isLoggedIn()) {
+          await handleLogin();
+          const userProfile = await liff.getProfile();
+          // console.log("userProfile :", userProfile);
+          setProfile(userProfile);
+          document.cookie = "liff_token=1; path=/";
+          document.cookie = "user_permition=user; path=/";
+
+          if (liff.isInClient()) liff.ready.then(() => liff.hide());
+        } else {
+          liff.login();
+        }
+      } catch (error) {
+        console.error("LIFF Initialization failed:", error);
+      }
+    };
+
     initializeLiff();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!profile?.displayName) {
