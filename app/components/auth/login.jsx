@@ -32,6 +32,7 @@ const LoginPage = () => {
         // "http://26.182.55.77:5000/api/login",
         data 
       );
+      // console.log(res)
       const token = res.data.token;
 
       if (token) {
