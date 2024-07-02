@@ -9,12 +9,12 @@ export function middleware(request) {
   const isLine = userAgent.includes("Line");
 
   // ตรวจสอบว่า path คือ '/user' และไม่มี LIFF token จะ redirect ไปหน้า home
-  // if (pathname === "/user" || pathname === "/user/reserve") {
-  //   const liffToken = request.cookies.get("liff_token");
-  //   if (!liffToken && !isLine) {
-  //     return NextResponse.redirect(new URL("/", request.url));
-  //   }
-  // }
+  if (pathname === "/user" || pathname === "/user/reserve") {
+    const liffToken = request.cookies.get("liff_token");
+    if (!liffToken && !isLine) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
 
   // ตรวจสอบการอนุญาตสำหรับหน้า '/admin'
   if (pathname === "/admin") {
