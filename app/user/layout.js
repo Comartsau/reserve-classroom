@@ -33,7 +33,6 @@ const UserLayout = ({ children }) => {
       );
       const token = res.data.token;
       if (token) {
-        // localStorage.clear(); // Clear localStorage before setting new token
         localStorage.setItem("Token", res.data.token);
       } else {
         toast.error(error);
@@ -73,9 +72,9 @@ const UserLayout = ({ children }) => {
     initializeLiff();
   }, []);
 
-  if (!profile?.displayName) {
-    return <p>Loading user profile...</p>;
-  }
+  // if (!profile?.displayName) {
+  //   return <p>Loading user profile...</p>;
+  // }
 
   const handlePageNavigation = (path) => () => {
     router.push(path);
