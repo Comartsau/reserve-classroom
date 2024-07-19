@@ -229,6 +229,8 @@ const User = () => {
       date: state?.dateSearch || "",
       booking_id: Number(state?.selectedTimeId) || "",
       trade: state?.selectedTrad || "",
+      full_name:state?.name || "",
+      address:state?.phoneNumber || "",
     };
 
     try {
