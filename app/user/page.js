@@ -376,7 +376,7 @@ const User = () => {
               }
             >
               <div className="p-2 text-center">
-                <div className="border-2 border-black rounded-md p-1">
+                <div className="border-2 border-black rounded-md p-1 whitespace-nowrap">
                   <Typography className=" text-left">
                     ยอดจอง <span>{data?.sum_count || 0}</span> /{" "}
                     <span>{data?.count || 0}</span>
