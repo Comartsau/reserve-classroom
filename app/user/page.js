@@ -37,6 +37,8 @@ const initialState = {
   selectDate: [],
   selectedTimeId: "",
   selectedTrad: "",
+  name: "",
+  phoneNumber: "",
 };
 
 const reducer = (state, action) => {
@@ -51,6 +53,10 @@ const reducer = (state, action) => {
       return { ...state, selectedTimeId: action.payload };
     case "SET_SELECTED_TRAD":
       return { ...state, selectedTrad: action.payload };
+    case "SET_NAME":
+      return { ...state, name: action.payload };
+    case "SET_PHONE_NUMBER":
+      return { ...state, phoneNumber: action.payload };
     case "CLEAR":
       return initialState;
     default:
@@ -318,13 +324,37 @@ const User = () => {
               ))}
             </Select>
           </CustomFormControl>
+          <CustomFormControl fullWidth size="small">
+            <TextField
+              label="ชื่อ-นามสกุล"
+              type="text"
+              size="small"
+              className="w-full"
+              value={state.name}
+              onChange={(e) =>
+                dispatch({ type: "SET_NAME", payload: e.target.value })
+              }
+            />
+          </CustomFormControl>
+          <CustomFormControl fullWidth size="small">
+            <TextField
+              label="เบอร์โทรศัพท์"
+              type="text"
+              size="small"
+              className="w-full"
+              value={state.phoneNumber}
+              onChange={(e) =>
+                dispatch({ type: "SET_PHONE_NUMBER", payload: e.target.value })
+              }
+            />
+          </CustomFormControl>
           <CustomFormControl
             fullWidth
             size="small"
             disabled={!state.dateSearch || !state.selectedTimeId}
           >
             <TextField
-              label="บัญชีเทรด"
+              label="รหัส MyHF ID"
               type="text"
               size="small"
               className="w-full"

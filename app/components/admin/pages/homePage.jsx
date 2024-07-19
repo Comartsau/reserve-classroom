@@ -199,7 +199,6 @@ function HomeAdmin() {
   };
 
   const handleDeleteReserve = async (id) => {
-    // console.log(id);
     try {
       const res = await axios.delete(
         `${process.env.NEXT_PUBLIC_API}/api/booking/${id}`,
@@ -208,7 +207,6 @@ function HomeAdmin() {
         }
       );
 
-      // console.log(res);
       if (res.status === 200) {
         toast.success(res.data.message);
         handleFetchReserve();
@@ -216,7 +214,6 @@ function HomeAdmin() {
         toast.error(error);
       }
     } catch (error) {
-      // console.log(error);
       toast.error(error.response.data);
     }
   };
