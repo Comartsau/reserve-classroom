@@ -465,7 +465,13 @@ const User = () => {
             เวลาจอง : {`${dataBlack?.time_start} - ${dataBlack?.time_end} `}
           </Typography>
           <Typography id="modal-description" sx={{ mt: 2 }}>
-            บัญชีเทรด : {state.selectedTrad}
+            ชื่อ-นามสกุล : {state?.name}
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            เบอร์โทรศัพท์ : {state?.phoneNumber}
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            บัญชีเทรด : {state?.selectedTrad}
           </Typography>
           <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
             <Button onClick={handleModalReserve} sx={{ mr: 1, color: "red" }}>
