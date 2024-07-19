@@ -31,7 +31,8 @@ const ViewReportModal = ({ open, onClose, onView, modalStyleCreate, data }) => {
                   key={index}
                   className="text-xs border-4 border-white bg-gray-200 "
                 >
-                  <div className="flex w-full  justify-between">
+                  <div className="flex flex-col w-full  justify-between">
+                    <div className="flex gap-3 justify-between">
                     <div className="flex items-center gap-3">
                       {" "}
                       <img
@@ -42,6 +43,12 @@ const ViewReportModal = ({ open, onClose, onView, modalStyleCreate, data }) => {
                       {`${index + 1}. ${item?.name} `}
                     </div>
                     <div className="flex items-center">{`${item?.trade}`}</div>
+                    </div>
+                  
+                    <div className="flex gap-3 pl-14">
+                    <div className="flex items-center">วรากร มูลทองสุข  </div>
+                    <div className="flex items-center">0621234567</div>
+                    </div>
                   </div>
                 </ListItem>
               ))}
