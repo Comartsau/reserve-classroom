@@ -44,8 +44,8 @@ const ViewReportModal = ({ open, onClose, onView, modalStyleCreate, data }) => {
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="flex items-center">{`${item?.trade}`}</div>
-                      <div className="flex items-center whitespace-nowrap">วรากร มูลทองสุข </div>
-                      <div className="flex items-center whitespace-nowrap">0621234567</div>
+                      <div className="flex items-center whitespace-nowrap">{`${item?.name1}`} </div>
+                      <div className="flex items-center whitespace-nowrap">{`${item?.address}`}</div>
                     </div>
                   </div>
                 </ListItem>
