@@ -7,33 +7,33 @@ const ViewReportModal = ({ open, onClose, onView, modalStyleCreate, data }) => {
     <Modal
       open={open}
       onClose={onClose}
+      size="lg"
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
-      className="mt-24"
+      className="mt-24 "
+      disableScrollLock
     >
       <Box sx={modalStyleCreate}>
-        <div className="bg-black rounded-sm">
+        <div className="bg-black rounded-sm ">
           <Typography
             id="modal-title"
             variant="h6"
             component="h2"
             sx={{ color: "white", textAlign: "center" }}
           >
-            ข้อมูลผู้เรียน
+            ข้อมูลผู้จอง
           </Typography>
         </div>
         <div className="flex flex-col p-4 ">
-          <Typography>ผู้เรียน (ชื่อตามไอดีไลน์)</Typography>
-          <div className="flex flex-col   overflow-auto h-[50vh] ">
+          <div className="flex flex-col  h-[50vh] ">
             <List>
               {data?.map((item, index) => (
                 <ListItem
                   key={index}
                   className="text-xs border-4 border-white bg-gray-200 "
                 >
-                  <div className="flex flex-col w-full  justify-between">
-                    <div className="flex gap-3 justify-between">
-                    <div className="flex items-center gap-3">
+                  <div className="flex w-full  justify-between">
+                    <div className="flex items-center gap-3 ">
                       {" "}
                       <img
                         src={item?.image}
@@ -42,12 +42,10 @@ const ViewReportModal = ({ open, onClose, onView, modalStyleCreate, data }) => {
                       />
                       {`${index + 1}. ${item?.name} `}
                     </div>
-                    <div className="flex items-center">{`${item?.trade}`}</div>
-                    </div>
-                  
-                    <div className="flex gap-3 pl-14">
-                    <div className="flex items-center">วรากร มูลทองสุข  </div>
-                    <div className="flex items-center">0621234567</div>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center">{`${item?.trade}`}</div>
+                      <div className="flex items-center whitespace-nowrap">วรากร มูลทองสุข </div>
+                      <div className="flex items-center whitespace-nowrap">0621234567</div>
                     </div>
                   </div>
                 </ListItem>

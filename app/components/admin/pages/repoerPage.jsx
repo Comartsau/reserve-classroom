@@ -63,11 +63,16 @@ const modalStyleCreate = {
   top: "40%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "400px",
+  width: "100%", // default to full width for small screens
+  maxWidth: "500px", // maximum width for small screens
   bgcolor: "background.paper",
   // border: "2px solid #000",
   boxShadow: 24,
   p: 1,
+   // Media queries for larger screens
+   '@media (min-width: 600px)': {
+    maxWidth: "600px", // maximum width for medium screens and up
+  }
 };
 
 function ReportAdmin() {
@@ -91,8 +96,8 @@ function ReportAdmin() {
 
   const handleFetchTimeReport = async () => {
     const data = {
-       date: state?.dateSearch,
-     };
+      date: state?.dateSearch,
+    };
 
     try {
       const res = await axios.post(
@@ -132,7 +137,7 @@ function ReportAdmin() {
         data,
         { ...HeaderAPI(localStorage.getItem("Token")) }
       );
-      console.log(res)
+      console.log(res);
       if (res.status === 200) {
         setData(res?.data); //
       } else {
@@ -145,7 +150,7 @@ function ReportAdmin() {
   useEffect(() => {
     handleFetchReport();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.dateSearch, state.selectedTimeId ,page]);
+  }, [state.dateSearch, state.selectedTimeId, page]);
 
   // รวมค่า sum_count ใน array ทั้งหมด
   const totalSumCount = data?.items?.reduce((acc, item) => {
@@ -182,7 +187,14 @@ function ReportAdmin() {
     <div className="flex justify-center ">
       <ToastContainer autoClose={2000} theme="colored" />
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="th">
-        <Card sx={{ display: "flex", width: "800px", height: "85vh" }}>
+        <Card
+          sx={{
+            display: "flex",
+            width: "800px",
+            height: "85vh",
+            overflow: "auto",
+          }}
+        >
           <div className="w-full p-5 align-middle  ">
             <div className="flex ">
               <div className="flex flex-col  sm:items-center  sm:flex-row gap-3 ">
@@ -248,13 +260,13 @@ function ReportAdmin() {
               </Typography>
             </div>
 
-            <div className=" overflow-auto h-[90%]">
+            <div className=" overflow-auto">
               <TableContainer
                 component={Paper}
                 sx={{
                   width: "100%",
                   marginTop: "20px",
-                  height: "460px",
+                  height: "400px",
                   padding: "0px",
                   marginTop: "10px",
                 }}
@@ -262,7 +274,7 @@ function ReportAdmin() {
               >
                 <Table size="small">
                   <TableHead>
-                    <TableRow sx={{backgroundColor:"#ced6e0"}}>
+                    <TableRow sx={{ backgroundColor: "#ced6e0" }}>
                       <TableCell sx={{ whiteSpace: "nowrap" }}>
                         วันที่
                       </TableCell>
@@ -392,7 +404,7 @@ function ReportAdmin() {
                     ก่อนหน้า
                     {/* <IoIosArrowBack /> */}
                   </Button>
-                  <span  style={{ whiteSpace: "nowrap" }}>
+                  <span style={{ whiteSpace: "nowrap" }}>
                     หน้าที่ {page} / {data?.totalPages || 1}{" "}
                   </span>
                   <Button
@@ -418,15 +430,14 @@ function ReportAdmin() {
               </TableContainer>
             </div>
           </div>
-
-          <ViewReportModal
-            open={openModalViewReport}
-            onClose={ModalViewReport}
-            onView={handleViewReport}
-            dispatch={dispatch}
-            modalStyleCreate={modalStyleCreate}
-            data={dataViewReport}
-          />
+            <ViewReportModal
+              open={openModalViewReport}
+              onClose={ModalViewReport}
+              onView={handleViewReport}
+              dispatch={dispatch}
+              modalStyleCreate={modalStyleCreate}
+              data={dataViewReport}
+            />
         </Card>
       </LocalizationProvider>
     </div>
